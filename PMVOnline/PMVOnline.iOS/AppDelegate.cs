@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Acr.UserDialogs;
 using Foundation;
 using Prism;
 using Prism.Ioc;
@@ -26,9 +26,14 @@ namespace PMVOnline.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(new IOSPlatform()));
-
+            Init(app);
             return base.FinishedLaunching(app, options);
         }
+
+        void Init(UIApplication app)
+        { 
+        }
+
         public class IOSPlatform : IPlatformInitializer
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)

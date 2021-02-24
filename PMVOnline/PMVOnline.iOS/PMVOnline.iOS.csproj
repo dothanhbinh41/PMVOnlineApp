@@ -148,4 +148,13 @@
       <Name>PMVOnline</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\im_logo_splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\im_logo_splash%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\im_logo_splash%403x.png" />
+  </ItemGroup>
 </Project>

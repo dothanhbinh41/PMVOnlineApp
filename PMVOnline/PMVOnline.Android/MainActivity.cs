@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Prism;
 using Prism.Ioc;
+using Acr.UserDialogs;
 
 namespace PMVOnline.Droid
 {
@@ -17,11 +18,11 @@ namespace PMVOnline.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
-           // TabLayoutResource = Resource.Layout.Tabbar;
-          //  ToolbarResource = Resource.Layout.Toolbar;
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-
+            Init(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App(new AndroidPlatform()));
@@ -31,6 +32,11 @@ namespace PMVOnline.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        void Init(Bundle savedInstanceState)
+        {
+            UserDialogs.Init(this);
         }
 
         public class AndroidPlatform : IPlatformInitializer
