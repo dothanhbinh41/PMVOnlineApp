@@ -18,6 +18,8 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using PMVOnline.Authentications.Views;
+using PMVOnline.Authentications.ViewModels;
 
 namespace PMVOnline
 {
@@ -45,7 +47,7 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            //var result = await NavigationService.NavigateAsync(Routes.Welcome);
+            var result = await NavigationService.NavigateAsync(Routes.SignIn);
         }
 
         protected override void OnStart()
@@ -112,7 +114,7 @@ namespace PMVOnline
         void RegisterForNavigation(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            //containerRegistry.RegisterForNavigation<SignInPage, SignInViewModel>(); 
+            containerRegistry.RegisterForNavigation<SignInPage, SignInViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -135,7 +137,7 @@ namespace PMVOnline
     public sealed partial class Routes
     {
         static readonly string navigation = nameof(NavigationPage);
-        //public static readonly Uri Start = new Uri($"{nameof(StartPage)}", UriKind.Relative); 
+        public static readonly Uri SignIn = new Uri($"{nameof(SignInPage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

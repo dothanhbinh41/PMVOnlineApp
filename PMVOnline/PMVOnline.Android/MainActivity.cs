@@ -37,6 +37,7 @@ namespace PMVOnline.Droid
         void Init(Bundle savedInstanceState)
         {
             UserDialogs.Init(this);
+            Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState); 
         }
 
         public class AndroidPlatform : IPlatformInitializer

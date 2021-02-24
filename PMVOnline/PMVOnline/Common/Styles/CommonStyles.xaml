@@ -11,6 +11,9 @@
     <Style
         TargetType="Frame">
         <Setter
+            Property="BackgroundColor"
+            Value="{StaticResource Foreground}" />
+        <Setter
             Property="CornerRadius"
             Value="{StaticResource Radius}" />
         <Setter
@@ -21,10 +24,19 @@
             Value="Material" />
     </Style>
     <Style
-        TargetType="Entry"> 
+        TargetType="Entry">  
         <Setter
             Property="Visual"
             Value="Material" />
+        <Setter
+            Property="FontSize"
+            Value="Body" />
+        <Setter
+            Property="PlaceholderColor"
+            Value="{StaticResource Description}" />
+        <Setter
+            Property="TextColor"
+            Value="{StaticResource Text}" />
     </Style>
 
     <Style
@@ -43,7 +55,7 @@
         BasedOn="{StaticResource ButtonBase}">
         <Setter
             Property="TextColor"
-            Value="{StaticResource Text}" />
+            Value="{StaticResource Foreground}" />
         <Setter
             Property="CornerRadius"
             Value="{StaticResource Radius}" />

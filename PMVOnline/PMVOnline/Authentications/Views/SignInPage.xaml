@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Authentications.Views.SignInPage"
+    BackgroundColor="{StaticResource Background}"
+    >
+    <Grid
+        RowDefinitions="*,160,*,44">
+        <StackLayout
+            Margin="16,0"
+            VerticalOptions="Center">
+            <Image
+                HorizontalOptions="Start"
+                HeightRequest="64"
+                Source="im_logo_splash.png" />
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontSize="Title"
+                            Text="Welcome to" />
+                        <Span
+                            TextColor="{StaticResource Primary}"
+                            FontSize="Title"
+                            FontAttributes="Bold"
+                            Text=" PMV Online" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label
+                Style="{StaticResource LabelDescription}"
+                Text="Enter your registered email to continue login" />
+        </StackLayout>
+        <Frame
+            Margin="16,0" 
+            Grid.Row="1">
+            <Grid 
+                RowSpacing="0"
+                Margin="8,8,8,0" 
+                BackgroundColor="Transparent">
+                <Entry
+                    Keyboard="Email"
+                    BackgroundColor="White"
+                    Placeholder="Email"/>
+                <Button
+                    Visual="Default"
+                    BackgroundColor="Transparent"
+                    TextColor="Red"
+                    WidthRequest="40" 
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Text="p" />
+                <Entry
+                    Grid.Row="1"
+                    IsPassword="True"
+                    BackgroundColor="White"
+                    Placeholder="Password"
+                    />
+                <Button
+                    Visual="Default"
+                    BackgroundColor="Transparent"
+                    TextColor="Red"
+                    WidthRequest="40"
+                    Grid.Row="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Text="p"
+                    />
+            </Grid>
+        </Frame>
+        <Button
+            VerticalOptions="Start"
+            Margin="16"
+            Text="Login"
+            Style="{StaticResource ButtonPrimary}"
+            Grid.Row="2">
+            <Button.Background>
+                <LinearGradientBrush
+                    EndPoint="1,0">
+                    <GradientStop
+                        Color="{StaticResource Primary}"
+                        Offset="0.1" />
+                    <GradientStop
+                        Color="{StaticResource EndPrimary}"
+                        Offset="1.0" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button
+            Visual="Default"
+            Grid.Row="3"
+            FontSize="Small"
+            TextColor="White"
+            Text="Forgot password?">
+            <Button.Background>
+                <LinearGradientBrush
+                    EndPoint="1,0">
+                    <GradientStop
+                        Color="{StaticResource Primary}"
+                        Offset="0.1" />
+                    <GradientStop
+                        Color="{StaticResource EndPrimary}"
+                        Offset="1.0" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+    </Grid>
+</ContentPage>

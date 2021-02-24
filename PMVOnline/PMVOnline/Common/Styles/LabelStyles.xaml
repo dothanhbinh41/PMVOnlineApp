@@ -16,4 +16,21 @@
             Property="TextColor"
             Value="{StaticResource Text}" />
     </Style>
+    <Style
+        x:Key="LabelDescription"
+        TargetType="Label">
+        <Setter
+            Property="TextColor"
+            Value="{StaticResource Description}" />
+        <Setter
+            Property="FontSize"
+            Value="Small" />
+    </Style>
+    <Style
+        x:Key="LabelTitle"
+        TargetType="Label"> 
+        <Setter
+            Property="FontSize"
+            Value="Title" />
+    </Style>
 </ResourceDictionary>
