@@ -20,6 +20,11 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using PMVOnline.Authentications.Views;
 using PMVOnline.Authentications.ViewModels;
+using PMVOnline.Homes.Views;
+using PMVOnline.Homes.ViewModels;
+using PMVOnline.Tasks.Views;
+using PMVOnline.Guides.Views;
+using PMVOnline.Accounts.Views;
 
 namespace PMVOnline
 {
@@ -47,7 +52,7 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            var result = await NavigationService.NavigateAsync(Routes.SignIn);
+            var result = await NavigationService.NavigateAsync(Routes.Home);
         }
 
         protected override void OnStart()
@@ -114,7 +119,12 @@ namespace PMVOnline
         void RegisterForNavigation(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInViewModel>();
+            containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>();
+            containerRegistry.RegisterForNavigation<TaskPage>();
+            containerRegistry.RegisterForNavigation<GuidePage>();
+            containerRegistry.RegisterForNavigation<AccountPage>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -138,6 +148,7 @@ namespace PMVOnline
     {
         static readonly string navigation = nameof(NavigationPage);
         public static readonly Uri SignIn = new Uri($"{nameof(SignInPage)}", UriKind.Relative);
+        public static readonly Uri Home = new Uri($"{nameof(MainPage)}?SelectedTab={nameof(HomePage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

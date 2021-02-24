@@ -2,12 +2,53 @@
 <TabbedPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="PMVOnline.MainPage">
+    x:Class="PMVOnline.MainPage"
+    xmlns:home="clr-namespace:PMVOnline.Homes.Views"
+    xmlns:task="clr-namespace:PMVOnline.Tasks.Views"
+    xmlns:account="clr-namespace:PMVOnline.Accounts.Views"
+    xmlns:guide="clr-namespace:PMVOnline.Guides.Views"
+    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    android:TabbedPage.ToolbarPlacement="Bottom"
+    BackgroundColor="{StaticResource Background}"
+    BarBackgroundColor="{StaticResource Background}"
+    SelectedTabColor="{StaticResource Primary}"
+    UnselectedTabColor="{StaticResource Description}" 
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons">
     <!--Pages can be added as references or inline-->
-    <ContentPage
-        Title="Tab 1" />
-    <ContentPage
-        Title="Tab 2" />
-    <ContentPage
-        Title="Tab 3" />
+    <home:HomePage
+        Title="Home">
+        <home:HomePage.IconImageSource>
+            <FontImageSource
+                Size="16"
+                FontFamily="{StaticResource FontMaterialdesign}"
+                Glyph="{Static fontIcon:MaterialDesign.HomeOutline}" />
+        </home:HomePage.IconImageSource>
+    </home:HomePage>
+    <task:TaskPage
+        Title="Sự Vụ">
+        <task:TaskPage.IconImageSource>
+            <FontImageSource
+                Size="16"
+                FontFamily="{StaticResource FontMaterialdesign}"
+                Glyph="{Static fontIcon:MaterialDesign.CardBulletedOutline}" />
+        </task:TaskPage.IconImageSource>
+    </task:TaskPage>
+    <guide:GuidePage
+        Title="Hướng Dẫn">
+        <guide:GuidePage.IconImageSource>
+            <FontImageSource
+                Size="16"
+                FontFamily="{StaticResource FontMaterialdesign}"
+                Glyph="{Static fontIcon:MaterialDesign.Newspaper}" />
+        </guide:GuidePage.IconImageSource>
+    </guide:GuidePage>
+    <account:AccountPage
+        Title="Tài Khoản">
+        <account:AccountPage.IconImageSource>
+            <FontImageSource
+                Size="16"
+                FontFamily="{StaticResource FontMaterialdesign}"
+                Glyph="{Static fontIcon:MaterialDesign.AccountOutline}" />
+        </account:AccountPage.IconImageSource>
+    </account:AccountPage>
 </TabbedPage>

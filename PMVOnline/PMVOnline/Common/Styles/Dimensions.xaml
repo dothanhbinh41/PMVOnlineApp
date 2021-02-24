@@ -15,4 +15,6 @@
         Android="24" />
     <x:Int32
         x:Key="Radius">6</x:Int32>
+    <x:String
+        x:Key="FontMaterialdesign">Materialdesign</x:String>
 </ResourceDictionary>
