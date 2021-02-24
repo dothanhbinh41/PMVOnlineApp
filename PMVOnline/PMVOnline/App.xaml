@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
+    xmlns:style="clr-namespace:PMVOnline.Common.Styles"
+    x:Class="PMVOnline.App" >
+    <prism:PrismApplication.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <style:Colors />
+                <style:Dimensions />
+                <style:CommonStyles />
+                <style:LabelStyles />
+                <!--<style:Converters />-->
+            </ResourceDictionary.MergedDictionaries>
+            <!--<sh:SingleShade
+                x:Key="ShadowPrimary" 
+                Opacity="0.5"
+                Offset="0,8"
+                Color="{StaticResource ColorPrimary}" />-->
+        </ResourceDictionary>
+    </prism:PrismApplication.Resources>
+</prism:PrismApplication>
