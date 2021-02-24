@@ -7,7 +7,8 @@
     mc:Ignorable="d"
     xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
     xmlns:style="clr-namespace:PMVOnline.Common.Styles"
-    x:Class="PMVOnline.App" >
+    x:Class="PMVOnline.App"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,11 +18,11 @@
                 <style:LabelStyles />
                 <!--<style:Converters />-->
             </ResourceDictionary.MergedDictionaries>
-            <!--<sh:SingleShade
-                x:Key="ShadowPrimary" 
-                Opacity="0.5"
-                Offset="0,8"
-                Color="{StaticResource ColorPrimary}" />-->
+            <sh:SingleShade
+                x:Key="ShadowPrimary"
+                Opacity="0.3"
+                Offset="0,6"
+                Color="{StaticResource Primary}" />
         </ResourceDictionary>
     </prism:PrismApplication.Resources>
 </prism:PrismApplication>

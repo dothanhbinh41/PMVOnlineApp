@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PMVOnline.Common.FontIcons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,16 @@ namespace PMVOnline.Authentications.Views
     {
         public SignInPage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                txtPassword.IsPassword = !txtPassword.IsPassword; 
+                btn.Text = txtPassword.IsPassword ? MaterialDesign.EyeOffOutline : MaterialDesign.EyeOutline;
+            }
         }
     }
 }
