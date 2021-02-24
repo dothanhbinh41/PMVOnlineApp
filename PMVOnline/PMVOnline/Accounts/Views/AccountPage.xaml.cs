@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PMVOnline
+namespace PMVOnline.Accounts.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : TabbedPage
+    public partial class AccountPage : ContentPage
     {
-        public MainPage()
+        public AccountPage()
         {
             InitializeComponent();
         }

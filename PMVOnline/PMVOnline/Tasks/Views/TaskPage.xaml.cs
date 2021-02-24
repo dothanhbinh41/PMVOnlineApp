@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PMVOnline
+namespace PMVOnline.Tasks.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : TabbedPage
+    public partial class TaskPage : ContentPage
     {
-        public MainPage()
+        public TaskPage()
         {
             InitializeComponent();
         }

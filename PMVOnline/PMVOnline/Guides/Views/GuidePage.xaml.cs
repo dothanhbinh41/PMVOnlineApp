@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PMVOnline
+namespace PMVOnline.Guides.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : TabbedPage
+    public partial class GuidePage : ContentPage
     {
-        public MainPage()
+        public GuidePage()
         {
             InitializeComponent();
         }
