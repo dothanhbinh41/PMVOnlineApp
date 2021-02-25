@@ -73,7 +73,7 @@
                 <DataTemplate>
                     <Grid
                         RowSpacing="0"
-                        RowDefinitions="12,18,64">
+                        RowDefinitions="12,18,52">
                         <Frame
                             Margin="12,6"
                             Grid.Row="1"
@@ -113,6 +113,7 @@
                                     </BoxView.Triggers>
                                 </BoxView>
                                 <Label
+                                    LineBreakMode="MiddleTruncation"
                                     VerticalOptions="End"
                                     Grid.Column="1">
                                     <Label.FormattedText>
@@ -121,13 +122,13 @@
                                                 TextColor="{StaticResource Text}"
                                                 FontSize="Body"
                                                 FontAttributes="Bold"
-                                                Text="MH Yen" />
+                                                Text="{Binding Assignee}" />
                                             <Span
                                                 Text=" " />
                                             <Span
                                                 TextColor="{StaticResource Primary}"
                                                 FontSize="Body"
-                                                Text="phan hoi yeu cau mua hang" />
+                                                Text="{Binding Action}" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
@@ -138,34 +139,15 @@
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span
-                                                Text="#123123" />
+                                                Text="{Binding Id,StringFormat='#{0}'}" />
                                             <Span
                                                 Text="   " />
                                             <Span
-                                                Text="12h00 21/02/2021" />
+                                                Text="{Binding DueDate,StringFormat='{0:hh}h{0:mm dd/MM/yyyy}'}" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label
-                                    Margin="0,0,8,4"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="End"
-                                    Grid.Column="1"
-                                    Grid.RowSpan="2"
-                                    Style="{StaticResource LabelDescription}">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span
-                                                FontAttributes="Bold"
-                                                TextColor="{StaticResource Text}"
-                                                Text="Admin" />
-                                            <Span
-                                                Text=" " />
-                                            <Span
-                                                Text="Da duyet" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+
                             </Grid>
                             <Frame.Triggers>
                                 <DataTrigger
@@ -193,7 +175,7 @@
                                         Value="#ECFCEE" />
                                 </DataTrigger>
                             </Frame.Triggers>
-                        </Frame> 
+                        </Frame>
 
                         <Frame
                             Margin="0,6,24,0"
@@ -205,7 +187,7 @@
                                 FontSize="Small"
                                 TextColor="{StaticResource Foreground}"
                                 VerticalOptions="Center"
-                                Text="Completed" />
+                                Text="{Binding Status}" />
                         </Frame>
                     </Grid>
                 </DataTemplate>
