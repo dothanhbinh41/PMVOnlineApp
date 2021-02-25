@@ -32,5 +32,18 @@
         <Setter
             Property="FontSize"
             Value="Title" />
+        <Setter
+            Property="TextColor"
+            Value="{StaticResource Text}" />
+    </Style>
+    <Style
+        x:Key="LabelNormal"
+        TargetType="Label">
+        <Setter
+            Property="FontSize"
+            Value="Body" />
+        <Setter
+            Property="TextColor"
+            Value="{StaticResource Text}" />
     </Style>
 </ResourceDictionary>

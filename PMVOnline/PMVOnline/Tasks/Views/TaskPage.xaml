@@ -1,12 +1,215 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PMVOnline.Tasks.Views.TaskPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Views.TaskPage"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models">
+    <Grid
+        RowSpacing="16"
+        RowDefinitions="64,*">
+        <Grid
+            Margin="16,0"
+            RowSpacing="0" >
+            
+            <StackLayout
+                VerticalOptions="End"
+                HeightRequest="24"
+                Grid.Row="2"
+                Orientation="Horizontal">
+                <BoxView
+                    WidthRequest="12"
+                    CornerRadius="6"
+                    Color="{StaticResource High}" />
+                <Label
+                    VerticalOptions="Center"
+                    Style="{StaticResource LabelNormal}"
+                    Text="ASAP" />
+                <BoxView
+                    WidthRequest="12"
+                    CornerRadius="6"
+                    Color="{StaticResource Highest}" />
+                <Label
+                    VerticalOptions="Center"
+                    Style="{StaticResource LabelNormal}"
+                    Text="Gap" />
+                <BoxView
+                    WidthRequest="12"
+                    CornerRadius="6"
+                    Color="{StaticResource Normal}" />
+                <Label
+                    VerticalOptions="Center"
+                    Style="{StaticResource LabelNormal}"
+                    Text="BT" />
+
+            </StackLayout>
+            <StackLayout
+                Spacing="0"
+                Orientation="Horizontal"
+                HorizontalOptions="End" 
+                Grid.Row="1"
+                Grid.RowSpan="2">
+                <Button
+                    Visual="Default"
+                    BackgroundColor="Transparent"
+                    Text="Create New" />
+                <Button
+                    HeightRequest="44"
+                    WidthRequest="44"
+                    FontSize="24"
+                    BackgroundColor="{StaticResource Primary}"
+                    Style="{StaticResource ButtonPrimary}"
+                    FontFamily="{StaticResource FontMaterialdesign}"
+                    Text="{Static fontIcon:MaterialDesign.Plus}" />
+            </StackLayout>
+        </Grid>
+
+        <CollectionView
+            Grid.Row="1"
+            SelectionMode="None"
+            ItemSizingStrategy="MeasureFirstItem"
+            ItemsSource="{Binding Tasks}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        RowSpacing="0"
+                        RowDefinitions="12,18,64">
+                        <Frame
+                            Margin="12,6"
+                            Grid.Row="1"
+                            Grid.RowSpan="2">
+                            <Grid
+                                ColumnSpacing="6"
+                                RowSpacing="4"
+                                ColumnDefinitions="12,*">
+                                <BoxView
+                                    Grid.RowSpan="2"
+                                    CornerRadius="6,0,6,0">
+                                    <BoxView.Triggers>
+                                        <DataTrigger
+                                            TargetType="BoxView"
+                                            Binding="{Binding Priority}"
+                                            Value="{Static model:TaskPriority.High}">
+                                            <Setter
+                                                Property="Color"
+                                                Value="{StaticResource High}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            TargetType="BoxView"
+                                            Binding="{Binding Priority}"
+                                            Value="{Static model:TaskPriority.Highest}">
+                                            <Setter
+                                                Property="Color"
+                                                Value="{StaticResource Highest}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            TargetType="BoxView"
+                                            Binding="{Binding Priority}"
+                                            Value="{Static model:TaskPriority.Normal}">
+                                            <Setter
+                                                Property="Color"
+                                                Value="{StaticResource Normal}" />
+                                        </DataTrigger>
+                                    </BoxView.Triggers>
+                                </BoxView>
+                                <Label
+                                    VerticalOptions="End"
+                                    Grid.Column="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span
+                                                TextColor="{StaticResource Text}"
+                                                FontSize="Body"
+                                                FontAttributes="Bold"
+                                                Text="MH Yen" />
+                                            <Span
+                                                Text=" " />
+                                            <Span
+                                                TextColor="{StaticResource Primary}"
+                                                FontSize="Body"
+                                                Text="phan hoi yeu cau mua hang" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Style="{StaticResource LabelDescription}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span
+                                                Text="#123123" />
+                                            <Span
+                                                Text="   " />
+                                            <Span
+                                                Text="12h00 21/02/2021" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label
+                                    Margin="0,0,8,4"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="End"
+                                    Grid.Column="1"
+                                    Grid.RowSpan="2"
+                                    Style="{StaticResource LabelDescription}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource Text}"
+                                                Text="Admin" />
+                                            <Span
+                                                Text=" " />
+                                            <Span
+                                                Text="Da duyet" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                            <Frame.Triggers>
+                                <DataTrigger
+                                    TargetType="Frame"
+                                    Binding="{Binding Priority}"
+                                    Value="{Static model:TaskPriority.High}">
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="#F9F9F4" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    TargetType="Frame"
+                                    Binding="{Binding Priority}"
+                                    Value="{Static model:TaskPriority.Highest}">
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="#F5EAEA" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    TargetType="Frame"
+                                    Binding="{Binding Priority}"
+                                    Value="{Static model:TaskPriority.Normal}">
+                                    <Setter
+                                        Property="BackgroundColor"
+                                        Value="#ECFCEE" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                        </Frame> 
+
+                        <Frame
+                            Margin="0,6,24,0"
+                            BackgroundColor="{StaticResource Primary}"
+                            HorizontalOptions="End"
+                            Grid.RowSpan="2">
+                            <Label
+                                Margin="8,0"
+                                FontSize="Small"
+                                TextColor="{StaticResource Foreground}"
+                                VerticalOptions="Center"
+                                Text="Completed" />
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

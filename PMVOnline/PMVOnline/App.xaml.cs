@@ -25,6 +25,7 @@ using PMVOnline.Homes.ViewModels;
 using PMVOnline.Tasks.Views;
 using PMVOnline.Guides.Views;
 using PMVOnline.Accounts.Views;
+using PMVOnline.Tasks.ViewModels;
 
 namespace PMVOnline
 {
@@ -122,7 +123,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<MainPage>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>();
-            containerRegistry.RegisterForNavigation<TaskPage>();
+            containerRegistry.RegisterForNavigation<TaskPage, TaskViewModel>();
             containerRegistry.RegisterForNavigation<GuidePage>();
             containerRegistry.RegisterForNavigation<AccountPage>();
         }
