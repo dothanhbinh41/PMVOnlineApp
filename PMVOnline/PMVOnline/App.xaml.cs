@@ -26,6 +26,9 @@ using PMVOnline.Tasks.Views;
 using PMVOnline.Guides.Views;
 using PMVOnline.Accounts.Views;
 using PMVOnline.Tasks.ViewModels;
+using PMVOnline.Common.Services;
+using PMVOnline.Guides.ViewModels;
+using PMVOnline.Accounts.ViewModels;
 
 namespace PMVOnline
 {
@@ -124,8 +127,8 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<SignInPage, SignInViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomeViewModel>();
             containerRegistry.RegisterForNavigation<TaskPage, TaskViewModel>();
-            containerRegistry.RegisterForNavigation<GuidePage>();
-            containerRegistry.RegisterForNavigation<AccountPage>();
+            containerRegistry.RegisterForNavigation<GuidePage, GuideViewModel>();
+            containerRegistry.RegisterForNavigation<AccountPage, AccountViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -135,6 +138,7 @@ namespace PMVOnline
         void RegisterService(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterInstance<IResourceManagerProvider>(this);
+            containerRegistry.Register<IApplicationSettings, ApplicationSettings>();
         }
         void RegisterExternalService(IContainerRegistry containerRegistry)
         {

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PMVOnline.Tasks.ViewModels
 {
-    public class TaskViewModel : ViewModelBase
+    public class TaskViewModel : TabViewModelBase
     {
         public List<TaskModel> Tasks { get; set; }
         public TaskViewModel()

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PMVOnline.Homes.ViewModels
 {
-    public class HomeViewModel : ViewModelBase
+    public class HomeViewModel : TabViewModelBase
     {
         public List<HotTaskModel> Tasks { get; set; }
         public HomeViewModel()

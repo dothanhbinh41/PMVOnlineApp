@@ -26,14 +26,14 @@
                 Style="{StaticResource LabelTitle}"
                 Margin="0,0,0,16" 
                 HorizontalOptions="Center"
-                Text="Do Thanh Binh"  />
+                Text="{Binding User.FullName}"  />
 
             <control:LabelIconAction
                 Margin="16,4"
                 HeightRequest="48"
                 Icon="{Static fontIcon:MaterialDesign.EmailOutline}"
                 Color="{StaticResource Primary}"
-                Text="binhdothanh.navn@gmail.com" />
+                Text="{Binding User.Email}" />
             <control:LabelIconAction
                 Margin="16,4"
                 HeightRequest="48"
