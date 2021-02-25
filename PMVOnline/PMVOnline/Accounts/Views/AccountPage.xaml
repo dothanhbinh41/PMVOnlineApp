@@ -1,12 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PMVOnline.Accounts.Views.AccountPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Accounts.Views.AccountPage"
+    xmlns:control="clr-namespace:PMVOnline.Common.Controls"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons">
+
+    <ScrollView
+        Padding="0,0,0,16">
+        <StackLayout
+            Spacing="0">
+            <Frame
+                CornerRadius="48"
+                Margin="0,24,0,8"
+                HorizontalOptions="Center"
+                WidthRequest="96"
+                HeightRequest="96">
+                <Image
+                    Aspect="Fill"
+                    WidthRequest="96"
+                    HeightRequest="96"
+                    Source="img_profile" />
+            </Frame>
+            <Label
+                Style="{StaticResource LabelTitle}"
+                Margin="0,0,0,16" 
+                HorizontalOptions="Center"
+                Text="Do Thanh Binh"  />
+
+            <control:LabelIconAction
+                Margin="16,4"
+                HeightRequest="48"
+                Icon="{Static fontIcon:MaterialDesign.EmailOutline}"
+                Color="{StaticResource Primary}"
+                Text="binhdothanh.navn@gmail.com" />
+            <control:LabelIconAction
+                Margin="16,4"
+                HeightRequest="48"
+                Icon="{Static fontIcon:MaterialDesign.Lock}"
+                Color="{StaticResource Primary}"
+                Text="ChangePassword"
+                IconAction="{Static fontIcon:MaterialDesign.ChevronRight}"
+                Command="{Binding ChangePasswordCommand}" />
+            <control:LabelIconAction
+                Margin="16,4"
+                HeightRequest="48"
+                Icon="{Static fontIcon:MaterialDesign.SearchWeb}"
+                IconAction="{Static fontIcon:MaterialDesign.ChevronRight}"
+                Color="{StaticResource Primary}"
+                Text="FontSize: Large"
+                Command="{Binding ChangeFontsizeCommand}" />
+
+            <Grid
+                Margin="16,4"
+                HeightRequest="48">
+                <control:LabelIconAction
+                   
+                    Icon="{Static fontIcon:MaterialDesign.BellOutline}"
+                    Color="{StaticResource Primary}"
+                    Text="Notification"
+                    Command="{Binding NotificationCommand}" />
+                <Switch  
+                    Margin="8,0"
+                    IsToggled="True"
+                    HorizontalOptions="End" />
+            </Grid>
+
+            <control:LabelIconAction
+                Margin="16,4"
+                HeightRequest="48"
+                Icon="{Static fontIcon:MaterialDesign.InformationVariant}"
+                Color="{StaticResource Primary}"
+                Text="{Binding Version, StringFormat='version : {0}'}" />
+
+            <control:LabelIconAction
+                HeightRequest="48"
+                Margin="16,24,16,4" 
+                Icon="{Static fontIcon:MaterialDesign.Power}"
+                Color="{StaticResource Highest}"
+                Text="Logout"
+                Command="{Binding LogoutCommand}" />
+
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

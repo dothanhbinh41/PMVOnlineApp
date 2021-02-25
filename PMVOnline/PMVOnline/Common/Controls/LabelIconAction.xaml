@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Frame
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Common.Controls.LabelIconAction"
+    Visual="Material"
+    Padding="0"
+    x:Name="root"
+    BackgroundColor="{StaticResource Foreground}"
+    CornerRadius="6">
+    <Grid
+        HeightRequest="48"
+        ColumnSpacing="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="48" />
+            <ColumnDefinition
+                Width="*" />
+            <ColumnDefinition
+                Width="48" />
+        </Grid.ColumnDefinitions>
+        <BoxView
+            x:Name="bgIcon"
+            HeightRequest="32"
+            WidthRequest="32"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            CornerRadius="16" />
+
+        <Label
+            x:Name="lblIcon"
+            Margin="8"
+            FontFamily="{StaticResource FontMaterialdesign}"
+            FontSize="16"
+            TextColor="White"
+            Text="{Binding Source={Reference root},Path=Icon}"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <Label
+            x:Name="txtText"
+            Grid.Column="1"
+            FontSize="Body"
+            TextColor="{StaticResource Text}"
+            VerticalOptions="Center"
+            Text="{Binding Source={Reference root},Path=Text}" />
+
+        <Label
+            Grid.Column="2"
+            x:Name="lblAction"
+            Margin="8"
+            FontFamily="{StaticResource FontMaterialdesign}"
+            FontSize="20"
+            IsVisible="False"
+            VerticalOptions="Center"
+            HorizontalOptions="Center" />
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer
+                Command="{Binding Source={Reference root},Path=Command}" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</Frame>
