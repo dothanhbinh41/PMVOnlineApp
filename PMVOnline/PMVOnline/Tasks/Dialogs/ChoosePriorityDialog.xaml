@@ -5,9 +5,13 @@
     x:Class="PMVOnline.Tasks.Dialogs.ChoosePriorityDialog"
     xmlns:prism="http://prismlibrary.com"
     prism:DialogLayout.RelativeWidthRequest="1"
-    prism:DialogLayout.RelativeHeightRequest="1"
+    prism:DialogLayout.RelativeHeightRequest="1" 
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     x:Name="dialog">
+    <prism:DialogLayout.Mask>
+        <BoxView
+            Color="#99000000" />
+    </prism:DialogLayout.Mask>
     <Frame
         VerticalOptions="Center"
         Margin="24,8"

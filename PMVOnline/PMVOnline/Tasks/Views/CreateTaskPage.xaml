@@ -57,16 +57,16 @@
                 <Entry
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
-                    Placeholder="Title" />
+                    Placeholder="Mục đích" />
                 <Editor
                     AutoSize="TextChanges"
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
-                    Placeholder="Content" />
+                    Placeholder="Nội dung" />
                 <Entry
                     IsEnabled="False"
                     Grid.Row="3"
-                    Placeholder="Assignee" />
+                    Placeholder="Đối tượng" />
                 <control:EntryAction
                     Grid.Row="3"
                     Grid.Column="1"
@@ -75,11 +75,13 @@
                     Command="{Binding ChoosePriorityCommand}" />
                 <control:EntryAction
                     Grid.Row="4"
-                    Placeholder="Reference Task" />
+                    Placeholder="Sự vụ liên quan" />
                 <control:EntryAction
                     Grid.Row="4"
                     Grid.Column="1"
-                    Placeholder="Due Date" />
+                    Placeholder="Thời hạn"
+                    Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}"
+                    Command="{Binding ChooseDueDateCommand}" />
             </Grid>
         </Frame>
 

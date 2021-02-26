@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PMVOnline.Common.Bases;
+using PMVOnline.Common.Services;
 using PMVOnline.Tasks.Models;
 using Prism.Navigation;
 using Prism.Services.Dialogs;
@@ -16,11 +17,16 @@ namespace PMVOnline.Tasks.ViewModels
 
         readonly INavigationService navigationService;
         readonly IDialogService dialogService;
+        readonly IDateTimeService dateTimeService;
 
-        public CreateTaskViewModel(INavigationService navigationService, IDialogService dialogService)
+        public CreateTaskViewModel(
+            INavigationService navigationService,
+            IDialogService dialogService,
+            IDateTimeService dateTimeService)
         {
             this.navigationService = navigationService;
             this.dialogService = dialogService;
+            this.dateTimeService = dateTimeService;
         }
 
 
@@ -47,5 +53,15 @@ namespace PMVOnline.Tasks.ViewModels
             }
         }
 
+        ICommand _ChooseDueDateCommand;
+        public ICommand ChooseDueDateCommand => _ChooseDueDateCommand = _ChooseDueDateCommand ?? new AsyncCommand(ExecuteChooseDueDateCommand);
+        async Task ExecuteChooseDueDateCommand()
+        {
+            var date = await dateTimeService.PickDateTimeAsync(DateTime.Now, Task.Date);
+            if (date.HasValue)
+            {
+                Task.Date = date.Value;
+            }
+        }
     }
 }

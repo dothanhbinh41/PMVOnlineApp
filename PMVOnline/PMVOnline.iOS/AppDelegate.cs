@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Acr.UserDialogs;
 using Foundation;
+using PMVOnline.Common.Services;
+using PMVOnline.iOS.Services;
 using Prism;
 using Prism.Ioc;
 using UIKit;
@@ -38,6 +40,7 @@ namespace PMVOnline.iOS
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
+                containerRegistry.Register<IDateTimeService, DateTimeService>();
             }
         }
     }

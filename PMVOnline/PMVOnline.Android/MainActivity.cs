@@ -9,6 +9,8 @@ using Android.OS;
 using Prism;
 using Prism.Ioc;
 using Acr.UserDialogs;
+using PMVOnline.Common.Services;
+using PMVOnline.Droid.Services;
 
 namespace PMVOnline.Droid
 {
@@ -44,6 +46,7 @@ namespace PMVOnline.Droid
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
+                containerRegistry.Register<IDateTimeService, DateTimeService>();
             }
         }
     }
