@@ -129,6 +129,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<TaskPage, TaskViewModel>();
             containerRegistry.RegisterForNavigation<GuidePage, GuideViewModel>();
             containerRegistry.RegisterForNavigation<AccountPage, AccountViewModel>();
+            containerRegistry.RegisterForNavigation<CreateTaskPage, CreateTaskViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -154,6 +155,8 @@ namespace PMVOnline
         static readonly string navigation = nameof(NavigationPage);
         public static readonly Uri SignIn = new Uri($"{nameof(SignInPage)}", UriKind.Relative);
         public static readonly Uri Home = new Uri($"{nameof(MainPage)}?SelectedTab={nameof(HomePage)}", UriKind.Relative);
+
+        public static readonly Uri CreateTask = new Uri($"{nameof(CreateTaskPage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

@@ -20,23 +20,23 @@
             RowSpacing="0"
             RowDefinitions="48,*">
             <Label
-                VerticalOptions="End" >
+                VerticalOptions="End">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
                             FontSize="Body"
                             Text="Hello"
                             TextColor="{StaticResource Text}" />
-                        <Span Text=" " />
+                        <Span
+                            Text=" " />
                         <Span
                             FontAttributes="Bold"
                             FontSize="Title"
                             TextColor="{StaticResource Primary}"
-                            Text="Do Thanh Binh"
-                            />
+                            Text="Do Thanh Binh" />
                     </FormattedString>
                 </Label.FormattedText>
-            </Label> 
+            </Label>
             <StackLayout
                 VerticalOptions="Center"
                 HeightRequest="24"
@@ -73,7 +73,7 @@
                 Orientation="Horizontal"
                 HorizontalOptions="End"
                 VerticalOptions="End"
-                Grid.Row="1" >
+                Grid.Row="1">
                 <Button
                     Visual="Default"
                     BackgroundColor="Transparent"
@@ -98,7 +98,7 @@
                 <DataTemplate>
                     <Grid
                         RowSpacing="0"
-                        RowDefinitions="12,18,52">
+                        RowDefinitions="12,18,64">
                         <Frame
                             Margin="12,6"
                             Grid.Row="1"
@@ -107,7 +107,7 @@
                                 ColumnSpacing="6"
                                 RowSpacing="4"
                                 ColumnDefinitions="12,*">
-                                <BoxView 
+                                <BoxView
                                     Grid.RowSpan="2"
                                     CornerRadius="6,0,6,0">
                                     <BoxView.Triggers>
@@ -115,7 +115,9 @@
                                             TargetType="BoxView"
                                             Binding="{Binding Priority}"
                                             Value="{Static model:TaskPriority.High}">
-                                            <Setter Property="Color" Value="{StaticResource High}" />
+                                            <Setter
+                                                Property="Color"
+                                                Value="{StaticResource High}" />
                                         </DataTrigger>
                                         <DataTrigger
                                             TargetType="BoxView"
@@ -135,41 +137,46 @@
                                         </DataTrigger>
                                     </BoxView.Triggers>
                                 </BoxView>
-                                <Label
-                                    LineBreakMode="MiddleTruncation"
-                                    VerticalOptions="End"
+                                <StackLayout
                                     Grid.Column="1">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span
-                                                TextColor="{StaticResource Text}"
-                                                FontSize="Body"
-                                                FontAttributes="Bold"
-                                                Text="{Binding Assignee}" />
-                                            <Span
-                                                Text=" " />
-                                            <Span
-                                                TextColor="{StaticResource Primary}"
-                                                FontSize="Body"
-                                                Text="{Binding Action}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                                <Label
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                    Style="{StaticResource LabelDescription}">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span
-                                                Text="{Binding Id,StringFormat='#{0}'}" />
-                                            <Span
-                                                Text="   " />
-                                            <Span
-                                                Text="{Binding DueDate,StringFormat='{0:hh}h{0:mm dd/MM/yyyy}'}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+                                    <Label
+                                        LineBreakMode="MiddleTruncation"
+                                        Style="{StaticResource LabelDescription}"
+                                        TextColor="{StaticResource Text}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    Text="{Binding Id,StringFormat='#{0}'}" />
+                                                <Span
+                                                    Text="   " />
+                                                <Span
+                                                    Text="{Binding Title}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label
+                                        LineBreakMode="MiddleTruncation">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    TextColor="{StaticResource Text}"
+                                                    FontSize="Body"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding Assignee}" />
+                                                <Span
+                                                    Text=" " />
+                                                <Span
+                                                    TextColor="{StaticResource Primary}"
+                                                    FontSize="Body"
+                                                    Text="{Binding Action}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="{Binding DueDate,StringFormat='{0:hh}h{0:mm dd/MM/yyyy}'}" />
+                                </StackLayout>
 
                             </Grid>
                             <Frame.Triggers>
@@ -217,4 +224,4 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
-</ContentPage>
+</ContentPage> 

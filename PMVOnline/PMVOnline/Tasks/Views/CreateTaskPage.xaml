@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Views.CreateTaskPage"
+    BackgroundColor="{StaticResource Background}"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons">
+    <Grid RowDefinitions="48,352,40,48,*">
+        
+    </Grid>
+</ContentPage>

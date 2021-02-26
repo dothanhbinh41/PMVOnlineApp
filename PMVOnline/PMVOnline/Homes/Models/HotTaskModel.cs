@@ -6,12 +6,7 @@ using System.Text;
 
 namespace PMVOnline.Homes.Models
 {
-    public class HotTaskModel : ModelBase
+    public class HotTaskModel : TaskBaseModel
     {
-        public long Id { get; set; }
-        public string Assignee { get; set; }
-        public string Action { get; set; }
-        public DateTime DueDate { get; set; }
-        public TaskPriority Priority { get; set; }
     }
 }
