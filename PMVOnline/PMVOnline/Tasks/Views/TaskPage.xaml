@@ -143,7 +143,7 @@
                                             <Span
                                                 Text="   " />
                                             <Span
-                                                Text="{Binding DueDate,StringFormat='{0:hh}h{0:mm dd/MM/yyyy}'}" />
+                                                Text="{Binding DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
