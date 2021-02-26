@@ -4,8 +4,136 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PMVOnline.Tasks.Views.CreateTaskPage"
     BackgroundColor="{StaticResource Background}"
-    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons">
-    <Grid RowDefinitions="48,352,40,48,*">
-        
+    xmlns:control="clr-namespace:PMVOnline.Common.Controls"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:converter="clr-namespace:PMVOnline.Common.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:PriorityToStringConverter
+                x:Key="PriorityToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid
+        RowDefinitions="64,380,40,48,*,56">
+        <Frame
+            Margin="16,4">
+            <Grid>
+                <Label
+                    TextColor="{StaticResource Description}"
+                    Margin="16,0"
+                    Style="{StaticResource LabelNormal}"
+                    Text="{Binding Target.Text,TargetNullValue='Chọn Yêu Cầu', FallbackValue='Chọn Yêu Cầu'}"
+                    VerticalOptions="Center" />
+                <Button
+                    Visual="Default"
+                    WidthRequest="56"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="End"
+                    FontFamily="{StaticResource FontMaterialdesign}"
+                    TextColor="{StaticResource Primary}"
+                    FontSize="24"
+                    Command="{Binding ChooseTargetCommand}"
+                    Text="{Static fontIcon:MaterialDesign.ChevronRight}" />
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding ChooseTargetCommand}" />
+                </Grid.GestureRecognizers>
+            </Grid>
+        </Frame>
+
+        <Frame
+            Margin="16,4"
+            Grid.Row="1">
+            <Grid
+                RowSpacing="0"
+                RowDefinitions="64,64,*,64,64"
+                Margin="8">
+                <control:EntryAction
+                    Grid.ColumnSpan="2"
+                    Placeholder="Yêu Cầu"
+                    Text="{Binding Task.Target.Text}"
+                    Command="{Binding ChooseTargetCommand}" />
+                <Entry
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    Placeholder="Title" />
+                <Editor
+                    AutoSize="TextChanges"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Placeholder="Content" />
+                <Entry
+                    IsEnabled="False"
+                    Grid.Row="3"
+                    Placeholder="Assignee" />
+                <control:EntryAction
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Placeholder="Độ Ưu Tiên"
+                    Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}"
+                    Command="{Binding ChoosePriorityCommand}" />
+                <control:EntryAction
+                    Grid.Row="4"
+                    Placeholder="Reference Task" />
+                <control:EntryAction
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Placeholder="Due Date" />
+            </Grid>
+        </Frame>
+
+
+        <Label
+            Grid.Row="2">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span
+                        FontFamily="{StaticResource FontMaterialdesign}"
+                        Text="{Static fontIcon:MaterialDesign.ChevronRight}"
+                        FontSize="24"
+                        TextColor="{StaticResource Primary}" />
+                    <Span
+                        FontSize="Body"
+                        TextColor="{StaticResource Description}"
+                        Text="Attach files" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Button
+            Grid.Row="3"
+            HeightRequest="44"
+            WidthRequest="44"
+            FontSize="24"
+            HorizontalOptions="Start"
+            Style="{StaticResource ButtonPrimary}"
+            TextColor="{StaticResource Description}"
+            BackgroundColor="{StaticResource Foreground}"
+            FontFamily="{StaticResource FontMaterialdesign}"
+            Text="{Static fontIcon:MaterialDesign.Plus}" />
+
+        <sh:Shadows
+            Grid.Row="5"
+            Margin="16,0"
+            CornerRadius="24"
+            VerticalOptions="Start"
+            Shades="{StaticResource ShadowPrimary}">
+            <Button
+                Text="Create"
+                Style="{StaticResource ButtonPrimary}">
+                <Button.Background>
+                    <LinearGradientBrush
+                        EndPoint="1,0">
+                        <GradientStop
+                            Color="{StaticResource Primary}"
+                            Offset="0.1" />
+                        <GradientStop
+                            Color="{StaticResource EndPrimary}"
+                            Offset="1.0" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </sh:Shadows>
     </Grid>
 </ContentPage>

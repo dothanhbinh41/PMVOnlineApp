@@ -32,6 +32,27 @@
             Property="FontSize"
             Value="Body" />
         <Setter
+            Property="BackgroundColor"
+            Value="Transparent" />
+        <Setter
+            Property="PlaceholderColor"
+            Value="{StaticResource Description}" />
+        <Setter
+            Property="TextColor"
+            Value="{StaticResource Text}" />
+    </Style>
+    <Style
+        TargetType="Editor">
+        <Setter
+            Property="Visual"
+            Value="Material" />
+        <Setter
+            Property="FontSize"
+            Value="Body" />
+        <Setter
+            Property="BackgroundColor"
+            Value="Transparent" />
+        <Setter
             Property="PlaceholderColor"
             Value="{StaticResource Description}" />
         <Setter

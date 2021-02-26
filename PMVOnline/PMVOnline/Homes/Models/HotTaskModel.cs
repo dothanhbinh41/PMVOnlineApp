@@ -8,5 +8,6 @@ namespace PMVOnline.Homes.Models
 {
     public class HotTaskModel : TaskBaseModel
     {
+        public string Action { get; set; }
     }
 }

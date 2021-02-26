@@ -3,6 +3,7 @@ using Prism;
 using Prism.AppModel;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -68,6 +69,25 @@ namespace PMVOnline.Common.Bases
         public virtual void RaiseIsActiveChanged()
         {
             IsActiveChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+
+    public class DialogViewModelBase : BindableBase, IDialogAware
+    {
+        public virtual event Action<IDialogParameters> RequestClose;
+
+        public virtual bool CanCloseDialog()
+        {
+            return true;
+        }
+
+        public virtual void OnDialogClosed()
+        {
+        }
+
+        public virtual void OnDialogOpened(IDialogParameters parameters)
+        {
         }
     }
 }

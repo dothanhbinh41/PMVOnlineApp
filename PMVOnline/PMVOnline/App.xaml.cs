@@ -29,6 +29,7 @@ using PMVOnline.Tasks.ViewModels;
 using PMVOnline.Common.Services;
 using PMVOnline.Guides.ViewModels;
 using PMVOnline.Accounts.ViewModels;
+using PMVOnline.Tasks.Dialogs;
 
 namespace PMVOnline
 {
@@ -56,7 +57,7 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            var result = await NavigationService.NavigateAsync(Routes.Home);
+            var result = await NavigationService.NavigateAsync(Routes.CreateTask);
         }
 
         protected override void OnStart()
@@ -133,7 +134,8 @@ namespace PMVOnline
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
-            //containerRegistry.RegisterDialog<AddressUnitDialog, AddressUnitDialogViewModel>(); 
+            containerRegistry.RegisterDialog<ChooseTargetDialog, ChooseTargetViewModel>();
+            containerRegistry.RegisterDialog<ChoosePriorityDialog, ChoosePriorityViewModel>();
         }
 
         void RegisterService(IContainerRegistry containerRegistry)
@@ -160,11 +162,13 @@ namespace PMVOnline
     }
     public sealed partial class DialogRoutes
     {
-        //public static readonly string AddressUnit = $"{nameof(AddressUnitDialog)}"; 
+        public static readonly string ChooseTarget = $"{nameof(ChooseTargetDialog)}";
+        public static readonly string ChoosePriority = $"{nameof(ChoosePriorityDialog)}";
     }
 
     public class NavigationKey
-    {
-        public const string ExistUser = "_MyDoctor_ExistUser_Key_";
+    { 
+        public const string Priority = "Priority";
+        public const string Target = "Target";
     }
 }

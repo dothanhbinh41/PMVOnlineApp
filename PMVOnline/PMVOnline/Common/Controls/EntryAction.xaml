@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Common.Controls.EntryAction"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons">
+    <Entry
+        x:Name="entry"
+        IsEnabled="False"
+        Text="{Binding Text}"
+        Placeholder="{Binding Placeholder}" />
+    <Button
+        Visual="Default"
+        WidthRequest="40"
+        BackgroundColor="Transparent"
+        HorizontalOptions="End"
+        FontFamily="{StaticResource FontMaterialdesign}"
+        TextColor="{StaticResource Primary}"
+        FontSize="24"
+        Text="{Static fontIcon:MaterialDesign.ChevronRight}"
+        Clicked="Button_Clicked"
+        />
+    <Grid.GestureRecognizers>
+        <TapGestureRecognizer Tapped="Button_Clicked"/>
+    </Grid.GestureRecognizers>
+</Grid>
