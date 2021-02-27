@@ -2,67 +2,37 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="PMVOnline.Tasks.Views.TaskPage"
+    x:Class="PMVOnline.Tasks.Views.TaskReferencePage"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
-    xmlns:model="clr-namespace:PMVOnline.Tasks.Models">
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    BackgroundColor="{StaticResource Background}"
+    x:Name="root"
+    >
     <Grid
         RowSpacing="16"
         RowDefinitions="64,*">
-        <Grid
+
+        <StackLayout
             Margin="16,0"
-            RowSpacing="0">
-
-            <StackLayout
-                VerticalOptions="End"
-                HeightRequest="24"
-                Grid.Row="2"
-                Orientation="Horizontal">
-                <BoxView
-                    WidthRequest="12"
-                    CornerRadius="6"
-                    Color="{StaticResource High}" />
-                <Label
-                    VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
-                    Text="ASAP" />
-                <BoxView
-                    WidthRequest="12"
-                    CornerRadius="6"
-                    Color="{StaticResource Highest}" />
-                <Label
-                    VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
-                    Text="Gap" />
-                <BoxView
-                    WidthRequest="12"
-                    CornerRadius="6"
-                    Color="{StaticResource Normal}" />
-                <Label
-                    VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
-                    Text="BT" />
-
-            </StackLayout>
-            <StackLayout
-                Spacing="0"
-                Orientation="Horizontal"
-                HorizontalOptions="End"
-                Grid.Row="1"
-                Grid.RowSpan="2">
-                <Button
-                    Visual="Default"
-                    BackgroundColor="Transparent"
-                    Text="Create New" />
-                <Button
-                    HeightRequest="44"
-                    WidthRequest="44"
-                    FontSize="24"
-                    BackgroundColor="{StaticResource Primary}"
-                    Style="{StaticResource ButtonPrimary}"
-                    FontFamily="{StaticResource FontMaterialdesign}"
-                    Text="{Static fontIcon:MaterialDesign.Plus}" />
-            </StackLayout>
-        </Grid>
+            Spacing="0"
+            Orientation="Horizontal"
+            HorizontalOptions="End">
+            <Button
+                Visual="Default"
+                BackgroundColor="Transparent"
+                Text="Add Reference"
+                Command="{Binding PickReferenceTaskCommand}"/>
+            <Button
+                HeightRequest="44"
+                WidthRequest="44"
+                FontSize="24"
+                BackgroundColor="{StaticResource Primary}"
+                Style="{StaticResource ButtonPrimary}"
+                FontFamily="{StaticResource FontMaterialdesign}"
+                Text="{Static fontIcon:MaterialDesign.Plus}"
+                Command="{Binding PickReferenceTaskCommand}"
+                />
+        </StackLayout>
 
         <CollectionView
             Grid.Row="1"
@@ -82,7 +52,7 @@
                                 ColumnSpacing="6"
                                 RowSpacing="4"
                                 ColumnDefinitions="12,*">
-                                <BoxView 
+                                <BoxView
                                     CornerRadius="6,0,6,0">
                                     <BoxView.Triggers>
                                         <DataTrigger
@@ -112,8 +82,8 @@
                                     </BoxView.Triggers>
                                 </BoxView>
                                 <StackLayout
-                                    VerticalOptions="Center"
                                     Spacing="4"
+                                    VerticalOptions="Center"
                                     Grid.Column="1">
                                     <Label
                                         LineBreakMode="MiddleTruncation"
@@ -122,6 +92,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span
+                                                    FontAttributes="Bold"
                                                     Text="{Binding Id,StringFormat='#{0}'}" />
                                                 <Span
                                                     Text="   " />
@@ -131,56 +102,17 @@
                                         </Label.FormattedText>
                                     </Label>
                                     <Label
-                                        LineBreakMode="MiddleTruncation">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span
-                                                    TextColor="{StaticResource Text}"
-                                                    FontSize="Body"
-                                                    FontAttributes="Bold"
-                                                    Text="{Binding Assignee}" />
-                                                <Span
-                                                    Text=" " />
-                                                <Span
-                                                    TextColor="{StaticResource Primary}"
-                                                    FontSize="Body"
-                                                    Text="{Binding Action}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                        LineBreakMode="MiddleTruncation"
+                                        Style="{StaticResource LabelNormal}"
+                                        TextColor="{StaticResource Text}"
+                                        Text="{Binding Assignee}" />
 
                                     <Label
                                         Style="{StaticResource LabelDescription}"
                                         Text="{Binding DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
-
                             </Grid>
-                            <Frame.Triggers>
-                                <DataTrigger
-                                    TargetType="Frame"
-                                    Binding="{Binding Priority}"
-                                    Value="{Static model:TaskPriority.High}">
-                                    <Setter
-                                        Property="BackgroundColor"
-                                        Value="#F9F9F4" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    TargetType="Frame"
-                                    Binding="{Binding Priority}"
-                                    Value="{Static model:TaskPriority.Highest}">
-                                    <Setter
-                                        Property="BackgroundColor"
-                                        Value="#F5EAEA" />
-                                </DataTrigger>
-                                <DataTrigger
-                                    TargetType="Frame"
-                                    Binding="{Binding Priority}"
-                                    Value="{Static model:TaskPriority.Normal}">
-                                    <Setter
-                                        Property="BackgroundColor"
-                                        Value="#ECFCEE" />
-                                </DataTrigger>
-                            </Frame.Triggers>
+
                         </Frame>
 
                         <Frame
@@ -195,6 +127,11 @@
                                 VerticalOptions="Center"
                                 Text="{Binding Status}" />
                         </Frame>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={Reference root},Path=BindingContext.SelectCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

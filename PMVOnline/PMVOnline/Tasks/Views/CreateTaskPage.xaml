@@ -75,7 +75,9 @@
                     Command="{Binding ChoosePriorityCommand}" />
                 <control:EntryAction
                     Grid.Row="4"
-                    Placeholder="Sự vụ liên quan" />
+                    Placeholder="Sự vụ liên quan"
+                    Command="{Binding ReferenceTasksCommand}"
+                    />
                 <control:EntryAction
                     Grid.Row="4"
                     Grid.Column="1"

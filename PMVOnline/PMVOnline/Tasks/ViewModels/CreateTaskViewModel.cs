@@ -28,9 +28,7 @@ namespace PMVOnline.Tasks.ViewModels
             this.dialogService = dialogService;
             this.dateTimeService = dateTimeService;
         }
-
-
-
+         
         ICommand _ChooseTargetCommand;
         public ICommand ChooseTargetCommand => _ChooseTargetCommand = _ChooseTargetCommand ?? new AsyncCommand(ExecuteChooseTargetCommand);
         async Task ExecuteChooseTargetCommand()
@@ -63,5 +61,12 @@ namespace PMVOnline.Tasks.ViewModels
                 Task.Date = date.Value;
             }
         }
+         
+        ICommand _ReferenceTasksCommand;
+        public ICommand ReferenceTasksCommand => _ReferenceTasksCommand = _ReferenceTasksCommand ?? new AsyncCommand(ExecuteReferenceTasksCommand);
+        async Task ExecuteReferenceTasksCommand()
+        {
+            await navigationService.NavigateAsync(Routes.TaskReference);
+        } 
     }
 }

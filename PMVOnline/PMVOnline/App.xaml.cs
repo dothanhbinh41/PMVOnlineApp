@@ -57,7 +57,7 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            var result = await NavigationService.NavigateAsync(Routes.CreateTask);
+            var result = await NavigationService.NavigateAsync(Routes.Home);
         }
 
         protected override void OnStart()
@@ -131,11 +131,13 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<GuidePage, GuideViewModel>();
             containerRegistry.RegisterForNavigation<AccountPage, AccountViewModel>();
             containerRegistry.RegisterForNavigation<CreateTaskPage, CreateTaskViewModel>();
+            containerRegistry.RegisterForNavigation<TaskReferencePage, TaskReferenceViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<ChooseTargetDialog, ChooseTargetViewModel>();
             containerRegistry.RegisterDialog<ChoosePriorityDialog, ChoosePriorityViewModel>();
+            containerRegistry.RegisterDialog<SearchTaskDialog, SearchTaskViewModel>();
         }
 
         void RegisterService(IContainerRegistry containerRegistry)
@@ -156,19 +158,22 @@ namespace PMVOnline
     {
         static readonly string navigation = nameof(NavigationPage);
         public static readonly Uri SignIn = new Uri($"{nameof(SignInPage)}", UriKind.Relative);
-        public static readonly Uri Home = new Uri($"{nameof(MainPage)}?SelectedTab={nameof(HomePage)}", UriKind.Relative);
-
+        public static readonly Uri Home = new Uri($"{nameof(MainPage)}?SelectedTab={nameof(HomePage)}", UriKind.Relative); 
         public static readonly Uri CreateTask = new Uri($"{nameof(CreateTaskPage)}", UriKind.Relative);
+        public static readonly Uri TaskReference = new Uri($"{nameof(TaskReferencePage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {
         public static readonly string ChooseTarget = $"{nameof(ChooseTargetDialog)}";
         public static readonly string ChoosePriority = $"{nameof(ChoosePriorityDialog)}";
+        public static readonly string SearchTask = $"{nameof(SearchTaskDialog)}";
     }
 
     public class NavigationKey
-    { 
+    {
         public const string Priority = "Priority";
         public const string Target = "Target";
+        public const string ReferenceTasks = "ReferenceTasks";
+        public const string MyTasks = "MyTasks";
     }
 }

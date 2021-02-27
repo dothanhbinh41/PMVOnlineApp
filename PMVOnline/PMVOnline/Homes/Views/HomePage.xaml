@@ -98,7 +98,7 @@
                 <DataTemplate>
                     <Grid
                         RowSpacing="0"
-                        RowDefinitions="12,18,64">
+                        RowDefinitions="12,18,72">
                         <Frame
                             Margin="12,6"
                             Grid.Row="1"
@@ -107,8 +107,7 @@
                                 ColumnSpacing="6"
                                 RowSpacing="4"
                                 ColumnDefinitions="12,*">
-                                <BoxView
-                                    Grid.RowSpan="2"
+                                <BoxView 
                                     CornerRadius="6,0,6,0">
                                     <BoxView.Triggers>
                                         <DataTrigger
@@ -138,6 +137,8 @@
                                     </BoxView.Triggers>
                                 </BoxView>
                                 <StackLayout
+                                    VerticalOptions="Center"
+                                    Spacing="4"
                                     Grid.Column="1">
                                     <Label
                                         LineBreakMode="MiddleTruncation"
