@@ -82,22 +82,11 @@
 
 
             <Label
-                Margin="16,0"
-                Grid.Row="1">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span
-                            FontFamily="{StaticResource FontMaterialdesign}"
-                            Text="{Static fontIcon:MaterialDesign.Attachment}"
-                            FontSize="24"
-                            TextColor="{StaticResource Primary}" />
-                        <Span
-                            FontSize="Body"
-                            TextColor="{StaticResource Description}"
-                            Text="Attach files" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+                Margin="16,8,16,0"
+                Grid.Row="1"
+                TextColor="{StaticResource Description}"
+                Text="Tệp Đính Kèm" />
+
 
             <Grid
                 HeightRequest="64"

@@ -13,9 +13,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid
-        RowSpacing="16"
-        RowDefinitions="104,*">
-        <Grid
+        RowSpacing="0"
+        RowDefinitions="88,*">
+        <Grid 
             Margin="16,0"
             RowSpacing="0"
             RowDefinitions="48,*">
@@ -68,7 +68,7 @@
                     Text="BT" />
 
             </StackLayout>
-            <StackLayout
+            <!--<StackLayout
                 Spacing="0"
                 Orientation="Horizontal"
                 HorizontalOptions="End"
@@ -89,7 +89,7 @@
                     FontFamily="{StaticResource FontMaterialdesign}"
                     Text="{Static fontIcon:MaterialDesign.Plus}"
                     Command="{Binding CreateCommand}" />
-            </StackLayout>
+            </StackLayout>-->
         </Grid>
 
         <CollectionView
