@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Views.TaskDetailPage"
+    BackgroundColor="{StaticResource Background}"
+    xmlns:control="clr-namespace:PMVOnline.Common.Controls"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    x:Name="root"
+    Title="Tạo Sự Vụ">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                TargetType="Entry">
+                <Setter
+                    Property="IsEnabled"
+                    Value="False" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid
+        RowDefinitions="*,64">
+        <ScrollView>
+            <StackLayout
+                Spacing="0">
+                <Button
+                    Margin="16,4"
+                    Style="{StaticResource ButtonPrimary}"
+                    HorizontalOptions="Start"
+                    HeightRequest="40">
+                    <Button.Triggers>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Pending}">
+                            <Setter
+                                Property="Text"
+                                Value="Cho Duyet" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Waiting}">
+                            <Setter
+                                Property="Text"
+                                Value="Cho Duyet" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Rejected}">
+                            <Setter
+                                Property="Text"
+                                Value="Rejected" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Highest}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+
+                <Frame
+                    Margin="16,4">
+                    <StackLayout
+                        Spacing="0"
+                        Margin="8">
+
+                        <Grid>
+                            <Entry
+                                Placeholder="Yêu Cầu"
+                                Text="{Binding Task.Target.Text}" />
+
+                            <control:EntryAction
+                                Grid.Column="1"
+                                IsEnabled="False"
+                                Placeholder="Đối tượng"
+                                Text="{Binding Task.Assignee}" />
+                        </Grid>
+                        <Entry
+                            Placeholder="Mục đích"
+                            Text="{Binding Task.Title}" />
+                        <Editor
+                            IsEnabled="False"
+                            AutoSize="TextChanges"
+                            Placeholder="Nội dung"
+                            Text="{Binding Task.Content}" />
+
+                        <Grid>
+                            <Entry
+                                Placeholder="Độ Ưu Tiên"
+                                Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}" />
+                            <Entry
+                                Grid.Column="1"
+                                Placeholder="Thời hạn"
+                                Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                        </Grid>
+
+                        <control:EntryAction
+                            Placeholder="Sự vụ liên quan"
+                            Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
+                            Command="{Binding ReferenceTasksCommand}" />
+
+                    </StackLayout>
+                </Frame>
+
+
+                <Label
+                    Margin="16,8,16,4"
+                    Grid.Row="1"
+                    TextDecorations="Underline"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource Description}"
+                    Text="Tệp Đính Kèm" />
+
+
+                <CollectionView
+                    Margin="16,4"
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding Files}"
+                    HeightRequest="44">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                            Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Margin="8">
+                                <Grid
+                                    ColumnSpacing="0"
+                                    ColumnDefinitions="40,120">
+                                    <Image
+                                        Margin="4"
+                                        HeightRequest="40"
+                                        WidthRequest="40"
+                                        Source="{Binding FullPath}" />
+                                    <Label
+                                        Margin="4,0"
+                                        Style="{StaticResource LabelDescription}"
+                                        Grid.Column="1"
+                                        VerticalOptions="Center"
+                                        Text="{Binding FileName}" />
+                                </Grid>
+
+                            </Frame>
+
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+                <Label
+                    Margin="16,8,16,4"
+                    TextDecorations="Underline"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource Description}"
+                    Text="Comment" />
+
+                <StackLayout
+                    Margin="16,4"
+                    Spacing="4"
+                    BindableLayout.ItemsSource="{Binding Comments}">
+                    <BindableLayout.EmptyView>
+                        <Label
+                            Text="Chua co comment nao" />
+                    </BindableLayout.EmptyView>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Margin="0,4">
+                                <Label
+                                    Style="{StaticResource LabelNormal}"
+                                    TextColor="{StaticResource Text}"
+                                    Text="{Binding Sender}" />
+                                <Label
+                                    Style="{StaticResource LabelDescription}"
+                                    Text="{Binding Date}" />
+                                <Frame
+                                    BackgroundColor="#EEEEEE">
+                                    <Label
+                                        Margin="8,4"
+                                        Style="{StaticResource LabelDescription}"
+                                        TextColor="{StaticResource Text}"
+                                        Text="{Binding Content}" />
+                                </Frame>
+
+                                <ScrollView
+                                    Orientation="Horizontal">
+                                    <StackLayout
+                                        Spacing="8"
+                                        BindableLayout.ItemsSource="{Binding Files}"
+                                        Orientation="Horizontal">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame
+                                                    Margin="0">
+                                                    <Grid
+                                                        ColumnSpacing="0"
+                                                        ColumnDefinitions="40,120">
+                                                        <Image
+                                                            Margin="4"
+                                                            HeightRequest="40"
+                                                            WidthRequest="40"
+                                                            Source="{Binding FullPath}" />
+                                                        <Label
+                                                            Margin="4,0"
+                                                            Style="{StaticResource LabelDescription}"
+                                                            Grid.Column="1"
+                                                            VerticalOptions="Center"
+                                                            Text="{Binding FileName}" />
+                                                    </Grid>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </ScrollView>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <!--<control:FloatingButton
+            x:Name="floating"
+            HeightRequest="120"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Grid.RowSpan="2"
+            Margin="0,0,8,8">
+            <control:FloatingButton.Items>
+                <x:Array
+                    Type="{x:Type View}">
+                    <control:FloatingButtonItemControl
+                        Color="#9DC457"
+                        IsVisible="true"
+                        Title="Re-Open"
+                        Command="{Binding StatisticsCommand}">
+                        <control:FloatingButtonItemControl.Icon>
+                            <FontImageSource
+                                Color="{StaticResource Foreground}"
+                                FontFamily="{StaticResource FontMaterialdesign}"
+                                Size="16"
+                                Glyph="{Static fontIcon:MaterialDesign.Reload}" />
+                        </control:FloatingButtonItemControl.Icon>
+                    </control:FloatingButtonItemControl>
+                    <control:FloatingButtonItemControl
+                        Color="#9CD7F9"
+                        IsVisible="true"
+                        Title="Commend"
+                        Command="{Binding StatisticsCommand}">
+                        <control:FloatingButtonItemControl.Icon>
+                            <FontImageSource
+                                Color="{StaticResource Foreground}"
+                                FontFamily="{StaticResource FontMaterialdesign}"
+                                Size="16"
+                                Glyph="{Static fontIcon:MaterialDesign.Comment}" />
+                        </control:FloatingButtonItemControl.Icon>
+                    </control:FloatingButtonItemControl>
+                    <control:FloatingButtonItemControl
+                        Color="#F45859"
+                        IsVisible="{Binding IsStarted}"
+                        Title="Lich Su"
+                        Command="{Binding ChangeClassCommand}">
+                        <control:FloatingButtonItemControl.Icon>
+                            <FontImageSource
+                                Color="{StaticResource Foreground}"
+                                FontFamily="{StaticResource FontMaterialdesign}"
+                                Size="16"
+                                Glyph="{Static fontIcon:MaterialDesign.History}" />
+                        </control:FloatingButtonItemControl.Icon>
+                    </control:FloatingButtonItemControl>
+                </x:Array>
+            </control:FloatingButton.Items>
+        </control:FloatingButton>-->
+
+        <sh:Shadows
+            Grid.Row="1"
+            Margin="16,0"
+            CornerRadius="24"
+            VerticalOptions="Start"
+            Shades="{StaticResource ShadowPrimary}">
+            <Button
+                Text="Tạo Sự Vụ"
+                Command="{Binding CreateCommand}"
+                Style="{StaticResource ButtonPrimary}">
+                <Button.Background>
+                    <LinearGradientBrush
+                        EndPoint="1,0">
+                        <GradientStop
+                            Color="{StaticResource Primary}"
+                            Offset="0.1" />
+                        <GradientStop
+                            Color="{StaticResource EndPrimary}"
+                            Offset="1.0" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </sh:Shadows>
+    </Grid>
+
+</ContentPage>

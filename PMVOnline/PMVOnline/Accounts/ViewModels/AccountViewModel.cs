@@ -1,4 +1,5 @@
 ﻿using PMVOnline.Accounts.Models;
+using PMVOnline.Accounts.Services;
 using PMVOnline.Common.Bases;
 using PMVOnline.Common.Services;
 using Prism.Navigation;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace PMVOnline.Accounts.ViewModels
 {
@@ -20,11 +22,16 @@ namespace PMVOnline.Accounts.ViewModels
 
         readonly INavigationService navigationService;
         readonly IApplicationSettings applicationSettings;
+        readonly IOpenSettingService openSettingService;
 
-        public AccountViewModel(INavigationService navigationService, IApplicationSettings applicationSettings)
+        public AccountViewModel(
+            INavigationService navigationService, 
+            IApplicationSettings applicationSettings,
+            IOpenSettingService openSettingService)
         {
             this.navigationService = navigationService;
             this.applicationSettings = applicationSettings;
+            this.openSettingService = openSettingService;
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -49,9 +56,14 @@ namespace PMVOnline.Accounts.ViewModels
         }
 
         ICommand _ChangeFontsizeCommand;
-        public ICommand ChangeFontsizeCommand => _ChangeFontsizeCommand = _ChangeFontsizeCommand ?? new AsyncCommand(ExecuteChangeFontsizeCommand);
-        async Task ExecuteChangeFontsizeCommand()
+        public ICommand ChangeFontsizeCommand => _ChangeFontsizeCommand = _ChangeFontsizeCommand ?? new Command(ExecuteChangeFontsizeCommand);
+        void ExecuteChangeFontsizeCommand()
         {
+            openSettingService.OpenSetting();
+
+            Application.Current.Resources["FontSizeSmall"] = 14;
+            Application.Current.Resources["FontSizeNormal"] = 17;
+            Application.Current.Resources["FontSizeTitle"] = 20;
         }
 
         public void OnUserNotificationChanged()

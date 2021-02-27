@@ -58,8 +58,8 @@ namespace PMVOnline
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            VersionTracking.Track();
-            var result = await NavigationService.NavigateAsync(Routes.ModerateTask);
+            VersionTracking.Track(); 
+            var result = await NavigationService.NavigateAsync(Routes.Home);
         }
 
         protected override void OnStart()
@@ -135,6 +135,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<CreateTaskPage, CreateTaskViewModel>();
             containerRegistry.RegisterForNavigation<TaskReferencePage, TaskReferenceViewModel>();
             containerRegistry.RegisterForNavigation<ModerateTaskPage, ModerateTaskViewModel>();
+            containerRegistry.RegisterForNavigation<TaskDetailPage, TaskDetailViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -168,6 +169,7 @@ namespace PMVOnline
         public static readonly Uri CreateTask = new Uri($"{nameof(CreateTaskPage)}", UriKind.Relative);
         public static readonly Uri TaskReference = new Uri($"{nameof(TaskReferencePage)}", UriKind.Relative);
         public static readonly Uri ModerateTask = new Uri($"{nameof(ModerateTaskPage)}", UriKind.Relative);
+        public static readonly Uri TaskDetail = new Uri($"{nameof(TaskDetailPage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

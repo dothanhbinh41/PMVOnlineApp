@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PMVOnline.Tasks.Views.TaskPage"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
-    xmlns:model="clr-namespace:PMVOnline.Tasks.Models">
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    x:Name="root">
     <Grid
         RowSpacing="16"
         RowDefinitions="64,*">
@@ -53,8 +54,7 @@
                     Visual="Default"
                     BackgroundColor="Transparent"
                     Text="Create New"
-                    Command="{Binding CreateCommand}"
-                    />
+                    Command="{Binding CreateCommand}" />
                 <Button
                     HeightRequest="44"
                     WidthRequest="44"
@@ -85,7 +85,7 @@
                                 ColumnSpacing="6"
                                 RowSpacing="4"
                                 ColumnDefinitions="12,*">
-                                <BoxView 
+                                <BoxView
                                     CornerRadius="6,0,6,0">
                                     <BoxView.Triggers>
                                         <DataTrigger
@@ -198,6 +198,11 @@
                                 VerticalOptions="Center"
                                 Text="{Binding Status}" />
                         </Frame>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={Reference root},Path=BindingContext.ViewDetailCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

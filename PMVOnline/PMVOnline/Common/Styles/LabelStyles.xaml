@@ -24,14 +24,14 @@
             Value="{StaticResource Description}" />
         <Setter
             Property="FontSize"
-            Value="Small" />
+            Value="{DynamicResource FontSizeSmall}" />
     </Style>
     <Style
         x:Key="LabelTitle"
-        TargetType="Label"> 
+        TargetType="Label">
         <Setter
             Property="FontSize"
-            Value="Title" />
+            Value="{DynamicResource FontSizeTitle}" />
         <Setter
             Property="TextColor"
             Value="{StaticResource Text}" />
@@ -41,7 +41,7 @@
         TargetType="Label">
         <Setter
             Property="FontSize"
-            Value="Body" />
+            Value="{DynamicResource FontSizeNormal}" />
         <Setter
             Property="TextColor"
             Value="{StaticResource Text}" />

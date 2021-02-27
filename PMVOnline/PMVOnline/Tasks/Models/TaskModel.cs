@@ -18,4 +18,10 @@ namespace PMVOnline.Tasks.Models
         public TaskStatus Status { get; set; } 
         public string Action { get; set; }
     }
+    
+
+    public class TaskDetailModel : CreateTaskModel
+    {
+        public TaskStatus Status { get; set; }
+    } 
 }

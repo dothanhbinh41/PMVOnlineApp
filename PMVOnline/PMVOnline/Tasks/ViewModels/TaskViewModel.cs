@@ -33,6 +33,16 @@ namespace PMVOnline.Tasks.ViewModels
         async Task ExcuteCreateCommand()
         {
             await navigationService.NavigateAsync(Routes.CreateTask);
-        } 
+        }
+
+
+
+        ICommand _ViewDetailCommand;
+        public ICommand ViewDetailCommand => _ViewDetailCommand = _ViewDetailCommand ?? new AsyncCommand<TaskModel>(ExecuteViewDetailCommand);
+        async Task ExecuteViewDetailCommand(TaskModel task)
+        {
+          var xx=  await navigationService.NavigateAsync(Routes.TaskDetail);
+        }
+
     }
 }

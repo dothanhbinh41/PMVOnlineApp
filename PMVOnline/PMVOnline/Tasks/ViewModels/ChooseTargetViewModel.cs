@@ -1,4 +1,5 @@
 ﻿using PMVOnline.Common.Bases;
+using PMVOnline.Common.Extensions;
 using PMVOnline.Tasks.Models;
 using Prism.Services.Dialogs;
 using System;
@@ -14,7 +15,7 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TargetModel : ModelBase
     {
-        public string Text { get; set; }
+        public string Text => Target.TargetToString();
         public TaskTarget Target { get; set; }
         public bool IsSelected { get; set; }
     }
@@ -30,33 +31,27 @@ namespace PMVOnline.Tasks.ViewModels
             Targets = new List<TargetModel>
             {
                 new TargetModel
-                {
-                    Text = "Mua hàng",
+                { 
                     Target = TaskTarget.BuyCommodity
                 },
                 new TargetModel
-                {
-                    Text = "Thanh toán",
+                { 
                     Target = TaskTarget.Payment
                 },
                 new TargetModel
-                {
-                    Text = "Kiểm tra tồn kho",
+                { 
                     Target = TaskTarget.Storage
                 },
                 new TargetModel
-                {
-                    Text = "Sản xuất",
+                { 
                     Target = TaskTarget.Make
                 },
                 new TargetModel
-                {
-                    Text = "Mua sắm",
+                { 
                     Target = TaskTarget.BuyOther
                 },
                 new TargetModel
-                {
-                    Text = "Khác",
+                { 
                     Target = TaskTarget.Other
                 }
             };

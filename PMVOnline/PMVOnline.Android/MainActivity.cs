@@ -11,6 +11,7 @@ using Prism.Ioc;
 using Acr.UserDialogs;
 using PMVOnline.Common.Services;
 using PMVOnline.Droid.Services;
+using PMVOnline.Accounts.Services;
 
 namespace PMVOnline.Droid
 {
@@ -39,7 +40,7 @@ namespace PMVOnline.Droid
         void Init(Bundle savedInstanceState)
         {
             UserDialogs.Init(this);
-            Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState); 
+            Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
         }
 
         public class AndroidPlatform : IPlatformInitializer
@@ -47,6 +48,7 @@ namespace PMVOnline.Droid
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
                 containerRegistry.Register<IDateTimeService, DateTimeService>();
+                containerRegistry.Register<IOpenSettingService, OpenSettingService>();
             }
         }
     }

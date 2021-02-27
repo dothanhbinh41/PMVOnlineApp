@@ -48,7 +48,7 @@
                     Color="{StaticResource High}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
+                    Style="{DynamicResource LabelNormal}"
                     Text="ASAP" />
                 <BoxView
                     WidthRequest="12"
