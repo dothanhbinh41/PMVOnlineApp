@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PMVOnline.Common.Bases;
@@ -28,7 +30,18 @@ namespace PMVOnline.Tasks.ViewModels
             this.dialogService = dialogService;
             this.dateTimeService = dateTimeService;
         }
-         
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.GetNavigationMode() == NavigationMode.Back && parameters.ContainsKey(NavigationKey.ReferenceTasks))
+            {
+                var t = parameters.GetValue<List<TaskBaseModel>>(NavigationKey.ReferenceTasks);
+                Task.ReferenceTasks = t.Select(d => d.Id).ToArray();
+            }
+        }
+
+
         ICommand _ChooseTargetCommand;
         public ICommand ChooseTargetCommand => _ChooseTargetCommand = _ChooseTargetCommand ?? new AsyncCommand(ExecuteChooseTargetCommand);
         async Task ExecuteChooseTargetCommand()
@@ -61,12 +74,12 @@ namespace PMVOnline.Tasks.ViewModels
                 Task.Date = date.Value;
             }
         }
-         
+
         ICommand _ReferenceTasksCommand;
         public ICommand ReferenceTasksCommand => _ReferenceTasksCommand = _ReferenceTasksCommand ?? new AsyncCommand(ExecuteReferenceTasksCommand);
         async Task ExecuteReferenceTasksCommand()
         {
             await navigationService.NavigateAsync(Routes.TaskReference);
-        } 
+        }
     }
 }

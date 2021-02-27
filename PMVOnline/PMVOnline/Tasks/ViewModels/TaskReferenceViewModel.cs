@@ -13,9 +13,7 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TaskReferenceViewModel : ViewModelBase
     {
-        public List<TaskBaseModel> Tasks { set; get; }
-
-
+        public List<TaskBaseModel> Tasks { set; get; }  
         readonly INavigationService navigationService;
         readonly IDialogService dialogService;
         List<TaskBaseModel> myTasks;
@@ -37,11 +35,17 @@ namespace PMVOnline.Tasks.ViewModels
             };
         }
 
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+            parameters.Add(NavigationKey.ReferenceTasks, Tasks);
+        }
+
         ICommand _PickReferenceTaskCommand;
         public ICommand PickReferenceTaskCommand => _PickReferenceTaskCommand = _PickReferenceTaskCommand ?? new AsyncCommand(ExecutePickReferenceTaskCommand);
         async Task ExecutePickReferenceTaskCommand()
         {
-            var param = await dialogService.ShowDialogAsync(DialogRoutes.SearchTask, new DialogParameters { { NavigationKey.ReferenceTasks, Tasks } ,{ NavigationKey.MyTasks, myTasks } });
+            var param = await dialogService.ShowDialogAsync(DialogRoutes.SearchTask, new DialogParameters { { NavigationKey.ReferenceTasks, Tasks }, { NavigationKey.MyTasks, myTasks } });
             if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
             {
                 Tasks = new List<TaskBaseModel>(param.Parameters.GetValue<List<TaskBaseModel>>(NavigationKey.ReferenceTasks));

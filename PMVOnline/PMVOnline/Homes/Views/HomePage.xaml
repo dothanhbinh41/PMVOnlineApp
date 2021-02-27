@@ -77,7 +77,9 @@
                 <Button
                     Visual="Default"
                     BackgroundColor="Transparent"
-                    Text="Create New" />
+                    Text="Create New"
+                    Command="{Binding CreateCommand}"
+                    />
                 <Button
                     HeightRequest="44"
                     WidthRequest="44"
@@ -85,7 +87,8 @@
                     BackgroundColor="{StaticResource Primary}"
                     Style="{StaticResource ButtonPrimary}"
                     FontFamily="{StaticResource FontMaterialdesign}"
-                    Text="{Static fontIcon:MaterialDesign.Plus}" />
+                    Text="{Static fontIcon:MaterialDesign.Plus}"
+                    Command="{Binding CreateCommand}" />
             </StackLayout>
         </Grid>
 

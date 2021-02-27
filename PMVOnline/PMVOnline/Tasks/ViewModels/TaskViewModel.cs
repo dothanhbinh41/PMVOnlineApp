@@ -27,12 +27,12 @@ namespace PMVOnline.Tasks.ViewModels
             };
             this.navigationService = navigationService;
         }
-         
+
         ICommand _CreateCommand;
         public ICommand CreateCommand => _CreateCommand = _CreateCommand ?? new AsyncCommand(ExcuteCreateCommand);
         async Task ExcuteCreateCommand()
         {
             await navigationService.NavigateAsync(Routes.CreateTask);
-        }
+        } 
     }
 }

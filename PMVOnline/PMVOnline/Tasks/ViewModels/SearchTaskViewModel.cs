@@ -23,7 +23,7 @@ namespace PMVOnline.Tasks.ViewModels
         public SearchTaskViewModel()
         {
         }
-
+         
         public override void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);

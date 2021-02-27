@@ -158,7 +158,9 @@ namespace PMVOnline
     {
         static readonly string navigation = nameof(NavigationPage);
         public static readonly Uri SignIn = new Uri($"{nameof(SignInPage)}", UriKind.Relative);
-        public static readonly Uri Home = new Uri($"{nameof(MainPage)}?SelectedTab={nameof(HomePage)}", UriKind.Relative); 
+        //public static readonly Uri Home = new Uri($"{nameof(MainPage)}?SelectedTab={nameof(HomePage)}", UriKind.Relative);
+        public static readonly Uri Home = new Uri($"PMVOnline:///{navigation}/{nameof(MainPage)}", UriKind.Absolute);
+
         public static readonly Uri CreateTask = new Uri($"{nameof(CreateTaskPage)}", UriKind.Relative);
         public static readonly Uri TaskReference = new Uri($"{nameof(TaskReferencePage)}", UriKind.Relative);
     }

@@ -5,9 +5,10 @@ using System.Text;
 
 namespace PMVOnline.Tasks.Models
 {
-    public class CreateTaskModel: TaskBaseModel
+    public class CreateTaskModel : TaskBaseModel
     {
         public DateTime? Date { get; set; }
         public TargetModel Target { get; set; }
+        public long[] ReferenceTasks { get; set; }
     }
 }

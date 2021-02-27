@@ -12,6 +12,9 @@
         <ResourceDictionary>
             <converter:PriorityToStringConverter
                 x:Key="PriorityToStringConverter" />
+            <converter:ReferenceTasksIdConverter
+                x:Key="ReferenceTasksIdConverter"
+                />
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid
@@ -76,6 +79,7 @@
                 <control:EntryAction
                     Grid.Row="4"
                     Placeholder="Sự vụ liên quan"
+                    Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
                     Command="{Binding ReferenceTasksCommand}"
                     />
                 <control:EntryAction
