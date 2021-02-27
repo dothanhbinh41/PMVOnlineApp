@@ -30,6 +30,8 @@ using PMVOnline.Common.Services;
 using PMVOnline.Guides.ViewModels;
 using PMVOnline.Accounts.ViewModels;
 using PMVOnline.Tasks.Dialogs;
+using PMVOnline.Tasks.Views.Admins;
+using PMVOnline.Tasks.ViewModels.Admins;
 
 namespace PMVOnline
 {
@@ -57,7 +59,7 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            var result = await NavigationService.NavigateAsync(Routes.Home);
+            var result = await NavigationService.NavigateAsync(Routes.ModerateTask);
         }
 
         protected override void OnStart()
@@ -132,6 +134,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<AccountPage, AccountViewModel>();
             containerRegistry.RegisterForNavigation<CreateTaskPage, CreateTaskViewModel>();
             containerRegistry.RegisterForNavigation<TaskReferencePage, TaskReferenceViewModel>();
+            containerRegistry.RegisterForNavigation<ModerateTaskPage, ModerateTaskViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -164,6 +167,7 @@ namespace PMVOnline
 
         public static readonly Uri CreateTask = new Uri($"{nameof(CreateTaskPage)}", UriKind.Relative);
         public static readonly Uri TaskReference = new Uri($"{nameof(TaskReferencePage)}", UriKind.Relative);
+        public static readonly Uri ModerateTask = new Uri($"{nameof(ModerateTaskPage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

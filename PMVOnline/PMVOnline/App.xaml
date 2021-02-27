@@ -16,7 +16,7 @@
                 <style:Dimensions />
                 <style:CommonStyles />
                 <style:LabelStyles />
-                <!--<style:Converters />-->
+                <style:Converters />
             </ResourceDictionary.MergedDictionaries>
             <sh:SingleShade
                 x:Key="ShadowPrimary"

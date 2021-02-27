@@ -1,14 +1,12 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="PMVOnline.Tasks.Views.CreateTaskPage"
+    x:Class="PMVOnline.Tasks.Views.Admins.ModerateTaskPage"
     BackgroundColor="{StaticResource Background}"
     xmlns:control="clr-namespace:PMVOnline.Common.Controls"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
-    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows" 
-    x:Name="root"
-    Title="Tạo Sự Vụ">  
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
     <ScrollView>
         <StackLayout>
             <Frame
@@ -16,26 +14,11 @@
                 <StackLayout
                     Spacing="0"
                     Margin="8">
-                    <control:EntryAction
-                        Placeholder="Copy Su vu"
-                        Command="{Binding CloneCommand}">
-                        <control:EntryAction.Text>
-                            <MultiBinding
-                                StringFormat="{}{0}{1}">
-                                <Binding
-                                    StringFormat="#{0} "
-                                    Path="TaskCloned.Id" />
-                                <Binding
-                                    Path="TaskCloned.Title" />
-                            </MultiBinding>
-                        </control:EntryAction.Text>
-                    </control:EntryAction>
 
                     <Grid>
                         <control:EntryAction
                             Placeholder="Yêu Cầu"
-                            Text="{Binding Task.Target.Text}"
-                            Command="{Binding ChooseTargetCommand}" />
+                            Text="{Binding Task.Target.Text}" />
 
                         <Entry
                             Grid.Column="1"
@@ -47,17 +30,14 @@
                     <Editor
                         AutoSize="TextChanges"
                         Placeholder="Nội dung" />
-
                     <Grid>
                         <control:EntryAction
                             Placeholder="Độ Ưu Tiên"
-                            Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}"
-                            Command="{Binding ChoosePriorityCommand}" />
+                            Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}" />
                         <control:EntryAction
                             Grid.Column="1"
                             Placeholder="Thời hạn"
-                            Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}"
-                            Command="{Binding ChooseDueDateCommand}" />
+                            Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                     </Grid>
 
                     <control:EntryAction
@@ -78,23 +58,9 @@
 
             <Grid
                 HeightRequest="64"
-                Margin="16,0"
-                ColumnDefinitions="56,*">
+                Margin="16,0">
 
 
-                <sh:Shadows
-                    Margin="0,8,8,8"
-                    CornerRadius="6"
-                    Shades="{StaticResource ShadowPrimary}">
-                    <Button
-                        FontSize="24"
-                        Style="{StaticResource ButtonPrimary}"
-                        TextColor="{StaticResource Primary}"
-                        BackgroundColor="{StaticResource Foreground}"
-                        FontFamily="{StaticResource FontMaterialdesign}"
-                        Text="{Static fontIcon:MaterialDesign.Plus}"
-                        Command="{Binding AddFileCommand}" />
-                </sh:Shadows>
                 <CollectionView
                     Grid.Column="1"
                     ItemSizingStrategy="MeasureAllItems"
@@ -123,22 +89,10 @@
                                             Grid.Column="1"
                                             VerticalOptions="Center"
                                             Text="{Binding FileName}" />
-                                        <!--<BoxView
-                                            Color="#000000"
-                                            Opacity="0.3"
-                                            Grid.ColumnSpan="2"
-                                            />-->
 
                                     </Grid>
 
                                 </Frame>
-                                <Label
-                                    VerticalOptions="Start"
-                                    HorizontalOptions="End"
-                                    FontSize="20"
-                                    TextColor="{StaticResource Highest}"
-                                    FontFamily="{StaticResource FontMaterialdesign}"
-                                    Text="{Static fontIcon:MaterialDesign.DeleteCircle}" />
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer
                                         Command="{Binding Source={Reference root},Path=BindingContext.RemoveFileCommand}"
@@ -176,6 +130,60 @@
                     </Button.Background>
                 </Button>
             </sh:Shadows>
+
+
+            <!--<control:FloatingButton
+                x:Name="floating"
+                HeightRequest="120"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Grid.Row="2"
+                Margin="0,0,8,8">
+                <control:FloatingButton.Items>
+                    <x:Array
+                        Type="{x:Type View}">
+                        <control:FloatingButtonItemControl
+                            Color="#9DC457"
+                            IsVisible="true"
+                            Title="Re-Open"
+                            Command="{Binding StatisticsCommand}">
+                            <control:FloatingButtonItemControl.Icon>
+                                <FontImageSource
+                                    Color="{StaticResource Foreground}"
+                                    FontFamily="{StaticResource FontMaterialdesign}"
+                                    Size="16"
+                                    Glyph="{Static fontIcon:MaterialDesign.Reload}" />
+                            </control:FloatingButtonItemControl.Icon>
+                        </control:FloatingButtonItemControl>
+                        <control:FloatingButtonItemControl
+                            Color="#9CD7F9"
+                            IsVisible="true"
+                            Title="Commend"
+                            Command="{Binding StatisticsCommand}">
+                            <control:FloatingButtonItemControl.Icon>
+                                <FontImageSource
+                                    Color="{StaticResource Foreground}"
+                                    FontFamily="{StaticResource FontMaterialdesign}"
+                                    Size="16"
+                                    Glyph="{Static fontIcon:MaterialDesign.Comment}" />
+                            </control:FloatingButtonItemControl.Icon>
+                        </control:FloatingButtonItemControl>
+                        <control:FloatingButtonItemControl
+                            Color="#F45859"
+                            IsVisible="{Binding IsStarted}"
+                            Title="Lich Su"
+                            Command="{Binding ChangeClassCommand}">
+                            <control:FloatingButtonItemControl.Icon>
+                                <FontImageSource
+                                    Color="{StaticResource Foreground}"
+                                    FontFamily="{StaticResource FontMaterialdesign}"
+                                    Size="16"
+                                    Glyph="{Static fontIcon:MaterialDesign.History}" />
+                            </control:FloatingButtonItemControl.Icon>
+                        </control:FloatingButtonItemControl>
+                    </x:Array>
+                </control:FloatingButton.Items>
+            </control:FloatingButton>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>
