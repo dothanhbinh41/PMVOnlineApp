@@ -16,20 +16,20 @@ namespace PMVOnline.Tasks.ViewModels
         public bool IsSelected { get; set; }
     }
 
-    public class SearchTaskViewModel : DialogViewModelBase
+    public class MultiSelectTaskViewModel : DialogViewModelBase
     {
         public override event Action<IDialogParameters> RequestClose;
         public List<TaskReferenceModel> Tasks { get; set; }
-        public SearchTaskViewModel()
+        public MultiSelectTaskViewModel()
         {
         }
-         
+
         public override void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);
             var myTasks = parameters.GetValue<List<TaskBaseModel>>(NavigationKey.MyTasks) ?? new List<TaskBaseModel>();
-            var tasks = parameters.GetValue<List<TaskBaseModel>>(NavigationKey.ReferenceTasks) ?? new List<TaskBaseModel>();
-            Tasks = myTasks.Select(d => new TaskReferenceModel { Task = d, IsSelected = tasks.Any(c => c.Id == d.Id) }).ToList(); 
+            var tasks = parameters.GetValue<long[]>(NavigationKey.ReferenceTasks) ?? new long[0];
+            Tasks = myTasks.Select(d => new TaskReferenceModel { Task = d, IsSelected = tasks.Any(c => c == d.Id) }).ToList();
         }
 
         ICommand _SelectCommand;
@@ -45,7 +45,7 @@ namespace PMVOnline.Tasks.ViewModels
         {
             RequestClose?.Invoke(new DialogParameters());
         }
-         
+
         ICommand _CompleteCommand;
         public ICommand CompleteCommand => _CompleteCommand = _CompleteCommand ?? new Command(ExecuteCompleteCommand);
         void ExecuteCompleteCommand()

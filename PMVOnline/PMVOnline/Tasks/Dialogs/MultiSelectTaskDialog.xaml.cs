@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PMVOnline.Tasks.Dialogs
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchTaskDialog : ContentView
+    public partial class MultiSelectTaskDialog : ContentView
     {
-        public SearchTaskDialog()
+        public MultiSelectTaskDialog()
         {
             InitializeComponent();
         }

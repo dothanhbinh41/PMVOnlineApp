@@ -176,4 +176,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\img_profile%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_file%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_file%402x.png" />
+  </ItemGroup>
 </Project>

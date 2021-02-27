@@ -7,141 +7,198 @@
     xmlns:control="clr-namespace:PMVOnline.Common.Controls"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
-    xmlns:converter="clr-namespace:PMVOnline.Common.Converters">
+    xmlns:converter="clr-namespace:PMVOnline.Common.Converters"
+    x:Name="root"
+    Title="Tạo Sự Vụ">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:PriorityToStringConverter
                 x:Key="PriorityToStringConverter" />
             <converter:ReferenceTasksIdConverter
-                x:Key="ReferenceTasksIdConverter"
-                />
+                x:Key="ReferenceTasksIdConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid
-        RowDefinitions="64,380,40,48,*,56">
-        <Frame
-            Margin="16,4">
-            <Grid>
-                <Label
-                    TextColor="{StaticResource Description}"
-                    Margin="16,0"
-                    Style="{StaticResource LabelNormal}"
-                    Text="{Binding Target.Text,TargetNullValue='Chọn Yêu Cầu', FallbackValue='Chọn Yêu Cầu'}"
-                    VerticalOptions="Center" />
-                <Button
-                    Visual="Default"
-                    WidthRequest="56"
-                    BackgroundColor="Transparent"
-                    HorizontalOptions="End"
-                    FontFamily="{StaticResource FontMaterialdesign}"
-                    TextColor="{StaticResource Primary}"
-                    FontSize="24"
-                    Command="{Binding ChooseTargetCommand}"
-                    Text="{Static fontIcon:MaterialDesign.ChevronRight}" />
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Command="{Binding ChooseTargetCommand}" />
-                </Grid.GestureRecognizers>
-            </Grid>
-        </Frame>
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="Tạo"/>
+    </ContentPage.ToolbarItems>-->
+    <ScrollView>
+        <StackLayout>
+            <Frame
+                Margin="16,4">
+                <StackLayout
+                    Spacing="0"
+                    Margin="8">
+                    <control:EntryAction
+                        Placeholder="Copy Su vu"
+                        Command="{Binding CloneCommand}">
+                        <control:EntryAction.Text>
+                            <MultiBinding
+                                StringFormat="{}{0}{1}">
+                                <Binding
+                                    StringFormat="#{0} "
+                                    Path="TaskCloned.Id" />
+                                <Binding
+                                    Path="TaskCloned.Title" />
+                            </MultiBinding>
+                        </control:EntryAction.Text>
+                    </control:EntryAction>
 
-        <Frame
-            Margin="16,4"
-            Grid.Row="1">
+                    <Grid>
+                        <control:EntryAction
+                            Placeholder="Yêu Cầu"
+                            Text="{Binding Task.Target.Text}"
+                            Command="{Binding ChooseTargetCommand}" />
+
+                        <Entry
+                            Grid.Column="1"
+                            IsEnabled="False"
+                            Placeholder="Đối tượng" />
+                    </Grid>
+                    <Entry
+                        Placeholder="Mục đích" />
+                    <Editor
+                        AutoSize="TextChanges"
+                        Placeholder="Nội dung" />
+
+                    <Grid>
+                        <control:EntryAction
+                            Placeholder="Độ Ưu Tiên"
+                            Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}"
+                            Command="{Binding ChoosePriorityCommand}" />
+                        <control:EntryAction
+                            Grid.Column="1"
+                            Placeholder="Thời hạn"
+                            Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}"
+                            Command="{Binding ChooseDueDateCommand}" />
+                    </Grid>
+
+                    <control:EntryAction
+                        Placeholder="Sự vụ liên quan"
+                        Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
+                        Command="{Binding ReferenceTasksCommand}" />
+
+                </StackLayout>
+            </Frame>
+
+
+            <Label
+                Margin="16,0"
+                Grid.Row="1">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontFamily="{StaticResource FontMaterialdesign}"
+                            Text="{Static fontIcon:MaterialDesign.Attachment}"
+                            FontSize="24"
+                            TextColor="{StaticResource Primary}" />
+                        <Span
+                            FontSize="Body"
+                            TextColor="{StaticResource Description}"
+                            Text="Attach files" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
             <Grid
-                RowSpacing="0"
-                RowDefinitions="64,64,*,64,64"
-                Margin="8">
-                <control:EntryAction
-                    Grid.ColumnSpan="2"
-                    Placeholder="Yêu Cầu"
-                    Text="{Binding Task.Target.Text}"
-                    Command="{Binding ChooseTargetCommand}" />
-                <Entry
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    Placeholder="Mục đích" />
-                <Editor
-                    AutoSize="TextChanges"
-                    Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    Placeholder="Nội dung" />
-                <Entry
-                    IsEnabled="False"
-                    Grid.Row="3"
-                    Placeholder="Đối tượng" />
-                <control:EntryAction
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Placeholder="Độ Ưu Tiên"
-                    Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}"
-                    Command="{Binding ChoosePriorityCommand}" />
-                <control:EntryAction
-                    Grid.Row="4"
-                    Placeholder="Sự vụ liên quan"
-                    Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
-                    Command="{Binding ReferenceTasksCommand}"
-                    />
-                <control:EntryAction
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Placeholder="Thời hạn"
-                    Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}"
-                    Command="{Binding ChooseDueDateCommand}" />
-            </Grid>
-        </Frame>
+                HeightRequest="64"
+                Margin="16,0"
+                ColumnDefinitions="56,*">
 
 
-        <Label
-            Grid.Row="2">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span
-                        FontFamily="{StaticResource FontMaterialdesign}"
-                        Text="{Static fontIcon:MaterialDesign.ChevronRight}"
+                <sh:Shadows
+                    Margin="0,8,8,8"
+                    CornerRadius="6"
+                    Shades="{StaticResource ShadowPrimary}">
+                    <Button
                         FontSize="24"
-                        TextColor="{StaticResource Primary}" />
-                    <Span
-                        FontSize="Body"
-                        TextColor="{StaticResource Description}"
-                        Text="Attach files" />
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+                        Style="{StaticResource ButtonPrimary}"
+                        TextColor="{StaticResource Primary}"
+                        BackgroundColor="{StaticResource Foreground}"
+                        FontFamily="{StaticResource FontMaterialdesign}"
+                        Text="{Static fontIcon:MaterialDesign.Plus}"
+                        Command="{Binding AddFileCommand}" />
+                </sh:Shadows>
+                <CollectionView
+                    Grid.Column="1"
+                    ItemSizingStrategy="MeasureAllItems"
+                    ItemsSource="{Binding Files}"
+                    HeightRequest="44">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout
+                            Orientation="Horizontal" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Frame
+                                    Margin="8">
+                                    <Grid
+                                        ColumnSpacing="0"
+                                        ColumnDefinitions="40,120">
+                                        <Image
+                                            Margin="4"
+                                            HeightRequest="40"
+                                            WidthRequest="40"
+                                            Source="{Binding FullPath}" />
+                                        <Label
+                                            Margin="4,0"
+                                            Style="{StaticResource LabelDescription}"
+                                            Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            Text="{Binding FileName}" />
+                                        <!--<BoxView
+                                            Color="#000000"
+                                            Opacity="0.3"
+                                            Grid.ColumnSpan="2"
+                                            />-->
 
-        <Button
-            Grid.Row="3"
-            HeightRequest="44"
-            WidthRequest="44"
-            FontSize="24"
-            HorizontalOptions="Start"
-            Style="{StaticResource ButtonPrimary}"
-            TextColor="{StaticResource Description}"
-            BackgroundColor="{StaticResource Foreground}"
-            FontFamily="{StaticResource FontMaterialdesign}"
-            Text="{Static fontIcon:MaterialDesign.Plus}" />
+                                    </Grid>
 
-        <sh:Shadows
-            Grid.Row="5"
-            Margin="16,0"
-            CornerRadius="24"
-            VerticalOptions="Start"
-            Shades="{StaticResource ShadowPrimary}">
-            <Button
-                Text="Create"
-                Style="{StaticResource ButtonPrimary}">
-                <Button.Background>
-                    <LinearGradientBrush
-                        EndPoint="1,0">
-                        <GradientStop
-                            Color="{StaticResource Primary}"
-                            Offset="0.1" />
-                        <GradientStop
-                            Color="{StaticResource EndPrimary}"
-                            Offset="1.0" />
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-        </sh:Shadows>
-    </Grid>
+                                </Frame>
+                                <Label
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="End"
+                                    FontSize="20"
+                                    TextColor="{StaticResource Highest}"
+                                    FontFamily="{StaticResource FontMaterialdesign}"
+                                    Text="{Static fontIcon:MaterialDesign.DeleteCircle}" />
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={Reference root},Path=BindingContext.RemoveFileCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+
+
+
+            <sh:Shadows
+                Grid.Row="5"
+                Margin="16"
+                CornerRadius="24"
+                VerticalOptions="Start"
+                Shades="{StaticResource ShadowPrimary}">
+                <Button
+                    Text="Tạo Sự Vụ"
+                    Command="{Binding CreateCommand}"
+                    Style="{StaticResource ButtonPrimary}">
+                    <Button.Background>
+                        <LinearGradientBrush
+                            EndPoint="1,0">
+                            <GradientStop
+                                Color="{StaticResource Primary}"
+                                Offset="0.1" />
+                            <GradientStop
+                                Color="{StaticResource EndPrimary}"
+                                Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </sh:Shadows>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

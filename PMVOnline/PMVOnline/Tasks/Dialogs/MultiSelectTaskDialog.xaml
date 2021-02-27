@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Dialogs.MultiSelectTaskDialog"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    x:Name="root">
+    <Grid
+        RowSpacing="16"
+        RowDefinitions="64,*">
+        <Grid
+            Margin="16,0"
+            RowSpacing="0">
+
+
+            <StackLayout
+                Spacing="8"
+                Orientation="Horizontal"
+                HorizontalOptions="End"
+                Grid.Row="1"
+                Grid.RowSpan="2">
+                <Button
+                    Text="Hủy" 
+                    Style="{StaticResource ButtonPrimary}"
+                    BackgroundColor="{StaticResource Highest}"
+                    Command="{Binding CloseCommand}" />
+                <Button 
+                    Style="{StaticResource ButtonPrimary}"
+                    BackgroundColor="{StaticResource Normal}"
+                    Text="Xong"
+                    Command="{Binding CompleteCommand}" />
+            </StackLayout>
+        </Grid>
+
+        <CollectionView
+            Grid.Row="1"
+            SelectionMode="None"
+            ItemsSource="{Binding Tasks}"
+            ItemSizingStrategy="MeasureFirstItem">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        RowSpacing="0"
+                        RowDefinitions="12,18,72">
+                        <Frame
+                            Margin="12,6"
+                            Grid.Row="1"
+                            Grid.RowSpan="2">
+                            <Grid
+                                ColumnSpacing="6"
+                                RowSpacing="4"
+                                ColumnDefinitions="12,*">
+                                <BoxView 
+                                    CornerRadius="6,0,6,0">
+                                    <BoxView.Triggers>
+                                        <DataTrigger
+                                            TargetType="BoxView"
+                                            Binding="{Binding Task.Priority}"
+                                            Value="{Static model:TaskPriority.High}">
+                                            <Setter
+                                                Property="Color"
+                                                Value="{StaticResource High}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            TargetType="BoxView"
+                                            Binding="{Binding Task.Priority}"
+                                            Value="{Static model:TaskPriority.Highest}">
+                                            <Setter
+                                                Property="Color"
+                                                Value="{StaticResource Highest}" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            TargetType="BoxView"
+                                            Binding="{Binding Task.Priority}"
+                                            Value="{Static model:TaskPriority.Normal}">
+                                            <Setter
+                                                Property="Color"
+                                                Value="{StaticResource Normal}" />
+                                        </DataTrigger>
+                                    </BoxView.Triggers>
+                                </BoxView>
+                                <StackLayout
+                                    Spacing="4"
+                                    VerticalOptions="Center"
+                                    Grid.Column="1">
+                                    <Label
+                                        LineBreakMode="MiddleTruncation"
+                                        Style="{StaticResource LabelDescription}"
+                                        TextColor="{StaticResource Text}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding Task.Id,StringFormat='#{0}'}" />
+                                                <Span
+                                                    Text="   " />
+                                                <Span
+                                                    Text="{Binding Task.Title}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label
+                                        LineBreakMode="MiddleTruncation"
+                                        Style="{StaticResource LabelNormal}"
+                                        TextColor="{StaticResource Text}"  
+                                        Text="{Binding Task.Assignee}" /> 
+
+                                    <Label
+                                        Style="{StaticResource LabelDescription}"
+                                        Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                                </StackLayout>
+                                
+                                <Label
+                                    Grid.Column="1" 
+                                    Margin="0,0,8,0"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="End"
+                                    FontSize="20"
+                                    TextColor="{StaticResource Primary}"
+                                    FontFamily="{StaticResource FontMaterialdesign}"
+                                    Text="{Static fontIcon:MaterialDesign.CheckCircle}"
+                                    IsVisible="{Binding IsSelected}" />
+                            </Grid>
+
+                        </Frame>
+
+                        <Frame
+                            Margin="0,6,24,0"
+                            BackgroundColor="{StaticResource Primary}"
+                            HorizontalOptions="End"
+                            Grid.RowSpan="2">
+                            <Label
+                                Margin="8,0"
+                                FontSize="Small"
+                                TextColor="{StaticResource Foreground}"
+                                VerticalOptions="Center"
+                                Text="{Binding Task.Status}" />
+                        </Frame>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={Reference root},Path=BindingContext.SelectCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentView>

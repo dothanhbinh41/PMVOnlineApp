@@ -35,11 +35,11 @@
 	</style>
 	<style name="ToolbarColoredBackArrow"
 			 parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-		<item name="android:textColorPrimary">#292929</item>
-		<item name="actionMenuTextColor">#292929</item>
-		<item name="android:textColorSecondary">#292929</item>
+		<item name="android:textColorPrimary">#000</item>
+		<item name="actionMenuTextColor">#000</item>
+		<item name="android:textColorSecondary">#000</item>
 	</style>
 	<style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
 		<item name="colorAccent">@color/colorAccent</item>
-	</style>
+	</style> 
 </resources>

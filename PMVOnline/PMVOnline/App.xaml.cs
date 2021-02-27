@@ -137,7 +137,8 @@ namespace PMVOnline
         {
             containerRegistry.RegisterDialog<ChooseTargetDialog, ChooseTargetViewModel>();
             containerRegistry.RegisterDialog<ChoosePriorityDialog, ChoosePriorityViewModel>();
-            containerRegistry.RegisterDialog<SearchTaskDialog, SearchTaskViewModel>();
+            containerRegistry.RegisterDialog<MultiSelectTaskDialog, MultiSelectTaskViewModel>();
+            containerRegistry.RegisterDialog<SelectTaskDialog, SelectTaskViewModel>();
         }
 
         void RegisterService(IContainerRegistry containerRegistry)
@@ -168,7 +169,8 @@ namespace PMVOnline
     {
         public static readonly string ChooseTarget = $"{nameof(ChooseTargetDialog)}";
         public static readonly string ChoosePriority = $"{nameof(ChoosePriorityDialog)}";
-        public static readonly string SearchTask = $"{nameof(SearchTaskDialog)}";
+        public static readonly string MultiSelectTask = $"{nameof(MultiSelectTaskDialog)}";
+        public static readonly string SelectTask = $"{nameof(SelectTaskDialog)}";
     }
 
     public class NavigationKey
@@ -176,6 +178,7 @@ namespace PMVOnline
         public const string Priority = "Priority";
         public const string Target = "Target";
         public const string ReferenceTasks = "ReferenceTasks";
+        public const string CloneTask = "CloneTask";
         public const string MyTasks = "MyTasks";
     }
 }

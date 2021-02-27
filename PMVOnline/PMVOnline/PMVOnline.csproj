@@ -47,6 +47,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EdutalkResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Tasks\Dialogs\SelectTaskDialog.xaml.cs">
+      <DependentUpon>SelectTaskDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Tasks\Dialogs\MultiSelectTaskDialog.xaml.cs">
+      <DependentUpon>MultiSelectTaskDialog.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -90,7 +96,7 @@
     <EmbeddedResource Update="Tasks\Dialogs\ChooseTargetDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Tasks\Dialogs\SearchTaskDialog.xaml">
+    <EmbeddedResource Update="Tasks\Dialogs\MultiSelectTaskDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Tasks\Views\TaskPage.xaml">

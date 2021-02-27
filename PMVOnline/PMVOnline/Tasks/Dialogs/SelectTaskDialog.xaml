@@ -2,7 +2,7 @@
 <ContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="PMVOnline.Tasks.Dialogs.SearchTaskDialog"
+    x:Class="PMVOnline.Tasks.Dialogs.SelectTaskDialog"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     x:Name="root">
@@ -20,16 +20,16 @@
                 HorizontalOptions="End"
                 Grid.Row="1"
                 Grid.RowSpan="2">
-                <Button  
-                    Text="Hủy"
+                <Button
+                    Text="Hủy" 
                     Style="{StaticResource ButtonPrimary}"
                     BackgroundColor="{StaticResource Highest}"
                     Command="{Binding CloseCommand}" />
-                <Button
+                <!--<Button 
                     Style="{StaticResource ButtonPrimary}"
                     BackgroundColor="{StaticResource Normal}"
                     Text="Xong"
-                    Command="{Binding CompleteCommand}" />
+                    Command="{Binding CompleteCommand}" />-->
             </StackLayout>
         </Grid>
 

@@ -13,6 +13,7 @@
     BarBackgroundColor="{StaticResource Background}"
     SelectedTabColor="{StaticResource Primary}"
     UnselectedTabColor="{StaticResource Description}" 
+    NavigationPage.HasNavigationBar="False"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons">
     <!--Pages can be added as references or inline-->
     <home:HomePage

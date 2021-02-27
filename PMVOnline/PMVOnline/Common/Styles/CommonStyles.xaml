@@ -59,7 +59,12 @@
             Property="TextColor"
             Value="{StaticResource Text}" />
     </Style>
-
+    <Style 
+        TargetType="Button"> 
+        <Setter
+            Property="TextTransform"
+            Value="None" />
+    </Style>
     <Style
         x:Key="ButtonBase"
         TargetType="Button">
@@ -69,6 +74,9 @@
         <Setter
             Property="VerticalOptions"
             Value="Center" />
+        <Setter
+            Property="TextTransform"
+            Value="None" />
     </Style>
     <Style
         x:Key="ButtonPrimary"
