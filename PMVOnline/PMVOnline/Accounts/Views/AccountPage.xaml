@@ -22,8 +22,9 @@
                     HeightRequest="96"
                     Source="img_profile" />
             </Frame>
+            
             <Label
-                Style="{StaticResource LabelTitle}"
+                Style="{DynamicResource LabelTitle}"
                 Margin="0,0,0,16" 
                 HorizontalOptions="Center"
                 Text="{Binding User.FullName}"  />

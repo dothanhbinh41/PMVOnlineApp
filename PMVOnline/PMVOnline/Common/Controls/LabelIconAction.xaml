@@ -39,7 +39,7 @@
         <Label
             x:Name="txtText"
             Grid.Column="1"
-            FontSize="Body"
+            Style="{DynamicResource LabelNormal}"
             TextColor="{StaticResource Text}"
             VerticalOptions="Center"
             Text="{Binding Source={Reference root},Path=Text}" />
