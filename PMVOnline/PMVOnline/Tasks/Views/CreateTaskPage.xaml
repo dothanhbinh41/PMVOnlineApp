@@ -72,7 +72,7 @@
             <Label
                 Margin="16,8,16,0"
                 Grid.Row="1"
-                TextColor="{StaticResource Description}"
+                TextColor="{DynamicResource Description}"
                 Text="Tệp Đính Kèm" />
 
 
@@ -90,6 +90,7 @@
                         FontSize="24"
                         Style="{StaticResource ButtonPrimary}"
                         TextColor="{StaticResource Primary}"
+                        CornerRadius="{StaticResource Radius}"
                         BackgroundColor="{StaticResource Foreground}"
                         FontFamily="{StaticResource FontMaterialdesign}"
                         Text="{Static fontIcon:MaterialDesign.Plus}"
@@ -119,7 +120,7 @@
                                             Source="{Binding FullPath}" />
                                         <Label
                                             Margin="4,0"
-                                            Style="{StaticResource LabelDescription}"
+                                            Style="{DynamicResource LabelDescription}"
                                             Grid.Column="1"
                                             VerticalOptions="Center"
                                             Text="{Binding FileName}" />
@@ -162,7 +163,7 @@
                 <Button
                     Text="Tạo Sự Vụ"
                     Command="{Binding CreateCommand}"
-                    Style="{StaticResource ButtonPrimary}">
+                    Style="{DynamicResource ButtonPrimary}">
                     <Button.Background>
                         <LinearGradientBrush
                             EndPoint="1,0">

@@ -9,7 +9,7 @@
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     x:Name="root"
-    Title="Tạo Sự Vụ">
+    Title="{Binding Task.Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style
@@ -27,7 +27,8 @@
                 Spacing="0">
                 <Button
                     Margin="16,4"
-                    Style="{StaticResource ButtonPrimary}"
+                    CornerRadius="{StaticResource Radius}"
+                    Style="{DynamicResource ButtonPrimary}"
                     HorizontalOptions="Start"
                     BorderWidth="1"
                     HeightRequest="40">
@@ -38,7 +39,7 @@
                             Value="{Static model:TaskStatus.Pending}">
                             <Setter
                                 Property="Text"
-                                Value="Cho Duyet" />
+                                Value="Chờ duyệt" />
                             <Setter
                                 Property="BackgroundColor"
                                 Value="{StaticResource Primary}" />
@@ -49,7 +50,7 @@
                             Value="{Static model:TaskStatus.Waiting}">
                             <Setter
                                 Property="Text"
-                                Value="Cho Duyet" />
+                                Value="Chờ" />
                             <Setter
                                 Property="BackgroundColor"
                                 Value="{StaticResource Primary}" />
@@ -60,7 +61,7 @@
                             Value="{Static model:TaskStatus.Rejected}">
                             <Setter
                                 Property="Text"
-                                Value="Rejected" />
+                                Value="Từ chối" />
                             <Setter
                                 Property="BackgroundColor"
                                 Value="{StaticResource Highest}" />
@@ -118,8 +119,7 @@
                     Margin="16,8,16,4"
                     Grid.Row="1"
                     TextDecorations="Underline"
-                    FontAttributes="Bold"
-                    TextColor="{StaticResource Description}"
+                    TextColor="{DynamicResource Description}"
                     Text="Tệp Đính Kèm" />
 
 
@@ -146,7 +146,7 @@
                                         Source="{Binding FullPath}" />
                                     <Label
                                         Margin="4,0"
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelDescription}"
                                         Grid.Column="1"
                                         VerticalOptions="Center"
                                         Text="{Binding FileName}" />
@@ -162,9 +162,8 @@
 
                 <Label
                     Margin="16,8,16,4"
-                    TextDecorations="Underline"
-                    FontAttributes="Bold"
-                    TextColor="{StaticResource Description}"
+                    TextDecorations="Underline" 
+                    TextColor="{DynamicResource Description}"
                     Text="Comment" />
 
                 <StackLayout
@@ -180,17 +179,17 @@
                             <StackLayout
                                 Margin="0,4">
                                 <Label
-                                    Style="{StaticResource LabelNormal}"
+                                    Style="{DynamicResource LabelNormal}"
                                     TextColor="{StaticResource Text}"
                                     Text="{Binding Sender}" />
                                 <Label
-                                    Style="{StaticResource LabelDescription}"
+                                    Style="{DynamicResource LabelDescription}"
                                     Text="{Binding Date}" />
                                 <Frame
                                     BackgroundColor="#EEEEEE">
                                     <Label
                                         Margin="8,4"
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelDescription}"
                                         TextColor="{StaticResource Text}"
                                         Text="{Binding Content}" />
                                 </Frame>
@@ -215,7 +214,7 @@
                                                             Source="{Binding FullPath}" />
                                                         <Label
                                                             Margin="4,0"
-                                                            Style="{StaticResource LabelDescription}"
+                                                            Style="{DynamicResource LabelDescription}"
                                                             Grid.Column="1"
                                                             VerticalOptions="Center"
                                                             Text="{Binding FileName}" />
@@ -328,7 +327,7 @@
             <Button
                 Text="Tạo Sự Vụ"
                 Command="{Binding CreateCommand}"
-                Style="{StaticResource ButtonPrimary}">
+                Style="{DynamicResource ButtonPrimary}">
                 <Button.Background>
                     <LinearGradientBrush
                         EndPoint="1,0">

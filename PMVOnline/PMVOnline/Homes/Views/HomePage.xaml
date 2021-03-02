@@ -15,11 +15,11 @@
     </ContentPage.Resources>
     <Grid
         RowSpacing="0"
-        RowDefinitions="88,*">
+        RowDefinitions="80,*">
         <Grid
             Margin="16,0"
             RowSpacing="0"
-            RowDefinitions="48,*">
+            RowDefinitions="40,*">
             <Label
                 Style="{DynamicResource LabelNormal}"
                 VerticalOptions="End">
@@ -39,18 +39,19 @@
             </Label>
             <StackLayout
                 VerticalOptions="Center"
-                HeightRequest="16"
                 Grid.Row="1"
                 Orientation="Horizontal">
                 <BoxView
+                    HeightRequest="16"
                     WidthRequest="12"
                     CornerRadius="6"
                     Color="{StaticResource High}" />
-                <Label
+                <Label 
                     VerticalOptions="Center"
                     Style="{DynamicResource LabelDescription}"
                     Text="Rất gấp" />
                 <BoxView
+                    HeightRequest="16"
                     WidthRequest="12"
                     CornerRadius="6"
                     Color="{StaticResource Highest}" />
@@ -59,6 +60,7 @@
                     Style="{DynamicResource LabelDescription}"
                     Text="Gấp" />
                 <BoxView
+                    HeightRequest="16"
                     WidthRequest="12"
                     CornerRadius="6"
                     Color="{StaticResource Normal}" />

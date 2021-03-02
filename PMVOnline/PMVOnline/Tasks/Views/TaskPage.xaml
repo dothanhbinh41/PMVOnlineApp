@@ -62,7 +62,7 @@
                 Visual="Default"
                 BackgroundColor="Transparent"
                 FontSize="{DynamicResource FontSizeNormal}"
-                Text="Create New"
+                Text="Tạo sự vụ"
                 Command="{Binding CreateCommand}" />
         </StackLayout>
 
