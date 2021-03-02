@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Sharpnado.Shades;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace PMVOnline.Common.Controls
@@ -10,8 +12,8 @@ namespace PMVOnline.Common.Controls
     public class FloatingButton : Grid
     {
         ContentView FloatingBtn { set; get; }
-        private const int DEFAULT_PRIMARY_BUTTON = 56;
-        private const int DEFAULT_SPACING = 16;
+        int DEFAULT_PRIMARY_BUTTON = DeviceInfo.Platform == DevicePlatform.Android ? 48 : 48;
+        const int DEFAULT_SPACING = 16;
         double newHeight = 0;
         List<double> heights = new List<double>();
         List<int> margins = new List<int>();
@@ -64,32 +66,48 @@ namespace PMVOnline.Common.Controls
             RowSpacing = 0;
             ColumnSpacing = 0;
 
-            FloatingBtn = new Frame()
+            var sd = new Shadows
             {
+                CornerRadius = DEFAULT_PRIMARY_BUTTON / 2,
+                Shades = new List<Shade>
+                {
+                    new Shade
+                    {
+                        Color = (Color)Application.Current.Resources["EndPrimary"],
+                        Opacity = 0.7,
+                        BlurRadius = 6,
+                        Offset = new Point(0,5)
+                    }
+                },
                 HeightRequest = DEFAULT_PRIMARY_BUTTON,
                 WidthRequest = DEFAULT_PRIMARY_BUTTON,
                 Margin = DEFAULT_SPACING / 2,
-                CornerRadius = DEFAULT_PRIMARY_BUTTON / 2,
                 VerticalOptions = LayoutOptions.End,
-                Padding = 0,
-                BackgroundColor = (Color)Application.Current.Resources["Primary"]
             };
+            var frame = new Frame()
+            {
+                CornerRadius = DEFAULT_PRIMARY_BUTTON / 2,
+                Padding = 0,
+                BackgroundColor = (Color)Application.Current.Resources["EndPrimary"]
+            };
+            sd.Content = frame;
+            FloatingBtn = sd;
 
             Label Icons = new Label()
             {
-                FontSize = 24,
-                FontFamily = (OnPlatform<string>)Application.Current.Resources["FontMaterialdesign"],
+                FontSize = DEFAULT_PRIMARY_BUTTON / 2,
+                FontFamily = (string)Application.Current.Resources["FontMaterialdesign"],
                 Text = FontIcons.MaterialDesign.Plus,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center,
                 TextColor = Color.White
             };
 
-            FloatingBtn.Content = Icons;
+            frame.Content = Icons;
             TapGestureRecognizer tap = new TapGestureRecognizer();
             tap.Tapped += FloatinButtonTapped;
             FloatingBtn.GestureRecognizers.Add(tap);
-            Children.Add(FloatingBtn, 1, 0);
+            Children.Add(sd, 1, 0);
 
         }
 

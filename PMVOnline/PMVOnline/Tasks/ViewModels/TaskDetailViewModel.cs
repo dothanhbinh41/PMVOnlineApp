@@ -8,6 +8,7 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TaskDetailViewModel : ViewModelBase
     {
+        public bool IsFollowed { get; set; } = true;
         public TaskDetailModel Task { get; set; }
         public List<FileModel> Files { get; set; }
         public List<CommentModel> Comments { get; set; }

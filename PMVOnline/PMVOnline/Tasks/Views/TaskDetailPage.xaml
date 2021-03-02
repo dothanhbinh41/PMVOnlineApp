@@ -29,6 +29,7 @@
                     Margin="16,4"
                     Style="{StaticResource ButtonPrimary}"
                     HorizontalOptions="Start"
+                    BorderWidth="1"
                     HeightRequest="40">
                     <Button.Triggers>
                         <DataTrigger
@@ -230,7 +231,7 @@
                 </StackLayout>
             </StackLayout>
         </ScrollView>
-        <!--<control:FloatingButton
+        <control:FloatingButton
             x:Name="floating"
             HeightRequest="120"
             HorizontalOptions="End"
@@ -243,8 +244,7 @@
                     <control:FloatingButtonItemControl
                         Color="#9DC457"
                         IsVisible="true"
-                        Title="Re-Open"
-                        Command="{Binding StatisticsCommand}">
+                        Title="Mở lại">
                         <control:FloatingButtonItemControl.Icon>
                             <FontImageSource
                                 Color="{StaticResource Foreground}"
@@ -254,9 +254,21 @@
                         </control:FloatingButtonItemControl.Icon>
                     </control:FloatingButtonItemControl>
                     <control:FloatingButtonItemControl
+                        Color="#F45859"
+                        Title="Lịch sử"
+                        Command="{Binding ChangeClassCommand}">
+                        <control:FloatingButtonItemControl.Icon>
+                            <FontImageSource
+                                Color="{StaticResource Foreground}"
+                                FontFamily="{StaticResource FontMaterialdesign}"
+                                Size="16"
+                                Glyph="{Static fontIcon:MaterialDesign.History}" />
+                        </control:FloatingButtonItemControl.Icon>
+                    </control:FloatingButtonItemControl>
+                    <control:FloatingButtonItemControl
                         Color="#9CD7F9"
                         IsVisible="true"
-                        Title="Commend"
+                        Title="Bình luận"
                         Command="{Binding StatisticsCommand}">
                         <control:FloatingButtonItemControl.Icon>
                             <FontImageSource
@@ -267,25 +279,48 @@
                         </control:FloatingButtonItemControl.Icon>
                     </control:FloatingButtonItemControl>
                     <control:FloatingButtonItemControl
-                        Color="#F45859"
-                        IsVisible="{Binding IsStarted}"
-                        Title="Lich Su"
-                        Command="{Binding ChangeClassCommand}">
-                        <control:FloatingButtonItemControl.Icon>
-                            <FontImageSource
-                                Color="{StaticResource Foreground}"
-                                FontFamily="{StaticResource FontMaterialdesign}"
-                                Size="16"
-                                Glyph="{Static fontIcon:MaterialDesign.History}" />
-                        </control:FloatingButtonItemControl.Icon>
+                        Color="#FF3980"
+                        IsVisible="true" 
+                        Command="{Binding StatisticsCommand}"> 
+                        <control:FloatingButtonItemControl.Triggers>
+                            <DataTrigger
+                                TargetType="control:FloatingButtonItemControl"
+                                Binding="{Binding Source={RelativeSource Self},Path=Parent.Parent.BindingContext.IsFollowed}" Value="True">
+                                <Setter Property="Title" Value="Bỏ theo dõi"/>
+                                <Setter Property="Icon">
+                                    <FontImageSource
+                                        Color="{StaticResource Foreground}"
+                                        FontFamily="{StaticResource FontMaterialdesign}"
+                                        Size="16"
+                                        Glyph="{Static fontIcon:MaterialDesign.HeartBroken}" />
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger
+                                TargetType="control:FloatingButtonItemControl"
+                                Binding="{Binding Source={RelativeSource Self},Path=Parent.Parent.BindingContext.IsFollowed}"
+                                Value="False">
+                                <Setter
+                                    Property="Title"
+                                    Value="Theo dõi" />
+                                <Setter
+                                    Property="Icon">
+                                    <FontImageSource
+                                        Color="{StaticResource Foreground}"
+                                        FontFamily="{StaticResource FontMaterialdesign}"
+                                        Size="16"
+                                        Glyph="{Static fontIcon:MaterialDesign.Heart}" />
+                                </Setter>
+                            </DataTrigger>
+                        </control:FloatingButtonItemControl.Triggers>
                     </control:FloatingButtonItemControl>
+
                 </x:Array>
             </control:FloatingButton.Items>
-        </control:FloatingButton>-->
+        </control:FloatingButton>
 
         <sh:Shadows
             Grid.Row="1"
-            Margin="16,0"
+            Margin="16,0,80,0"
             CornerRadius="24"
             VerticalOptions="Start"
             Shades="{StaticResource ShadowPrimary}">

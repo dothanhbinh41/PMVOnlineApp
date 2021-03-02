@@ -32,6 +32,7 @@ using PMVOnline.Accounts.ViewModels;
 using PMVOnline.Tasks.Dialogs;
 using PMVOnline.Tasks.Views.Admins;
 using PMVOnline.Tasks.ViewModels.Admins;
+using PMVOnline.Common.Controls;
 
 namespace PMVOnline
 {
@@ -58,7 +59,8 @@ namespace PMVOnline
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            VersionTracking.Track(); 
+            VersionTracking.Track();
+            FloatingButtonItemControl x = new FloatingButtonItemControl();
             var result = await NavigationService.NavigateAsync(Routes.Home);
         }
 

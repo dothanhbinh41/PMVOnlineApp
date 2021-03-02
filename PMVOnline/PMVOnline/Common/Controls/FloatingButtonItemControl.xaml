@@ -3,9 +3,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PMVOnline.Common.Controls.FloatingButtonItemControl"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     x:Name="ItemFB">
-    <Grid
-        Margin="0,0,12,0"
+    <Grid 
+        Margin="0,0,8,0"
         ColumnSpacing="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition
@@ -27,36 +28,55 @@
             CornerRadius="4">
             <Label
                 x:Name="title"
-                Style="{StaticResource LabelSmall}"
+                Style="{StaticResource LabelDescription}"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 TextColor="White"
                 Text="{Binding Source={Reference ItemFB}, Path=Title}" />
         </Frame>
 
-        <Frame
+        <sh:Shadows 
+            x:Name="shadow"
             IsVisible="{Binding Source={Reference ItemFB}, Path=IsVisible}"
             Margin="4"
-            Grid.Column="1"
             HeightRequest="40"
             WidthRequest="40"
+            Grid.Column="1"
             CornerRadius="20"
-            Padding="0"
-            BackgroundColor="{Binding Source={Reference ItemFB}, Path=Color}"
             VerticalOptions="Center">
-            <Image
-                VerticalOptions="Center"
+            <Frame
                 HorizontalOptions="Center"
-                x:Name="ItemFloatingBtn"
-                HeightRequest="16"
-                WidthRequest="16">
-            </Image>
-        </Frame>
+                VerticalOptions="Center"
+                IsVisible="{Binding Source={Reference ItemFB}, Path=IsVisible}"
+                HeightRequest="40"
+                WidthRequest="40"
+                CornerRadius="20"
+                Padding="0"
+                BackgroundColor="{Binding Source={Reference ItemFB}, Path=Color}">
+                <Image
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    x:Name="ItemFloatingBtn"
+                    HeightRequest="16"
+                    WidthRequest="16">
+                </Image>
+            </Frame>
+            <sh:Shadows.Shades>
+                <x:Array
+                    Type="{x:Type sh:Shade}">
+                    <sh:Shade
+                        Opacity="0.7"
+                        Offset="0,3"
+                        BlurRadius="3"
+                        Color="{Binding Source={RelativeSource Self},Path=Parent.Parent.Parent.Color}" />
+                </x:Array>
+            </sh:Shadows.Shades>
+        </sh:Shadows>
         <Grid.GestureRecognizers>
             <TapGestureRecognizer
                 Tapped="TapGestureRecognizer_Tapped" />
         </Grid.GestureRecognizers>
-    </Grid> 
+    </Grid>
     <ContentView.GestureRecognizers>
         <TapGestureRecognizer
             Tapped="TapGestureRecognizer_Tapped" />

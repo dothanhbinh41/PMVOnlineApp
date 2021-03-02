@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sharpnado.Shades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace PMVOnline.Common.Controls
             get => (Color)GetValue(ColorProperty);
             set => SetValue(ColorProperty, value);
         }
-         
+
         public static readonly BindableProperty IconProperty = BindableProperty.Create(
             nameof(Icon),
             typeof(ImageSource),
@@ -99,7 +100,7 @@ namespace PMVOnline.Common.Controls
 
         public FloatingButtonItemControl()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         void TapGestureRecognizer_Tapped(System.Object sender, System.EventArgs e)
