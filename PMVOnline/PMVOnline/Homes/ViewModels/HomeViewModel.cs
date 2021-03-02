@@ -13,25 +13,24 @@ namespace PMVOnline.Homes.ViewModels
 {
     public class HomeViewModel : TabViewModelBase
     {
-        public List<HotTaskModel> Tasks { get; set; }
-         
+        public List<TaskActionModel> Actions { get; set; }
+
         readonly INavigationService navigationService;
         public HomeViewModel(INavigationService navigationService)
         {
-            Tasks = new List<HotTaskModel> {
-                new HotTaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High,Title="Mua vang"},
-                new HotTaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal,Title="Mua vang"},
-                new HotTaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest,Title="Mua vang"},
+            Actions = new List<TaskActionModel> {
+                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet", Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High,Title="Mua vang" } },
+                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet", Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal,Title="Mua vang" }},
+                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet", Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest,Title="Mua vang" }},
             };
             this.navigationService = navigationService;
         }
 
-        ICommand _CreateCommand;
-
-        public ICommand CreateCommand => _CreateCommand = _CreateCommand ?? new AsyncCommand(ExcuteCreateCommand);
-        async Task ExcuteCreateCommand()
+        ICommand _ViewDetailCommand;
+        public ICommand ViewDetailCommand => _ViewDetailCommand = _ViewDetailCommand ?? new AsyncCommand<TaskActionModel>(ExecuteViewDetailCommand);
+        async Task ExecuteViewDetailCommand(TaskActionModel task)
         {
-            await navigationService.NavigateAsync(Routes.CreateTask);
+            await navigationService.NavigateAsync(Routes.TaskDetail);
         } 
     }
 }

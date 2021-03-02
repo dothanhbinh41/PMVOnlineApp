@@ -22,7 +22,7 @@ namespace PMVOnline.Tasks.ViewModels.Admins
         readonly INavigationService navigationService;
         readonly IDialogService dialogService;
 
-        List<TaskBaseModel> myTasks;
+        List<TaskModel> myTasks;
         public ModerateTaskViewModel(
             INavigationService navigationService,
             IDialogService dialogService)
@@ -34,11 +34,11 @@ namespace PMVOnline.Tasks.ViewModels.Admins
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            myTasks = new List<TaskBaseModel>
+            myTasks = new List<TaskModel>
             {
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
+                new TaskModel{ Assignee = "Do THanh Binh",   DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
+                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
+                new TaskModel{ Assignee = "Do THanh Binh",   DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
             };
             Files = new List<FileModel>();
         }
@@ -56,7 +56,7 @@ namespace PMVOnline.Tasks.ViewModels.Admins
             var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, Task.ReferenceTasks }, { NavigationKey.MyTasks, myTasks } });
             if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
             {
-                Task.ReferenceTasks = param.Parameters.GetValue<List<TaskBaseModel>>(NavigationKey.ReferenceTasks).Select(d => d.Id).ToArray();
+                Task.ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).Select(d => d.Id).ToArray();
             }
         }
 

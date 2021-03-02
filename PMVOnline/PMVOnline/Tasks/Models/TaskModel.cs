@@ -5,23 +5,18 @@ using System.Text;
 
 namespace PMVOnline.Tasks.Models
 {
-    public class TaskBaseModel : ModelBase
+    public class TaskModel : ModelBase
     {
         public long Id { get; set; }
         public string Assignee { get; set; }
         public string Title { get; set; }
         public DateTime DueDate { get; set; }
         public TaskPriority Priority { get; set; }
+        public TaskStatus Status { get; set; }
     }
-    public class TaskModel : TaskBaseModel
-    {
-        public TaskStatus Status { get; set; } 
-        public string Action { get; set; }
-    }
-    
+     
 
     public class TaskDetailModel : CreateTaskModel
-    {
-        public TaskStatus Status { get; set; }
+    { 
     } 
 }

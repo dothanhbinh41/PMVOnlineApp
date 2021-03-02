@@ -21,8 +21,8 @@ namespace PMVOnline.Tasks.ViewModels
         public override void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);
-            var myTasks = parameters.GetValue<List<TaskBaseModel>>(NavigationKey.MyTasks) ?? new List<TaskBaseModel>();
-            var taskId = parameters.GetValue<TaskBaseModel>(NavigationKey.CloneTask) ?? new TaskBaseModel();
+            var myTasks = parameters.GetValue<List<TaskModel>>(NavigationKey.MyTasks) ?? new List<TaskModel>();
+            var taskId = parameters.GetValue<TaskModel>(NavigationKey.CloneTask) ?? new TaskModel();
             Tasks = myTasks.Select(d => new TaskReferenceModel { Task = d, IsSelected = taskId.Id == d.Id }).ToList();
         }
 

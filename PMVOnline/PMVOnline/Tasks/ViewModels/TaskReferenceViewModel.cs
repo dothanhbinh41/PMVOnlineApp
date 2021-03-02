@@ -13,25 +13,25 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TaskReferenceViewModel : ViewModelBase
     {
-        public List<TaskBaseModel> Tasks { set; get; }  
+        public List<TaskModel> Tasks { set; get; }  
         readonly INavigationService navigationService;
         readonly IDialogService dialogService;
-        List<TaskBaseModel> myTasks;
+        List<TaskModel> myTasks;
         public TaskReferenceViewModel(INavigationService navigationService, IDialogService dialogService)
         {
             this.navigationService = navigationService;
             this.dialogService = dialogService;
-            Tasks = new List<TaskBaseModel> { };
+            Tasks = new List<TaskModel> { };
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            myTasks = new List<TaskBaseModel>
+            myTasks = new List<TaskModel>
             {
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
+                new TaskModel{ Assignee = "Do THanh Binh",   DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
+                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
+                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
             };
         }
 
@@ -48,7 +48,7 @@ namespace PMVOnline.Tasks.ViewModels
             var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, Tasks }, { NavigationKey.MyTasks, myTasks } });
             if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
             {
-                Tasks = new List<TaskBaseModel>(param.Parameters.GetValue<List<TaskBaseModel>>(NavigationKey.ReferenceTasks));
+                Tasks = new List<TaskModel>(param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks));
             }
         }
     }

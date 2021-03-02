@@ -12,7 +12,7 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TaskReferenceModel : ModelBase
     {
-        public TaskBaseModel Task { get; set; }
+        public TaskModel Task { get; set; }
         public bool IsSelected { get; set; }
     }
 
@@ -27,7 +27,7 @@ namespace PMVOnline.Tasks.ViewModels
         public override void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);
-            var myTasks = parameters.GetValue<List<TaskBaseModel>>(NavigationKey.MyTasks) ?? new List<TaskBaseModel>();
+            var myTasks = parameters.GetValue<List<TaskModel>>(NavigationKey.MyTasks) ?? new List<TaskModel>();
             var tasks = parameters.GetValue<long[]>(NavigationKey.ReferenceTasks) ?? new long[0];
             Tasks = myTasks.Select(d => new TaskReferenceModel { Task = d, IsSelected = tasks.Any(c => c == d.Id) }).ToList();
         }

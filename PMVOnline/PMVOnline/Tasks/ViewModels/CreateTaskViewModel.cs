@@ -18,13 +18,13 @@ namespace PMVOnline.Tasks.ViewModels
     public class CreateTaskViewModel : ViewModelBase
     { 
         public CreateTaskModel Task { get; set; } = new CreateTaskModel();
-        public TaskBaseModel TaskCloned { get; set; }
+        public TaskModel TaskCloned { get; set; }
         public ObservableCollection<FileModel> Files { get; set; }
         readonly INavigationService navigationService;
         readonly IDialogService dialogService;
         readonly IDateTimeService dateTimeService;
 
-        List<TaskBaseModel> myTasks;
+        List<TaskModel> myTasks;
         public CreateTaskViewModel(
             INavigationService navigationService,
             IDialogService dialogService,
@@ -38,11 +38,11 @@ namespace PMVOnline.Tasks.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            myTasks = new List<TaskBaseModel>
+            myTasks = new List<TaskModel>
             {
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
-                new TaskModel{ Assignee = "Do THanh Binh", Action = "Phe Duyet", DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
+                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
+                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
+                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
             };
             Files = new ObservableCollection<FileModel>();
         }
@@ -53,7 +53,7 @@ namespace PMVOnline.Tasks.ViewModels
 
             if (parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.Back && parameters.ContainsKey(NavigationKey.ReferenceTasks))
             {
-                var t = parameters.GetValue<List<TaskBaseModel>>(NavigationKey.ReferenceTasks);
+                var t = parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks);
 
             }
 
@@ -100,7 +100,7 @@ namespace PMVOnline.Tasks.ViewModels
             var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, Task.ReferenceTasks }, { NavigationKey.MyTasks, myTasks } });
             if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
             {
-                Task.ReferenceTasks = param.Parameters.GetValue<List<TaskBaseModel>>(NavigationKey.ReferenceTasks).Select(d => d.Id).ToArray();
+                Task.ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).Select(d => d.Id).ToArray();
             }
         }
          
@@ -111,7 +111,7 @@ namespace PMVOnline.Tasks.ViewModels
             var param = await dialogService.ShowDialogAsync(DialogRoutes.SelectTask, new DialogParameters { { NavigationKey.CloneTask, TaskCloned }, { NavigationKey.MyTasks, myTasks } });
             if (param?.Parameters?.ContainsKey(NavigationKey.CloneTask) == true)
             {
-                TaskCloned = param.Parameters.GetValue<TaskBaseModel>(NavigationKey.CloneTask);
+                TaskCloned = param.Parameters.GetValue<TaskModel>(NavigationKey.CloneTask);
             }
         }
 

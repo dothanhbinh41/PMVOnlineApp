@@ -5,7 +5,8 @@
     x:Class="PMVOnline.Homes.Views.HomePage"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
-    xmlns:converter="clr-namespace:PMVOnline.Common.Converters">
+    xmlns:converter="clr-namespace:PMVOnline.Common.Converters"
+    x:Name="root">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:RemainingTimeConverter
@@ -15,23 +16,21 @@
     <Grid
         RowSpacing="0"
         RowDefinitions="88,*">
-        <Grid 
+        <Grid
             Margin="16,0"
             RowSpacing="0"
             RowDefinitions="48,*">
             <Label
+                Style="{DynamicResource LabelNormal}"
                 VerticalOptions="End">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
-                            FontSize="Body"
-                            Text="Hello"
-                            Style="{StaticResource LabelNormal}"
+                            Text="Xin chào"
                             TextColor="{StaticResource Text}" />
                         <Span
                             Text=" " />
                         <Span
-                            FontAttributes="Bold"
                             Style="{DynamicResource LabelTitle}"
                             TextColor="{StaticResource Primary}"
                             Text="Do Thanh Binh" />
@@ -50,7 +49,7 @@
                 <Label
                     VerticalOptions="Center"
                     Style="{DynamicResource LabelNormal}"
-                    Text="ASAP" />
+                    Text="Rất gấp" />
                 <BoxView
                     WidthRequest="12"
                     CornerRadius="6"
@@ -58,7 +57,7 @@
                 <Label
                     VerticalOptions="Center"
                     Style="{DynamicResource LabelNormal}"
-                    Text="Gap" />
+                    Text="Gấp" />
                 <BoxView
                     WidthRequest="12"
                     CornerRadius="6"
@@ -66,38 +65,16 @@
                 <Label
                     VerticalOptions="Center"
                     Style="{DynamicResource LabelNormal}"
-                    Text="BT" />
+                    Text="Bình thường" />
 
             </StackLayout>
-            <!--<StackLayout
-                Spacing="0"
-                Orientation="Horizontal"
-                HorizontalOptions="End"
-                VerticalOptions="End"
-                Grid.Row="1">
-                <Button
-                    Visual="Default"
-                    BackgroundColor="Transparent"
-                    Text="Create New"
-                    Command="{Binding CreateCommand}"
-                    />
-                <Button
-                    HeightRequest="44"
-                    WidthRequest="44"
-                    FontSize="24"
-                    BackgroundColor="{StaticResource Primary}"
-                    Style="{StaticResource ButtonPrimary}"
-                    FontFamily="{StaticResource FontMaterialdesign}"
-                    Text="{Static fontIcon:MaterialDesign.Plus}"
-                    Command="{Binding CreateCommand}" />
-            </StackLayout>-->
         </Grid>
 
         <CollectionView
             Grid.Row="1"
             SelectionMode="None"
             ItemSizingStrategy="MeasureFirstItem"
-            ItemsSource="{Binding Tasks}">
+            ItemsSource="{Binding Actions}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid
@@ -111,12 +88,12 @@
                                 ColumnSpacing="6"
                                 RowSpacing="4"
                                 ColumnDefinitions="12,*">
-                                <BoxView 
+                                <BoxView
                                     CornerRadius="6,0,6,0">
                                     <BoxView.Triggers>
                                         <DataTrigger
                                             TargetType="BoxView"
-                                            Binding="{Binding Priority}"
+                                            Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.High}">
                                             <Setter
                                                 Property="Color"
@@ -124,7 +101,7 @@
                                         </DataTrigger>
                                         <DataTrigger
                                             TargetType="BoxView"
-                                            Binding="{Binding Priority}"
+                                            Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.Highest}">
                                             <Setter
                                                 Property="Color"
@@ -132,7 +109,7 @@
                                         </DataTrigger>
                                         <DataTrigger
                                             TargetType="BoxView"
-                                            Binding="{Binding Priority}"
+                                            Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.Normal}">
                                             <Setter
                                                 Property="Color"
@@ -146,47 +123,45 @@
                                     Grid.Column="1">
                                     <Label
                                         LineBreakMode="MiddleTruncation"
-                                        Style="{DynamicResource LabelDescription}"
+                                        Style="{DynamicResource LabelNormal}"
                                         TextColor="{StaticResource Text}">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span
-                                                    Text="{Binding Id,StringFormat='#{0}'}" />
+                                                    Text="{Binding Task.Id,StringFormat='#{0}'}" />
                                                 <Span
                                                     Text="   " />
                                                 <Span
-                                                    Text="{Binding Title}" />
+                                                    Text="{Binding Task.Title}" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
                                     <Label
-                                        Style="{DynamicResource LabelNormal}"
+                                        Style="{DynamicResource LabelDescription}"
                                         LineBreakMode="MiddleTruncation">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span
-                                                    TextColor="{StaticResource Text}"
-                                                    FontAttributes="Bold"
-                                                    Text="{Binding Assignee}" />
+                                                    TextColor="{StaticResource Text}" 
+                                                    Text="{Binding User}" />
                                                 <Span
                                                     Text=" " />
                                                 <Span
-                                                    TextColor="{StaticResource Primary}" 
+                                                    TextColor="{StaticResource Primary}"
                                                     Text="{Binding Action}" />
                                             </FormattedString>
                                         </Label.FormattedText>
-                                    </Label>
-
+                                    </Label> 
                                     <Label
                                         Style="{DynamicResource LabelDescription}"
-                                        Text="{Binding DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                                        Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
 
                             </Grid>
                             <Frame.Triggers>
                                 <DataTrigger
                                     TargetType="Frame"
-                                    Binding="{Binding Priority}"
+                                    Binding="{Binding Task.Priority}"
                                     Value="{Static model:TaskPriority.High}">
                                     <Setter
                                         Property="BackgroundColor"
@@ -194,7 +169,7 @@
                                 </DataTrigger>
                                 <DataTrigger
                                     TargetType="Frame"
-                                    Binding="{Binding Priority}"
+                                    Binding="{Binding Task.Priority}"
                                     Value="{Static model:TaskPriority.Highest}">
                                     <Setter
                                         Property="BackgroundColor"
@@ -202,7 +177,7 @@
                                 </DataTrigger>
                                 <DataTrigger
                                     TargetType="Frame"
-                                    Binding="{Binding Priority}"
+                                    Binding="{Binding Task.Priority}"
                                     Value="{Static model:TaskPriority.Normal}">
                                     <Setter
                                         Property="BackgroundColor"
@@ -221,8 +196,13 @@
                                 Style="{DynamicResource LabelSmall}"
                                 TextColor="{StaticResource Foreground}"
                                 VerticalOptions="Center"
-                                Text="{Binding DueDate,Mode=OneWay,Converter={StaticResource RemainingTimeConverter}}" />
+                                Text="{Binding Task.DueDate,Mode=OneWay,Converter={StaticResource RemainingTimeConverter}}" />
                         </Frame>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={Reference root},Path=BindingContext.ViewDetailCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

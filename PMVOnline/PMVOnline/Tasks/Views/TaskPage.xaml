@@ -59,6 +59,7 @@
                     HeightRequest="44"
                     WidthRequest="44"
                     FontSize="24"
+                    CornerRadius="{StaticResource Radius}"
                     BackgroundColor="{StaticResource Primary}"
                     Style="{StaticResource ButtonPrimary}"
                     FontFamily="{StaticResource FontMaterialdesign}"
@@ -90,7 +91,7 @@
                                     <BoxView.Triggers>
                                         <DataTrigger
                                             TargetType="BoxView"
-                                            Binding="{Binding Priority}"
+                                            Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.High}">
                                             <Setter
                                                 Property="Color"
@@ -98,7 +99,7 @@
                                         </DataTrigger>
                                         <DataTrigger
                                             TargetType="BoxView"
-                                            Binding="{Binding Priority}"
+                                            Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.Highest}">
                                             <Setter
                                                 Property="Color"
@@ -106,7 +107,7 @@
                                         </DataTrigger>
                                         <DataTrigger
                                             TargetType="BoxView"
-                                            Binding="{Binding Priority}"
+                                            Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.Normal}">
                                             <Setter
                                                 Property="Color"
@@ -125,11 +126,11 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span
-                                                    Text="{Binding Id,StringFormat='#{0}'}" />
+                                                    Text="{Binding Task.Id,StringFormat='#{0}'}" />
                                                 <Span
                                                     Text="   " />
                                                 <Span
-                                                    Text="{Binding Title}" />
+                                                    Text="{Binding Task.Title}" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -141,7 +142,7 @@
                                                     TextColor="{StaticResource Text}"
                                                     FontSize="Body"
                                                     FontAttributes="Bold"
-                                                    Text="{Binding Assignee}" />
+                                                    Text="{Binding User}" />
                                                 <Span
                                                     Text=" " />
                                                 <Span
@@ -154,14 +155,14 @@
 
                                     <Label
                                         Style="{StaticResource LabelDescription}"
-                                        Text="{Binding DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                                        Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
 
                             </Grid>
                             <Frame.Triggers>
                                 <DataTrigger
                                     TargetType="Frame"
-                                    Binding="{Binding Priority}"
+                                    Binding="{Binding Task.Priority}"
                                     Value="{Static model:TaskPriority.High}">
                                     <Setter
                                         Property="BackgroundColor"
@@ -169,7 +170,7 @@
                                 </DataTrigger>
                                 <DataTrigger
                                     TargetType="Frame"
-                                    Binding="{Binding Priority}"
+                                    Binding="{Binding Task.Priority}"
                                     Value="{Static model:TaskPriority.Highest}">
                                     <Setter
                                         Property="BackgroundColor"
@@ -177,7 +178,7 @@
                                 </DataTrigger>
                                 <DataTrigger
                                     TargetType="Frame"
-                                    Binding="{Binding Priority}"
+                                    Binding="{Binding Task.Priority}"
                                     Value="{Static model:TaskPriority.Normal}">
                                     <Setter
                                         Property="BackgroundColor"
@@ -196,7 +197,7 @@
                                 FontSize="Small"
                                 TextColor="{StaticResource Foreground}"
                                 VerticalOptions="Center"
-                                Text="{Binding Status}" />
+                                Text="{Binding Task.Status}" />
                         </Frame>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer
