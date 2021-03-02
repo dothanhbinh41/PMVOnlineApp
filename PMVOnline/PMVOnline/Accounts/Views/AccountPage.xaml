@@ -48,7 +48,7 @@
                 Icon="{Static fontIcon:MaterialDesign.SearchWeb}"
                 IconAction="{Static fontIcon:MaterialDesign.ChevronRight}"
                 Color="{StaticResource Primary}"
-                Text="FontSize: Large"
+                Text="{Binding Fontsize,StringFormat='Fontsize : {0}'}"
                 Command="{Binding ChangeFontsizeCommand}" />
 
             <Grid

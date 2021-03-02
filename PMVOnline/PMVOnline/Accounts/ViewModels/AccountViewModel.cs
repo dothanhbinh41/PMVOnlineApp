@@ -19,19 +19,22 @@ namespace PMVOnline.Accounts.ViewModels
         public string Version => VersionTracking.CurrentVersion;
         public bool UserNotification { get; set; } = true;
         public UserModel User { get; set; }
-
+        public Fontsize Fontsize { get; set; }
         readonly INavigationService navigationService;
         readonly IApplicationSettings applicationSettings;
         readonly IOpenSettingService openSettingService;
+        private readonly IFontsizeService fontsizeService;
 
         public AccountViewModel(
             INavigationService navigationService, 
             IApplicationSettings applicationSettings,
-            IOpenSettingService openSettingService)
+            IOpenSettingService openSettingService,
+            IFontsizeService fontsizeService)
         {
             this.navigationService = navigationService;
             this.applicationSettings = applicationSettings;
             this.openSettingService = openSettingService;
+            this.fontsizeService = fontsizeService;
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -39,6 +42,7 @@ namespace PMVOnline.Accounts.ViewModels
             base.Initialize(parameters);
             User = applicationSettings.User;
             UserNotification = applicationSettings.UseNotification;
+            Fontsize = fontsizeService.CurrentSize;
         }
 
         ICommand _logoutCommand;
@@ -59,11 +63,8 @@ namespace PMVOnline.Accounts.ViewModels
         public ICommand ChangeFontsizeCommand => _ChangeFontsizeCommand = _ChangeFontsizeCommand ?? new Command(ExecuteChangeFontsizeCommand);
         void ExecuteChangeFontsizeCommand()
         {
-            openSettingService.OpenSetting();
-
-            Application.Current.Resources["FontSizeSmall"] = 14;
-            Application.Current.Resources["FontSizeNormal"] = 17;
-            Application.Current.Resources["FontSizeTitle"] = 20;
+            fontsizeService.ChangeFontsize(Fontsize.Large);
+            Fontsize = Fontsize.Large;
         }
 
         public void OnUserNotificationChanged()

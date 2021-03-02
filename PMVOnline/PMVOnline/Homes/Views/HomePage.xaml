@@ -26,12 +26,13 @@
                         <Span
                             FontSize="Body"
                             Text="Hello"
+                            Style="{StaticResource LabelNormal}"
                             TextColor="{StaticResource Text}" />
                         <Span
                             Text=" " />
                         <Span
                             FontAttributes="Bold"
-                            FontSize="Title"
+                            Style="{DynamicResource LabelTitle}"
                             TextColor="{StaticResource Primary}"
                             Text="Do Thanh Binh" />
                     </FormattedString>
@@ -56,7 +57,7 @@
                     Color="{StaticResource Highest}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
+                    Style="{DynamicResource LabelNormal}"
                     Text="Gap" />
                 <BoxView
                     WidthRequest="12"
@@ -64,7 +65,7 @@
                     Color="{StaticResource Normal}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
+                    Style="{DynamicResource LabelNormal}"
                     Text="BT" />
 
             </StackLayout>
@@ -145,7 +146,7 @@
                                     Grid.Column="1">
                                     <Label
                                         LineBreakMode="MiddleTruncation"
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelDescription}"
                                         TextColor="{StaticResource Text}">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -159,26 +160,25 @@
                                         </Label.FormattedText>
                                     </Label>
                                     <Label
+                                        Style="{DynamicResource LabelNormal}"
                                         LineBreakMode="MiddleTruncation">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span
                                                     TextColor="{StaticResource Text}"
-                                                    FontSize="Body"
                                                     FontAttributes="Bold"
                                                     Text="{Binding Assignee}" />
                                                 <Span
                                                     Text=" " />
                                                 <Span
-                                                    TextColor="{StaticResource Primary}"
-                                                    FontSize="Body"
+                                                    TextColor="{StaticResource Primary}" 
                                                     Text="{Binding Action}" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
 
                                     <Label
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelDescription}"
                                         Text="{Binding DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
 
@@ -218,7 +218,7 @@
                             Grid.RowSpan="2">
                             <Label
                                 Margin="8,0"
-                                FontSize="Small"
+                                Style="{DynamicResource LabelSmall}"
                                 TextColor="{StaticResource Foreground}"
                                 VerticalOptions="Center"
                                 Text="{Binding DueDate,Mode=OneWay,Converter={StaticResource RemainingTimeConverter}}" />
