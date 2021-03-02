@@ -30,7 +30,7 @@
             Value="Material" />
         <Setter
             Property="FontSize"
-            Value="Body" />
+            Value="{DynamicResource FontSizeNormal}" />
         <Setter
             Property="BackgroundColor"
             Value="Transparent" />
@@ -48,7 +48,7 @@
             Value="Material" />
         <Setter
             Property="FontSize"
-            Value="Body" />
+            Value="{DynamicResource FontSizeNormal}" />
         <Setter
             Property="BackgroundColor"
             Value="Transparent" />
@@ -77,6 +77,9 @@
         <Setter
             Property="TextTransform"
             Value="None" />
+        <Setter
+            Property="FontSize"
+            Value="{DynamicResource FontSizeNormal}" />
     </Style>
     <Style
         x:Key="ButtonPrimary"

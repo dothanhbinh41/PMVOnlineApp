@@ -7,13 +7,11 @@
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     x:Name="root">
     <Grid
-        RowSpacing="16"
-        RowDefinitions="64,*">
-        <Grid
-            Margin="16,0"
-            RowSpacing="0">
+        RowSpacing="0"
+        RowDefinitions="48,*">
 
-            <StackLayout
+
+        <!--<StackLayout
                 VerticalOptions="End"
                 HeightRequest="24"
                 Grid.Row="2"
@@ -24,7 +22,7 @@
                     Color="{StaticResource High}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
+                    Style="{DynamicResource LabelNormal}"
                     Text="ASAP" />
                 <BoxView
                     WidthRequest="12"
@@ -32,7 +30,7 @@
                     Color="{StaticResource Highest}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
+                    Style="{DynamicResource LabelNormal}"
                     Text="Gap" />
                 <BoxView
                     WidthRequest="12"
@@ -40,33 +38,34 @@
                     Color="{StaticResource Normal}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{StaticResource LabelNormal}"
+                    Style="{DynamicResource LabelNormal}"
                     Text="BT" />
 
-            </StackLayout>
-            <StackLayout
-                Spacing="0"
-                Orientation="Horizontal"
-                HorizontalOptions="End"
-                Grid.Row="1"
-                Grid.RowSpan="2">
-                <Button
-                    Visual="Default"
-                    BackgroundColor="Transparent"
-                    Text="Create New"
-                    Command="{Binding CreateCommand}" />
-                <Button
-                    HeightRequest="44"
-                    WidthRequest="44"
-                    FontSize="24"
-                    CornerRadius="{StaticResource Radius}"
-                    BackgroundColor="{StaticResource Primary}"
-                    Style="{StaticResource ButtonPrimary}"
-                    FontFamily="{StaticResource FontMaterialdesign}"
-                    Text="{Static fontIcon:MaterialDesign.Plus}"
-                    Command="{Binding CreateCommand}" />
-            </StackLayout>
-        </Grid>
+            </StackLayout>-->
+        <StackLayout
+            Margin="16,0"
+            Spacing="0"
+            Orientation="Horizontal"
+            HorizontalOptions="Start">
+
+            <Button
+                HeightRequest="44"
+                WidthRequest="44"
+                FontSize="24"
+                CornerRadius="{StaticResource Radius}"
+                BackgroundColor="{StaticResource Primary}"
+                Style="{DynamicResource ButtonPrimary}"
+                FontFamily="{StaticResource FontMaterialdesign}"
+                Text="{Static fontIcon:MaterialDesign.Plus}"
+                Command="{Binding CreateCommand}" />
+            <Button
+                Visual="Default"
+                BackgroundColor="Transparent"
+                FontSize="{DynamicResource FontSizeNormal}"
+                Text="Create New"
+                Command="{Binding CreateCommand}" />
+        </StackLayout>
+
 
         <CollectionView
             Grid.Row="1"
@@ -121,7 +120,7 @@
                                     Grid.Column="1">
                                     <Label
                                         LineBreakMode="MiddleTruncation"
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelNormal}"
                                         TextColor="{StaticResource Text}">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -135,26 +134,24 @@
                                         </Label.FormattedText>
                                     </Label>
                                     <Label
+                                        Style="{DynamicResource LabelDescription}"
                                         LineBreakMode="MiddleTruncation">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span
                                                     TextColor="{StaticResource Text}"
-                                                    FontSize="Body"
-                                                    FontAttributes="Bold"
                                                     Text="{Binding User}" />
                                                 <Span
                                                     Text=" " />
                                                 <Span
                                                     TextColor="{StaticResource Primary}"
-                                                    FontSize="Body"
                                                     Text="{Binding Action}" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
 
                                     <Label
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelDescription}"
                                         Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
 
@@ -194,7 +191,7 @@
                             Grid.RowSpan="2">
                             <Label
                                 Margin="8,0"
-                                FontSize="Small"
+                                Style="{DynamicResource LabelDescription}"
                                 TextColor="{StaticResource Foreground}"
                                 VerticalOptions="Center"
                                 Text="{Binding Task.Status}" />

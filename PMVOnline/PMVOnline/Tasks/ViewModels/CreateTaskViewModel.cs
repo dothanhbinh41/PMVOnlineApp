@@ -53,8 +53,7 @@ namespace PMVOnline.Tasks.ViewModels
 
             if (parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.Back && parameters.ContainsKey(NavigationKey.ReferenceTasks))
             {
-                var t = parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks);
-
+                var t = parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks); 
             }
 
 

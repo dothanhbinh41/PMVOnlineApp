@@ -32,14 +32,14 @@ namespace PMVOnline.Accounts.Services
                 //    break;
                 case Fontsize.Large:
                     Application.Current.Resources["FontSizeSmall"] = 16;
-                    Application.Current.Resources["FontSizeNormal"] = 18;
-                    Application.Current.Resources["FontSizeTitle"] = 21;
+                    Application.Current.Resources["FontSizeNormal"] = 19;
+                    Application.Current.Resources["FontSizeTitle"] = 22;
                     break;
                 case Fontsize.Normal:
                 default:
                     Application.Current.Resources["FontSizeSmall"] = 12;
-                    Application.Current.Resources["FontSizeNormal"] = 14;
-                    Application.Current.Resources["FontSizeTitle"] = 17;
+                    Application.Current.Resources["FontSizeNormal"] = 15;
+                    Application.Current.Resources["FontSizeTitle"] = 18;
                     break;
             }
             SaveSetting(font);

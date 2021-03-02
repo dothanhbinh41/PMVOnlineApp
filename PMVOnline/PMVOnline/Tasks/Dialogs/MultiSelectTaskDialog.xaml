@@ -21,12 +21,12 @@
                 Grid.Row="1"
                 Grid.RowSpan="2">
                 <Button
-                    Text="Hủy" 
-                    Style="{StaticResource ButtonPrimary}"
+                    Text="Hủy"
+                    Style="{DynamicResource ButtonPrimary}"
                     BackgroundColor="{StaticResource Highest}"
                     Command="{Binding CloseCommand}" />
-                <Button 
-                    Style="{StaticResource ButtonPrimary}"
+                <Button
+                    Style="{DynamicResource ButtonPrimary}"
                     BackgroundColor="{StaticResource Normal}"
                     Text="Xong"
                     Command="{Binding CompleteCommand}" />
@@ -86,12 +86,11 @@
                                     Grid.Column="1">
                                     <Label
                                         LineBreakMode="MiddleTruncation"
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelNormal}"
                                         TextColor="{StaticResource Text}">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span
-                                                    FontAttributes="Bold"
+                                                <Span 
                                                     Text="{Binding Task.Id,StringFormat='#{0}'}" />
                                                 <Span
                                                     Text="   " />
@@ -102,12 +101,12 @@
                                     </Label>
                                     <Label
                                         LineBreakMode="MiddleTruncation"
-                                        Style="{StaticResource LabelNormal}"
+                                        Style="{DynamicResource LabelDescription}"
                                         TextColor="{StaticResource Text}"  
                                         Text="{Binding Task.Assignee}" /> 
 
                                     <Label
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelDescription}"
                                         Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
                                 
@@ -132,7 +131,7 @@
                             Grid.RowSpan="2">
                             <Label
                                 Margin="8,0"
-                                FontSize="Small"
+                                Style="{DynamicResource LabelDescription}"
                                 TextColor="{StaticResource Foreground}"
                                 VerticalOptions="Center"
                                 Text="{Binding Task.Status}" />

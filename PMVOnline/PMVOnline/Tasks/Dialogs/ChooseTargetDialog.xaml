@@ -31,7 +31,7 @@
             <Label
                 Margin="0,12,0,0"
                 FontAttributes="Bold"
-                Style="{StaticResource LabelNormal}"
+                Style="{DynamicResource LabelNormal}"
                 TextColor="{StaticResource Primary}"
                 HorizontalOptions="Center"
                 VerticalOptions="Start"
@@ -46,7 +46,7 @@
                             HeightRequest="44"
                             > 
                             <Label
-                                Style="{StaticResource LabelNormal}"
+                                Style="{DynamicResource LabelNormal}"
                                 HorizontalTextAlignment="Center"
                                 VerticalOptions="Center" 
                                 Text="{Binding Text}" />

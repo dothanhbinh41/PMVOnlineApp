@@ -21,15 +21,10 @@
                 Grid.Row="1"
                 Grid.RowSpan="2">
                 <Button
-                    Text="Hủy" 
-                    Style="{StaticResource ButtonPrimary}"
+                    Text="Hủy"
+                    Style="{DynamicResource ButtonPrimary}"
                     BackgroundColor="{StaticResource Highest}"
                     Command="{Binding CloseCommand}" />
-                <!--<Button 
-                    Style="{StaticResource ButtonPrimary}"
-                    BackgroundColor="{StaticResource Normal}"
-                    Text="Xong"
-                    Command="{Binding CompleteCommand}" />-->
             </StackLayout>
         </Grid>
 
@@ -51,7 +46,7 @@
                                 ColumnSpacing="6"
                                 RowSpacing="4"
                                 ColumnDefinitions="12,*">
-                                <BoxView 
+                                <BoxView
                                     CornerRadius="6,0,6,0">
                                     <BoxView.Triggers>
                                         <DataTrigger
@@ -81,17 +76,16 @@
                                     </BoxView.Triggers>
                                 </BoxView>
                                 <StackLayout
-                                    Spacing="4"
+                                    Spacing="2"
                                     VerticalOptions="Center"
                                     Grid.Column="1">
                                     <Label
                                         LineBreakMode="MiddleTruncation"
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelNormal}"
                                         TextColor="{StaticResource Text}">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span
-                                                    FontAttributes="Bold"
                                                     Text="{Binding Task.Id,StringFormat='#{0}'}" />
                                                 <Span
                                                     Text="   " />
@@ -102,17 +96,17 @@
                                     </Label>
                                     <Label
                                         LineBreakMode="MiddleTruncation"
-                                        Style="{StaticResource LabelNormal}"
-                                        TextColor="{StaticResource Text}"  
-                                        Text="{Binding Task.Assignee}" /> 
+                                        Style="{DynamicResource LabelDescription}"
+                                        TextColor="{StaticResource Text}"
+                                        Text="{Binding Task.Assignee}" />
 
                                     <Label
-                                        Style="{StaticResource LabelDescription}"
+                                        Style="{DynamicResource LabelDescription}"
                                         Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
-                                
+
                                 <Label
-                                    Grid.Column="1" 
+                                    Grid.Column="1"
                                     Margin="0,0,8,0"
                                     VerticalOptions="Center"
                                     HorizontalOptions="End"
@@ -132,7 +126,7 @@
                             Grid.RowSpan="2">
                             <Label
                                 Margin="8,0"
-                                FontSize="Small"
+                                Style="{DynamicResource LabelDescription}"
                                 TextColor="{StaticResource Foreground}"
                                 VerticalOptions="Center"
                                 Text="{Binding Task.Status}" />

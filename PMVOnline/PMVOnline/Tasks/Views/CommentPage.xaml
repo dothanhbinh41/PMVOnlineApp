@@ -22,7 +22,7 @@
                 <Label
                     Margin="16,8,16,0"
                     Grid.Row="1"
-                    TextColor="{StaticResource Description}"
+                    Style="{DynamicResource LabelNormal}"
                     Text="Tệp Đính Kèm" />
 
 
@@ -38,6 +38,7 @@
                         Shades="{StaticResource ShadowPrimary}">
                         <Button
                             FontSize="24"
+                            CornerRadius="{StaticResource Radius}"
                             Style="{StaticResource ButtonPrimary}"
                             TextColor="{StaticResource Primary}"
                             BackgroundColor="{StaticResource Foreground}"
@@ -69,7 +70,7 @@
                                                 Source="{Binding FullPath}" />
                                             <Label
                                                 Margin="4,0"
-                                                Style="{StaticResource LabelDescription}"
+                                                Style="{DynamicResource LabelDescription}"
                                                 Grid.Column="1"
                                                 VerticalOptions="Center"
                                                 Text="{Binding FileName}" />
@@ -112,7 +113,7 @@
             <Button
                 Text="Gửi"
                 Command="{Binding CreateCommand}"
-                Style="{StaticResource ButtonPrimary}">
+                Style="{DynamicResource ButtonPrimary}">
                 <Button.Background>
                     <LinearGradientBrush
                         EndPoint="1,0">

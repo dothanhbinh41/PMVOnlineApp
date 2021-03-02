@@ -17,19 +17,17 @@
                         Margin="16,4">
                         <StackLayout Margin="12,8">
                             <Label
+                                Style="{StaticResource LabelNormal}"
                                 LineBreakMode="MiddleTruncation">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span
-                                            TextColor="{StaticResource Text}"
-                                            FontSize="Body"
-                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Text}" 
                                             Text="{Binding Assignee}" />
                                         <Span
                                             Text=" " />
                                         <Span
-                                            TextColor="{StaticResource Primary}"
-                                            FontSize="Body"
+                                            TextColor="{StaticResource Primary}" 
                                             Text="{Binding Action}" />
                                     </FormattedString>
                                 </Label.FormattedText>

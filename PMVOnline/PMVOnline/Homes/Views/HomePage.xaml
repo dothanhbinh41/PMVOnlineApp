@@ -39,7 +39,7 @@
             </Label>
             <StackLayout
                 VerticalOptions="Center"
-                HeightRequest="24"
+                HeightRequest="16"
                 Grid.Row="1"
                 Orientation="Horizontal">
                 <BoxView
@@ -48,7 +48,7 @@
                     Color="{StaticResource High}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{DynamicResource LabelNormal}"
+                    Style="{DynamicResource LabelDescription}"
                     Text="Rất gấp" />
                 <BoxView
                     WidthRequest="12"
@@ -56,7 +56,7 @@
                     Color="{StaticResource Highest}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{DynamicResource LabelNormal}"
+                    Style="{DynamicResource LabelDescription}"
                     Text="Gấp" />
                 <BoxView
                     WidthRequest="12"
@@ -64,7 +64,7 @@
                     Color="{StaticResource Normal}" />
                 <Label
                     VerticalOptions="Center"
-                    Style="{DynamicResource LabelNormal}"
+                    Style="{DynamicResource LabelDescription}"
                     Text="Bình thường" />
 
             </StackLayout>

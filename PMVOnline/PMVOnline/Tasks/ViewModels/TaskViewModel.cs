@@ -34,9 +34,7 @@ namespace PMVOnline.Tasks.ViewModels
         {
             await navigationService.NavigateAsync(Routes.CreateTask);
         }
-
-
-
+         
         ICommand _ViewDetailCommand;
         public ICommand ViewDetailCommand => _ViewDetailCommand = _ViewDetailCommand ?? new AsyncCommand<TaskActionModel>(ExecuteViewDetailCommand);
         async Task ExecuteViewDetailCommand(TaskActionModel task)
