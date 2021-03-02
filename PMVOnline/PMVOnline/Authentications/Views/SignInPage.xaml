@@ -21,7 +21,7 @@
                         <Span
                             TextColor="{StaticResource Text}"
                             FontSize="Title"
-                            Text="Welcome to" />
+                            Text="Chào mừng tới" />
                         <Span
                             TextColor="{StaticResource Primary}"
                             FontSize="Title"
@@ -32,7 +32,7 @@
             </Label>
             <Label
                 Style="{StaticResource LabelDescription}"
-                Text="Enter your registered email to continue login" />
+                Text="Điền Email để tiếp tục đăng nhập" />
         </StackLayout>
         <Frame
             Margin="16,0"
@@ -56,7 +56,7 @@
                     x:Name="txtPassword"
                     IsPassword="True"
                     BackgroundColor="White"
-                    Placeholder="Password" />
+                    Placeholder="Mật khẩu" />
                 <Button
                     Style="{StaticResource ButtonIconBase}"
                     WidthRequest="40"
@@ -75,7 +75,7 @@
             VerticalOptions="Start"
             Shades="{StaticResource ShadowPrimary}">
             <Button
-                Text="Login"
+                Text="Đăng nhập"
                 Style="{StaticResource ButtonPrimary}">
                 <Button.Background>
                     <LinearGradientBrush
@@ -97,7 +97,7 @@
             Grid.Row="3"
             FontSize="Small"
             TextColor="White"
-            Text="Forgot password?">
+            Text="Quên mật khẩu?">
             <Button.Background>
                 <LinearGradientBrush
                     EndPoint="1,0">

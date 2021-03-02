@@ -7,6 +7,7 @@ using System.Windows.Input;
 using PMVOnline.Common.Bases;
 using PMVOnline.Common.Services;
 using PMVOnline.Tasks.Models;
+using PMVOnline.Tasks.Services;
 using Prism.Navigation;
 using Prism.Services.Dialogs;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -16,49 +17,35 @@ using Xamarin.Forms;
 namespace PMVOnline.Tasks.ViewModels
 {
     public class CreateTaskViewModel : ViewModelBase
-    { 
+    {
         public CreateTaskModel Task { get; set; } = new CreateTaskModel();
         public TaskModel TaskCloned { get; set; }
         public ObservableCollection<FileModel> Files { get; set; }
+
         readonly INavigationService navigationService;
         readonly IDialogService dialogService;
         readonly IDateTimeService dateTimeService;
+        readonly ITaskService taskService;
 
         List<TaskModel> myTasks;
         public CreateTaskViewModel(
             INavigationService navigationService,
             IDialogService dialogService,
-            IDateTimeService dateTimeService)
+            IDateTimeService dateTimeService,
+            ITaskService taskService)
         {
             this.navigationService = navigationService;
             this.dialogService = dialogService;
             this.dateTimeService = dateTimeService;
+            this.taskService = taskService;
         }
 
-        public override void Initialize(INavigationParameters parameters)
+        public override async Task InitializeAsync(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
-            myTasks = new List<TaskModel>
-            {
-                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
-                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
-                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
-            };
             Files = new ObservableCollection<FileModel>();
+            myTasks = new List<TaskModel>(await taskService.GetMyLastTasksAsync());
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            if (parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.Back && parameters.ContainsKey(NavigationKey.ReferenceTasks))
-            {
-                var t = parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks); 
-            }
-
-
-        }
-         
         ICommand _ChooseTargetCommand;
         public ICommand ChooseTargetCommand => _ChooseTargetCommand = _ChooseTargetCommand ?? new AsyncCommand(ExecuteChooseTargetCommand);
         async Task ExecuteChooseTargetCommand()
@@ -67,6 +54,8 @@ namespace PMVOnline.Tasks.ViewModels
             if (result?.Parameters?.ContainsKey(NavigationKey.Target) == true)
             {
                 Task.Target = result.Parameters.GetValue<TargetModel>(NavigationKey.Target);
+                var assignee = await taskService.GetAssigneeAsync(Task.Target.Target);
+                Task.Assignee = assignee?.FullName;
             }
         }
 
@@ -102,7 +91,7 @@ namespace PMVOnline.Tasks.ViewModels
                 Task.ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).Select(d => d.Id).ToArray();
             }
         }
-         
+
         ICommand _CloneCommand;
         public ICommand CloneCommand => _CloneCommand = _CloneCommand ?? new AsyncCommand(ExecuteCloneCommand);
         async Task ExecuteCloneCommand()
@@ -127,18 +116,19 @@ namespace PMVOnline.Tasks.ViewModels
                 }
             }
         }
-         
+
         ICommand _RemoveFileCommand;
         public ICommand RemoveFileCommand => _RemoveFileCommand = _RemoveFileCommand ?? new Command<FileModel>(ExecuteRemoveFileCommand);
         void ExecuteRemoveFileCommand(FileModel file)
         {
             Files?.Remove(file);
         }
-         
+
         ICommand _CreateCommand;
         public ICommand CreateCommand => _CreateCommand = _CreateCommand ?? new AsyncCommand(ExecuteCreateCommand);
         async Task ExecuteCreateCommand()
         {
-        } 
+            var result = await taskService.CreateTaskAsync(Task);
+        }
     }
 }

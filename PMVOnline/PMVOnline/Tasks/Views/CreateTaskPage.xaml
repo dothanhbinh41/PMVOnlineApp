@@ -40,6 +40,7 @@
                         <Entry
                             Grid.Column="1"
                             IsEnabled="False"
+                            Text="{Binding Task.Assignee}"
                             Placeholder="Đối tượng" />
                     </Grid>
                     <Entry

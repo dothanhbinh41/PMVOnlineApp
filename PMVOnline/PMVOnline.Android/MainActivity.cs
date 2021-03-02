@@ -48,7 +48,6 @@ namespace PMVOnline.Droid
             public void RegisterTypes(IContainerRegistry containerRegistry)
             {
                 containerRegistry.Register<IDateTimeService, DateTimeService>();
-                containerRegistry.Register<IOpenSettingService, OpenSettingService>();
             }
         }
     }

@@ -7,6 +7,7 @@ using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PMVOnline.Common.Bases
 {
@@ -14,7 +15,7 @@ namespace PMVOnline.Common.Bases
     {
     }
 
-    public class ViewModelBase : ModelBase, INavigationAware, IPageLifecycleAware, IInitialize, IDestructible
+    public class ViewModelBase : ModelBase, INavigationAware, IPageLifecycleAware, IInitialize, IDestructible, IInitializeAsync
     {
         public bool IsBusy { get; set; }
 
@@ -52,6 +53,11 @@ namespace PMVOnline.Common.Bases
             {
                 UserDialogs.Instance.HideLoading();
             }
+        }
+
+        public virtual Task InitializeAsync(INavigationParameters parameters)
+        {
+            return Task.CompletedTask;
         }
     }
 
