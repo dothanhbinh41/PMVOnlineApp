@@ -138,6 +138,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<TaskReferencePage, TaskReferenceViewModel>();
             containerRegistry.RegisterForNavigation<ModerateTaskPage, ModerateTaskViewModel>();
             containerRegistry.RegisterForNavigation<TaskDetailPage, TaskDetailViewModel>();
+            containerRegistry.RegisterForNavigation<CommentPage, CommentViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -172,6 +173,7 @@ namespace PMVOnline
         public static readonly Uri TaskReference = new Uri($"{nameof(TaskReferencePage)}", UriKind.Relative);
         public static readonly Uri ModerateTask = new Uri($"{nameof(ModerateTaskPage)}", UriKind.Relative);
         public static readonly Uri TaskDetail = new Uri($"{nameof(TaskDetailPage)}", UriKind.Relative);
+        public static readonly Uri Comment = new Uri($"{nameof(CommentPage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

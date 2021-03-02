@@ -87,7 +87,7 @@
             Value="{StaticResource Foreground}" />
         <Setter
             Property="CornerRadius"
-            Value="{StaticResource Radius}" />
+            Value="{StaticResource ButtonRadius}" />
     </Style>
     <Style
         x:Key="ButtonIconBase"

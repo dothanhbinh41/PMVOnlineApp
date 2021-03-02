@@ -269,7 +269,7 @@
                         Color="#9CD7F9"
                         IsVisible="true"
                         Title="Bình luận"
-                        Command="{Binding StatisticsCommand}">
+                        Command="{Binding CommentCommand}">
                         <control:FloatingButtonItemControl.Icon>
                             <FontImageSource
                                 Color="{StaticResource Foreground}"

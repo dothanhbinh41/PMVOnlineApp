@@ -20,9 +20,10 @@
             </ResourceDictionary.MergedDictionaries>
             <sh:SingleShade
                 x:Key="ShadowPrimary"
-                Opacity="0.3"
-                Offset="0,6"
-                Color="{StaticResource Primary}" />
+                Opacity="0.5"
+                Offset="0,5"
+                BlurRadius="3"
+                Color="{StaticResource EndPrimary}" />
         </ResourceDictionary>
     </prism:PrismApplication.Resources>
 </prism:PrismApplication>
