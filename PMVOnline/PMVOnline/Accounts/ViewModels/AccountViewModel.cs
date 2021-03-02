@@ -63,8 +63,17 @@ namespace PMVOnline.Accounts.ViewModels
         public ICommand ChangeFontsizeCommand => _ChangeFontsizeCommand = _ChangeFontsizeCommand ?? new Command(ExecuteChangeFontsizeCommand);
         void ExecuteChangeFontsizeCommand()
         {
-            fontsizeService.ChangeFontsize(Fontsize.Large);
-            Fontsize = Fontsize.Large;
+            switch (Fontsize)
+            { 
+                case Fontsize.Large: 
+                    fontsizeService.ChangeFontsize(Fontsize.Normal);
+                    break;
+                case Fontsize.Normal:
+                default: 
+                    fontsizeService.ChangeFontsize(Fontsize.Large);
+                    break;
+            } 
+            Fontsize = fontsizeService.CurrentSize;
         }
 
         public void OnUserNotificationChanged()

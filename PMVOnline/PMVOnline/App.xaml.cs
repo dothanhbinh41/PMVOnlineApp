@@ -34,6 +34,7 @@ using PMVOnline.Tasks.Views.Admins;
 using PMVOnline.Tasks.ViewModels.Admins;
 using PMVOnline.Common.Controls;
 using PMVOnline.Accounts.Services;
+using DryIoc;
 
 namespace PMVOnline
 {
@@ -61,42 +62,41 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            FloatingButtonItemControl x = new FloatingButtonItemControl();
-            var result = await NavigationService.NavigateAsync(Routes.Home);
+            await NavigationService.NavigateAsync(Routes.Home);
         }
 
         protected override void OnStart()
         {
             AppCenter.Start("android=ff9085a0-5b3d-427f-8003-4005cfef9339;ios=7a5ae654-4193-4e5e-9525-663f5ededef0", typeof(Analytics), typeof(Crashes));
-
-            Initialize();
+            Container.Resolve<IFontsizeService>().Init();
+            //await Initialize();
         }
 
         async Task Initialize()
         {
-            var token = await CrossFirebasePushNotification.Current.GetTokenAsync();
+            //var token = await CrossFirebasePushNotification.Current.GetTokenAsync();
 
-            CrossFirebasePushNotification.Current.Subscribe("general");
-            CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
-            {
+            //CrossFirebasePushNotification.Current.Subscribe("general");
+            //CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
+            //{
 
-            };
+            //};
 
-            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
-            {
-            };
+            //CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
+            //{
+            //};
 
-            CrossFirebasePushNotification.Current.OnNotificationOpened += (s, p) =>
-            {
-            };
+            //CrossFirebasePushNotification.Current.OnNotificationOpened += (s, p) =>
+            //{
+            //};
 
-            CrossFirebasePushNotification.Current.OnNotificationAction += (s, p) =>
-            {
-            };
+            //CrossFirebasePushNotification.Current.OnNotificationAction += (s, p) =>
+            //{
+            //};
 
-            CrossFirebasePushNotification.Current.OnNotificationDeleted += (s, p) =>
-            {
-            };
+            //CrossFirebasePushNotification.Current.OnNotificationDeleted += (s, p) =>
+            //{
+            //};
         }
 
         protected override void OnSleep()
