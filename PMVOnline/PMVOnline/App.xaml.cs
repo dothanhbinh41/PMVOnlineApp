@@ -140,6 +140,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<ModerateTaskPage, ModerateTaskViewModel>();
             containerRegistry.RegisterForNavigation<TaskDetailPage, TaskDetailViewModel>();
             containerRegistry.RegisterForNavigation<CommentPage, CommentViewModel>();
+            containerRegistry.RegisterForNavigation<HistoryPage, HistoryViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -152,7 +153,7 @@ namespace PMVOnline
         void RegisterService(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterInstance<IResourceManagerProvider>(this);
-            containerRegistry.Register<IApplicationSettings, ApplicationSettings>(); 
+            containerRegistry.Register<IApplicationSettings, ApplicationSettings>();
             containerRegistry.Register<IFontsizeService, FontsizeService>();
         }
         void RegisterExternalService(IContainerRegistry containerRegistry)
@@ -176,6 +177,7 @@ namespace PMVOnline
         public static readonly Uri ModerateTask = new Uri($"{nameof(ModerateTaskPage)}", UriKind.Relative);
         public static readonly Uri TaskDetail = new Uri($"{nameof(TaskDetailPage)}", UriKind.Relative);
         public static readonly Uri Comment = new Uri($"{nameof(CommentPage)}", UriKind.Relative);
+        public static readonly Uri History = new Uri($"{nameof(HistoryPage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

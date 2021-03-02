@@ -244,6 +244,7 @@
                     <control:FloatingButtonItemControl
                         Color="#9DC457"
                         IsVisible="true"
+                        Command="{Binding ReOpenCommand}"
                         Title="Mở lại">
                         <control:FloatingButtonItemControl.Icon>
                             <FontImageSource
@@ -256,7 +257,7 @@
                     <control:FloatingButtonItemControl
                         Color="#F45859"
                         Title="Lịch sử"
-                        Command="{Binding ChangeClassCommand}">
+                        Command="{Binding HistoryCommand}">
                         <control:FloatingButtonItemControl.Icon>
                             <FontImageSource
                                 Color="{StaticResource Foreground}"
@@ -281,7 +282,7 @@
                     <control:FloatingButtonItemControl
                         Color="#FF3980"
                         IsVisible="true" 
-                        Command="{Binding StatisticsCommand}"> 
+                        Command="{Binding FollowCommand}"> 
                         <control:FloatingButtonItemControl.Triggers>
                             <DataTrigger
                                 TargetType="control:FloatingButtonItemControl"

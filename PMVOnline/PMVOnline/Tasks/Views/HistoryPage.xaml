@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Views.HistoryPage"
+    BackgroundColor="{StaticResource Background}"
+    Title="Lich Su">
+    <ListView
+        ItemsSource="{Binding Histories}"
+        SeparatorVisibility="None"
+        SelectionMode="None"
+        HasUnevenRows="True">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Frame
+                        Margin="16,4">
+                        <StackLayout Margin="12,8">
+                            <Label
+                                LineBreakMode="MiddleTruncation">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span
+                                            TextColor="{StaticResource Text}"
+                                            FontSize="Body"
+                                            FontAttributes="Bold"
+                                            Text="{Binding Assignee}" />
+                                        <Span
+                                            Text=" " />
+                                        <Span
+                                            TextColor="{StaticResource Primary}"
+                                            FontSize="Body"
+                                            Text="{Binding Action}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label
+                                Style="{StaticResource LabelDescription}"
+                                Text="{Binding Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                        </StackLayout>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

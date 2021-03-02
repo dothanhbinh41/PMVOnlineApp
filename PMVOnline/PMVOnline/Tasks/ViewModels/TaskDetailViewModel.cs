@@ -70,6 +70,26 @@ namespace PMVOnline.Tasks.ViewModels
         {
             await navigationService.NavigateAsync(Routes.Comment);
         }
+         
+        ICommand _HistoryCommand;
+        public ICommand HistoryCommand => _HistoryCommand = _HistoryCommand ?? new AsyncCommand(ExecuteHistoryCommand);
+        async Task ExecuteHistoryCommand()
+        {
+            await navigationService.NavigateAsync(Routes.History);
+        }
+         
+        ICommand _FollowCommand;
+        public ICommand FollowCommand => _FollowCommand = _FollowCommand ?? new AsyncCommand(ExecuteFollowCommand);
+        async Task ExecuteFollowCommand()
+        {
+            IsFollowed = !IsFollowed;
+        }
+         
 
+        ICommand _ReOpenCommand;
+        public ICommand ReOpenCommand => _ReOpenCommand = _ReOpenCommand ?? new AsyncCommand(ExecuteReOpenCommand);
+        async Task ExecuteReOpenCommand()
+        {
+        } 
     }
 }
