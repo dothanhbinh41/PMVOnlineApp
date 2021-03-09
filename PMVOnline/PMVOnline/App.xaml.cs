@@ -36,6 +36,7 @@ using PMVOnline.Common.Controls;
 using PMVOnline.Accounts.Services;
 using DryIoc;
 using PMVOnline.Tasks.Services;
+using PMVOnline.Authentications.Services;
 
 namespace PMVOnline
 {
@@ -157,6 +158,7 @@ namespace PMVOnline
             containerRegistry.Register<IApplicationSettings, ApplicationSettings>();
             containerRegistry.Register<IFontsizeService, FontsizeService>();
             containerRegistry.Register<ITaskService, TaskService>();
+            containerRegistry.Register<IAuthenticationSerivce, AuthenticationSerivce>();
         }
         void RegisterExternalService(IContainerRegistry containerRegistry)
         {

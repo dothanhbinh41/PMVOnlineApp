@@ -27,7 +27,7 @@ namespace PMVOnline.Api
 
         public ApiProvider()
         {
-            Api = RestService.For<T>(ApiBase.ServerApi, RefitSetting.CamelCaseNaming);
+            Api = RestService.For<T>(ApiBase.ServerApi, RefitSetting.SnakeCaseNaming);
         }
     }
 
@@ -42,7 +42,7 @@ namespace PMVOnline.Api
 
         public AuthApiProvider(IAuthHeaderManager authHeader)
         {
-            Api = RestService.For<T>(new HttpClient(new AuthenticatedHttpClientHandler(() => authHeader.GetBearerToken())) { BaseAddress = new Uri(ApiBase.ServerApi) }, RefitSetting.CamelCaseNaming);
+            Api = RestService.For<T>(new HttpClient(new AuthenticatedHttpClientHandler(() => authHeader.GetBearerToken())) { BaseAddress = new Uri(ApiBase.ServerApi) }, RefitSetting.SnakeCaseNaming);
         }
 
         public AuthApiProvider() : this((Application.Current as PrismApplication).Container.Resolve<IAuthHeaderManager>())

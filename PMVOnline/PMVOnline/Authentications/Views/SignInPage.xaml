@@ -44,7 +44,8 @@
                 <Entry
                     Keyboard="Email"
                     BackgroundColor="White"
-                    Placeholder="Email" />
+                    Text="{Binding Username}"
+                    Placeholder="Username" />
                 <Button
                     Style="{StaticResource ButtonIconBase}"
                     WidthRequest="40"
@@ -56,6 +57,7 @@
                     x:Name="txtPassword"
                     IsPassword="True"
                     BackgroundColor="White"
+                    Text="{Binding Password}"
                     Placeholder="Mật khẩu" />
                 <Button
                     Style="{StaticResource ButtonIconBase}"
@@ -72,10 +74,11 @@
             Grid.Row="2"
             Margin="16"
             CornerRadius="24"
-            VerticalOptions="Start"
+            VerticalOptions="Start" 
             Shades="{StaticResource ShadowPrimary}">
             <Button
                 Text="Đăng nhập"
+                Command="{Binding SignInCommand}"
                 Style="{StaticResource ButtonPrimary}">
                 <Button.Background>
                     <LinearGradientBrush
@@ -97,6 +100,7 @@
             Grid.Row="3"
             FontSize="Small"
             TextColor="White"
+            Command="{Binding LostPasswordCommand}"
             Text="Quên mật khẩu?">
             <Button.Background>
                 <LinearGradientBrush
