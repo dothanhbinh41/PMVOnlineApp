@@ -59,6 +59,11 @@ namespace PMVOnline.Common.Bases
         {
             return Task.CompletedTask;
         }
+
+        public virtual void Toast(string text)
+        {
+            UserDialogs.Instance.Toast(text);
+        }
     }
 
     public class TabViewModelBase : ViewModelBase, IActiveAware

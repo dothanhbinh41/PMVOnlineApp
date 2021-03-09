@@ -23,7 +23,7 @@ namespace PMVOnline.Tasks.Services
 
         public Task<UserModel> GetAssigneeAsync(TaskTarget target)
         {
-            return Task.FromResult(new UserModel { FullName = "Do Thanh" });
+            return Task.FromResult(new UserModel { Name = "Do Thanh" });
         }
 
         public Task<TaskModel[]> GetMyLastTasksAsync()

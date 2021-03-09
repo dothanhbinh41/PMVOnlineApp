@@ -64,7 +64,7 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            await NavigationService.NavigateAsync(Routes.Home);
+            await NavigationService.NavigateAsync(Routes.SignIn);
         }
 
         protected override void OnStart()
@@ -159,6 +159,7 @@ namespace PMVOnline
             containerRegistry.Register<IFontsizeService, FontsizeService>();
             containerRegistry.Register<ITaskService, TaskService>();
             containerRegistry.Register<IAuthenticationSerivce, AuthenticationSerivce>();
+            containerRegistry.Register<IAccountService, AccountService>();
         }
         void RegisterExternalService(IContainerRegistry containerRegistry)
         {

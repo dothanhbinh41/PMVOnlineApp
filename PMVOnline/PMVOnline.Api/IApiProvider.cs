@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using PMVOnline.Api;
 using PMVOnline.Api.Authorization;
 using PMVOnline.Api.Extensions;
@@ -13,7 +14,7 @@ namespace PMVOnline.Api
 {
     public interface IApiProvider<T>
     {
-        T Api { get; }
+        T Api { get; } 
     }
 
     public abstract class ApiProvider<T> : IApiProvider<T>
@@ -22,13 +23,13 @@ namespace PMVOnline.Api
 
         public ApiProvider(RefitSettings setting)
         {
-            Api = RestService.For<T>(ApiBase.ServerApi, setting);
+            Api = RestService.For<T>(new HttpClient(new HttpTracer.HttpTracerHandler()) { BaseAddress = new Uri(ApiBase.ServerApi) }, setting);
         }
 
         public ApiProvider()
         {
-            Api = RestService.For<T>(ApiBase.ServerApi, RefitSetting.SnakeCaseNaming);
-        }
+            Api = RestService.For<T>(new HttpClient(new HttpTracer.HttpTracerHandler()) { BaseAddress = new Uri(ApiBase.ServerApi) }, RefitSetting.SnakeCaseNaming);
+        } 
     }
 
     public class AuthApiProvider<T> : IApiProvider<T>

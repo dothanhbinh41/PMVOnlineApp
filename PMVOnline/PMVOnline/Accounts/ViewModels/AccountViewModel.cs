@@ -21,19 +21,16 @@ namespace PMVOnline.Accounts.ViewModels
         public UserModel User { get; set; }
         public Fontsize Fontsize { get; set; }
         readonly INavigationService navigationService;
-        readonly IApplicationSettings applicationSettings;
-        readonly IOpenSettingService openSettingService;
+        readonly IApplicationSettings applicationSettings; 
         private readonly IFontsizeService fontsizeService;
 
         public AccountViewModel(
             INavigationService navigationService, 
-            IApplicationSettings applicationSettings,
-            IOpenSettingService openSettingService,
+            IApplicationSettings applicationSettings, 
             IFontsizeService fontsizeService)
         {
             this.navigationService = navigationService;
-            this.applicationSettings = applicationSettings;
-            this.openSettingService = openSettingService;
+            this.applicationSettings = applicationSettings; 
             this.fontsizeService = fontsizeService;
         }
 

@@ -10,6 +10,8 @@ namespace PMVOnline.Authentications.Services
     public interface IAuthenticationSerivce
     {
         Task<bool> SignInAsync(string userName, string password);
+        Task<bool> IsAuthenticated();
+        Task SignOut();
     }
 
     public class AuthenticationSerivce : ApiProvider<AppApi>, IAuthenticationSerivce
@@ -24,12 +26,22 @@ namespace PMVOnline.Authentications.Services
         public async Task<bool> SignInAsync(string userName, string password)
         {
             var result = await Api.ConnectToken(new PMVOnline.Api.Dtos.Authorizations.ConnectTokenRequestDto { Username = userName, Password = password });
-            if (string.IsNullOrEmpty(result?.AccessToken))
+            if (string.IsNullOrEmpty(result.Content?.AccessToken))
             {
                 return false;
             }
 
-            return await authHeader.SetAuthHeaderAsync<object>(new Token { AccessToken = result.AccessToken, RefreshToken = result.RefreshToken });
+            return await authHeader.SetAuthHeaderAsync<object>(new Token { AccessToken = result.Content.AccessToken, RefreshToken = result.Content.RefreshToken });
+        }
+
+        public async Task<bool> IsAuthenticated()
+        {
+            return (await authHeader.GetAuthHeaderAsync<Token>()) != null;
+        }
+
+        public Task SignOut()
+        {
+            return authHeader.SetAuthHeaderAsync<Token>(null);
         }
     }
 }
