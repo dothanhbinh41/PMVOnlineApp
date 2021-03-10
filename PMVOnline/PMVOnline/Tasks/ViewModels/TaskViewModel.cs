@@ -1,6 +1,7 @@
 ﻿using PMVOnline.Common.Bases;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Models;
+using PMVOnline.Tasks.Services;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,30 @@ namespace PMVOnline.Tasks.ViewModels
 
 
         readonly INavigationService navigationService;
+        private readonly ITaskService taskService;
 
-        public TaskViewModel(INavigationService navigationService)
+        public TaskViewModel(INavigationService navigationService, ITaskService taskService)
         {
-            Tasks = new List<TaskActionModel> {
-                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet", Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High } },
-                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet",  Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal }},
-                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet",  Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest }},
-            };
             this.navigationService = navigationService;
+            this.taskService = taskService;
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            
+        }
+
+        public override void RaiseIsActiveChanged()
+        {
+            base.RaiseIsActiveChanged(); 
+            taskService.GetMyTasksAsync(0).ContinueWith(t =>
+            {
+                if (t.Result != null)
+                {
+                    Tasks = new List<TaskActionModel>(t.Result);
+                }
+            });
         }
 
         ICommand _CreateCommand;
@@ -34,12 +50,12 @@ namespace PMVOnline.Tasks.ViewModels
         {
             await navigationService.NavigateAsync(Routes.CreateTask);
         }
-         
+
         ICommand _ViewDetailCommand;
         public ICommand ViewDetailCommand => _ViewDetailCommand = _ViewDetailCommand ?? new AsyncCommand<TaskActionModel>(ExecuteViewDetailCommand);
         async Task ExecuteViewDetailCommand(TaskActionModel task)
         {
-            var xx = await navigationService.NavigateAsync(Routes.TaskDetail);
+            var xx = await navigationService.NavigateAsync(Routes.TaskDetail, new NavigationParameters { { NavigationKey.TaskId, task.Task.Id } });
         }
 
     }

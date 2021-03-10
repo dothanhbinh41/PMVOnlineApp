@@ -199,5 +199,6 @@ namespace PMVOnline
         public const string ReferenceTasks = "ReferenceTasks";
         public const string CloneTask = "CloneTask";
         public const string MyTasks = "MyTasks";
+        public const string TaskId = "TaskId";
     }
 }

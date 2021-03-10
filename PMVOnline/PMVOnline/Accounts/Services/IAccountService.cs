@@ -26,17 +26,17 @@ namespace PMVOnline.Accounts.Services
         public async Task<UserModel> GetAccountInformationAsync()
         {
             var result = await Api.GetMyProfile();
-            if (result != null)
+            if (result.Content != null)
             {
                 var user = new UserModel
                 {
-                    Email = result.Email,
-                    HasPassword = result.HasPassword,
-                    IsExternal = result.IsExternal,
-                    Name = result.Name,
-                    PhoneNumber = result.PhoneNumber,
-                    Surname = result.Surname,
-                    UserName = result.UserName
+                    Email = result.Content.Email,
+                    HasPassword = result.Content.HasPassword,
+                    IsExternal = result.Content.IsExternal,
+                    Name = result.Content.Name,
+                    PhoneNumber = result.Content.PhoneNumber,
+                    Surname = result.Content.Surname,
+                    UserName = result.Content.UserName
                 };
                 applicationSettings.User = user;
                 return user;

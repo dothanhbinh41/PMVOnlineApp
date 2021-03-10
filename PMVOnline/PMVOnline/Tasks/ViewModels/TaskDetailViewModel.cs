@@ -1,5 +1,6 @@
 ﻿using PMVOnline.Common.Bases;
 using PMVOnline.Tasks.Models;
+using PMVOnline.Tasks.Services;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,16 @@ namespace PMVOnline.Tasks.ViewModels
 
 
         private readonly INavigationService navigationService;
+        private readonly ITaskService taskService;
 
-        public TaskDetailViewModel(INavigationService navigationService)
+        public TaskDetailViewModel(
+            INavigationService navigationService, 
+            ITaskService taskService)
         {
+
+
+
+
             Task = new TaskDetailModel
             {
                 Assignee = "Do Thanh Binh",
@@ -60,9 +68,13 @@ namespace PMVOnline.Tasks.ViewModels
                 }
             };
             this.navigationService = navigationService;
+            this.taskService = taskService;
         }
 
-
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters); 
+        }
 
         ICommand _CommentCommand;
         public ICommand CommentCommand => _CommentCommand = _CommentCommand ?? new AsyncCommand(ExecuteCommentCommand);

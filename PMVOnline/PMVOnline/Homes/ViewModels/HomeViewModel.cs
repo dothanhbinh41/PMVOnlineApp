@@ -1,6 +1,7 @@
 ﻿using PMVOnline.Common.Bases;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Models;
+using PMVOnline.Tasks.Services;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,23 @@ namespace PMVOnline.Homes.ViewModels
         public List<TaskActionModel> Actions { get; set; }
 
         readonly INavigationService navigationService;
-        public HomeViewModel(INavigationService navigationService)
+        private readonly ITaskService taskService;
+
+        public HomeViewModel(INavigationService navigationService, ITaskService taskService)
         {
-            Actions = new List<TaskActionModel> {
-                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet", Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High,Title="Mua vang" } },
-                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet", Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal,Title="Mua vang" }},
-                new TaskActionModel{ User = "Do THanh Binh", Action = "Phe Duyet", Task = new TaskModel{ DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest,Title="Mua vang" }},
-            };
             this.navigationService = navigationService;
+            this.taskService = taskService;
+        }
+
+
+        public override void RaiseIsActiveChanged()
+        {
+            base.RaiseIsActiveChanged();
+            if (!IsActive)
+            {
+                return;
+            }
+            taskService.GetMyActionsAsync().ContinueWith(d => Actions = new List<TaskActionModel>(d.Result));
         }
 
         ICommand _ViewDetailCommand;
@@ -31,6 +41,6 @@ namespace PMVOnline.Homes.ViewModels
         async Task ExecuteViewDetailCommand(TaskActionModel task)
         {
             await navigationService.NavigateAsync(Routes.TaskDetail);
-        } 
+        }
     }
 }

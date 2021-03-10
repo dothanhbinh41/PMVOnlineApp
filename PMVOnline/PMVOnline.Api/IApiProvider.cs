@@ -28,7 +28,7 @@ namespace PMVOnline.Api
 
         public ApiProvider()
         {
-            Api = RestService.For<T>(new HttpClient(new HttpTracer.HttpTracerHandler()) { BaseAddress = new Uri(ApiBase.ServerApi) }, RefitSetting.SnakeCaseNaming);
+            Api = RestService.For<T>(new HttpClient(new HttpTracer.HttpTracerHandler()) { BaseAddress = new Uri(ApiBase.ServerApi) }, RefitSetting.CamelCaseNaming);
         } 
     }
 
@@ -43,7 +43,7 @@ namespace PMVOnline.Api
 
         public AuthApiProvider(IAuthHeaderManager authHeader)
         {
-            Api = RestService.For<T>(new HttpClient(new AuthenticatedHttpClientHandler(() => authHeader.GetBearerToken())) { BaseAddress = new Uri(ApiBase.ServerApi) }, RefitSetting.SnakeCaseNaming);
+            Api = RestService.For<T>(new HttpClient(new AuthenticatedHttpClientHandler(() => authHeader.GetBearerToken())) { BaseAddress = new Uri(ApiBase.ServerApi) }, RefitSetting.CamelCaseNaming);
         }
 
         public AuthApiProvider() : this((Application.Current as PrismApplication).Container.Resolve<IAuthHeaderManager>())

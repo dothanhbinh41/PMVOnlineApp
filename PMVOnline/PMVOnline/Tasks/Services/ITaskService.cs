@@ -1,7 +1,12 @@
 ﻿using PMVOnline.Accounts.Models;
+using PMVOnline.Api;
+using PMVOnline.Common.Services;
+using PMVOnline.Homes.Models;
+using PMVOnline.Tasks.Extenstions;
 using PMVOnline.Tasks.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,10 +17,18 @@ namespace PMVOnline.Tasks.Services
         Task<UserModel> GetAssigneeAsync(TaskTarget target);
         Task<bool> CreateTaskAsync(CreateTaskModel task);
         Task<TaskModel[]> GetMyLastTasksAsync();
+        Task<TaskActionModel[]> GetMyTasksAsync(int skip, int max = 20);
+        Task<TaskActionModel[]> GetMyActionsAsync();
     }
 
-    public class TaskService : ITaskService
+    public class TaskService : AuthApiProvider<AppApi>, ITaskService
     {
+        private readonly IApplicationSettings applicationSettings;
+
+        public TaskService(IApplicationSettings applicationSettings)
+        {
+            this.applicationSettings = applicationSettings;
+        }
         public Task<bool> CreateTaskAsync(CreateTaskModel task)
         {
             return Task.FromResult(true);
@@ -26,15 +39,31 @@ namespace PMVOnline.Tasks.Services
             return Task.FromResult(new UserModel { Name = "Do Thanh" });
         }
 
-        public Task<TaskModel[]> GetMyLastTasksAsync()
+        public async Task<TaskActionModel[]> GetMyActionsAsync()
         {
-            var myTasks = new List<TaskModel>
+            var result = await Api.GetMyActions();
+            if (result.Content != null)
             {
-                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.High},
-                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Normal},
-                new TaskModel{ Assignee = "Do THanh Binh",  DueDate = DateTime.Now.AddDays(2), Id = 123, Priority =  TaskPriority.Highest},
-            };
-            return Task.FromResult(myTasks.ToArray());
+                return result.Content.Select(d => d.ToModel(applicationSettings.User.Id)).ToArray();
+            }
+
+            return new TaskActionModel[0];
+        }
+
+        public async Task<TaskModel[]> GetMyLastTasksAsync()
+        { 
+            return new TaskModel[0];
+        }
+
+        public async Task<TaskActionModel[]> GetMyTasksAsync(int skip, int max = 20)
+        {
+            var result = await Api.GetMyTasks(skip, max);
+            if (result.Content != null)
+            {
+                return result.Content.Select(d => d.ToModel(applicationSettings.User.Id)).ToArray();
+            }
+
+            return new TaskActionModel[0];
         }
     }
 }

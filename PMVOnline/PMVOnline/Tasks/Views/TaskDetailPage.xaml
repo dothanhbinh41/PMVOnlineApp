@@ -47,7 +47,7 @@
                         <DataTrigger
                             TargetType="Button"
                             Binding="{Binding Task.Status}"
-                            Value="{Static model:TaskStatus.Waiting}">
+                            Value="{Static model:TaskStatus.Completed}">
                             <Setter
                                 Property="Text"
                                 Value="Chờ" />
