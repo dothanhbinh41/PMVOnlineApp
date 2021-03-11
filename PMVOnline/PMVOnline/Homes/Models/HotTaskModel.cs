@@ -6,10 +6,10 @@ using System.Text;
 
 namespace PMVOnline.Homes.Models
 { 
-    public class TaskActionModel : ModelBase
-    {
-        public TaskModel Task { get; set; }
+    public class TaskActionModel : TaskModel
+    { 
         public string Action { get; set; }
-        public string User { get; set; }
+        public string Actor { get; set; }
+        public bool IsCreatedByMe { get; set; }
     }
 }

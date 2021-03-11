@@ -33,13 +33,13 @@ namespace PMVOnline.Accounts.Services
                 case Fontsize.Large:
                     Application.Current.Resources["FontSizeSmall"] = 16;
                     Application.Current.Resources["FontSizeNormal"] = 19;
-                    Application.Current.Resources["FontSizeTitle"] = 22;
+                    Application.Current.Resources["FontSizeTitle"] = 21;
                     break;
                 case Fontsize.Normal:
                 default:
                     Application.Current.Resources["FontSizeSmall"] = 12;
                     Application.Current.Resources["FontSizeNormal"] = 15;
-                    Application.Current.Resources["FontSizeTitle"] = 18;
+                    Application.Current.Resources["FontSizeTitle"] = 17;
                     break;
             }
             SaveSetting(font);

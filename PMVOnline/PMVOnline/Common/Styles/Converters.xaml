@@ -8,4 +8,6 @@
         x:Key="PriorityToStringConverter" />
     <converter:ReferenceTasksIdConverter
         x:Key="ReferenceTasksIdConverter" />
+    <converter:TaskStatusConverter
+        x:Key="TaskStatusConverter" />
 </ResourceDictionary>

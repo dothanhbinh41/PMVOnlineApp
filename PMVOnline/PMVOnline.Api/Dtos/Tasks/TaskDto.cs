@@ -6,15 +6,17 @@ namespace PMVOnline.Api.Dtos.Tasks
 {
     public class TaskDto
     {
-        public long TaskId { get; set; }
+        public long Id { get; set; }
         public string Title { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime? CompletedDate { get; set; }
         public Priority Priority { get; set; }
         public Target Target { get; set; }
         public Status Status { get; set; }
-        public Guid Assignee { get; set; }
-        public LastTaskHistoryDto LastAction { get; set; }
+        public SimpleUserDto Assignee { get; set; }
+        public SimpleUserDto Creator { get; set; }
+        public SimpleUserDto LastModifier { get; set; }
+        public ActionType LastAction { get; set; }
     }
     public class LastTaskHistoryDto
     {
@@ -26,6 +28,7 @@ namespace PMVOnline.Api.Dtos.Tasks
 
     public class SimpleUserDto  
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
     }

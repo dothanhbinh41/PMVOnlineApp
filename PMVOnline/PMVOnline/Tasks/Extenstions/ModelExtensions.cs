@@ -18,29 +18,21 @@ namespace PMVOnline.Tasks.Extenstions
 
             return new TaskActionModel
             {
-                Task = new TaskModel
-                {
-                    Id = obj.TaskId,
-                    DueDate = obj.DueDate,
-                    Priority = (TaskPriority)obj.Priority,
-                    Status = (TaskStatus)obj.Status,
-                    Title = obj.Title
-                },
-                User = $"{obj.LastAction?.Actor?.Surname} {obj.LastAction?.Actor?.Name}",
-                Action = obj.LastAction.ToModel(myId, obj.Assignee)
+                IsCreatedByMe = obj.Creator.Id == myId,
+                Id = obj.Id,
+                DueDate = obj.DueDate,
+                Priority = (TaskPriority)obj.Priority,
+                Status = (TaskStatus)obj.Status,
+                Title = obj.Title,
+                Creator = $"{obj.Creator?.Surname} {obj.Creator?.Name}",
+                Actor = $"{obj.LastModifier?.Surname} {obj.LastModifier?.Name}",
+                Action = obj.LastAction.ToAction()
             };
         }
 
-        public static string ToModel(this LastTaskHistoryDto dto, Guid myId, Guid assignee)
-        {
-            if (dto == null)
-            {
-                return string.Empty;
-            }
-
-            bool isMe = myId == dto.ActorId;
-            bool isAssignee = myId == assignee;
-            switch (dto.Action)
+        public static string ToAction(this ActionType dto)
+        { 
+            switch (dto)
             {
                 case ActionType.ApprovedTask:
                     return "đã duyệt sự vụ";
@@ -51,16 +43,7 @@ namespace PMVOnline.Tasks.Extenstions
                 case ActionType.CompletedTask:
                     return "hoàn thành sự vụ";
                 case ActionType.CreateTask:
-                    if (isMe && isAssignee || isMe)
-                    {
-                        return "tạo sự vụ";
-                    }
-
-                    if (isAssignee)
-                    {
-                        return "yêu cầu giải quyết sự vụ";
-                    }
-                    return "tạo sự vụ";
+                    return "yêu cầu giải quyết sự vụ";
                 case ActionType.Follow:
                     return "theo dõi sự vụ";
                 case ActionType.IncompletedTask:
