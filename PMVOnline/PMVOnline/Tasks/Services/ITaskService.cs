@@ -19,6 +19,10 @@ namespace PMVOnline.Tasks.Services
         Task<TaskModel[]> GetMyLastTasksAsync();
         Task<TaskActionModel[]> GetMyTasksAsync(int skip, int max = 20);
         Task<TaskActionModel[]> GetMyActionsAsync();
+        Task<TaskDetailModel> GetTaskAsync(long id);
+        Task<CommentModel[]> GetTaskCommentsAsync(long id);
+        Task<FileModel[]> GetTaskFilesAsync(long id);
+        Task<HistoryModel[]> GetTaskHistoryAsync(long id, int skip = 0, int max = 20);
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
@@ -51,7 +55,7 @@ namespace PMVOnline.Tasks.Services
         }
 
         public async Task<TaskModel[]> GetMyLastTasksAsync()
-        { 
+        {
             return new TaskModel[0];
         }
 
@@ -64,6 +68,45 @@ namespace PMVOnline.Tasks.Services
             }
 
             return new TaskActionModel[0];
+        }
+
+        public async Task<TaskDetailModel> GetTaskAsync(long id)
+        {
+            var result = await Api.GetTask(id);
+            return result.Content?.ToModel();
+        }
+
+        public async Task<CommentModel[]> GetTaskCommentsAsync(long id)
+        {
+            var result = await Api.GetTaskComments(id);
+            if (result.Content != null)
+            {
+                return result.Content.Select(d => d.ToModel()).ToArray();
+            }
+
+            return new CommentModel[0];
+        }
+
+        public async Task<FileModel[]> GetTaskFilesAsync(long id)
+        {
+            var result = await Api.GetTaskFiles(id);
+            if (result.Content != null)
+            {
+                return result.Content.Select(d => d.ToModel()).ToArray();
+            }
+
+            return new FileModel[0];
+        }
+
+        public async Task<HistoryModel[]> GetTaskHistoryAsync(long id, int skip = 0, int max = 20)
+        {
+            var result = await Api.GetHistory(id, skip, max);
+            if (result.Content != null)
+            {
+                return result.Content.Select(d => d.ToModel()).ToArray();
+            }
+
+            return new HistoryModel[0];
         }
     }
 }

@@ -50,7 +50,7 @@
                             Value="{Static model:TaskStatus.Completed}">
                             <Setter
                                 Property="Text"
-                                Value="Chờ" />
+                                Value="Hoàn thành" />
                             <Setter
                                 Property="BackgroundColor"
                                 Value="{StaticResource Primary}" />
@@ -62,6 +62,30 @@
                             <Setter
                                 Property="Text"
                                 Value="Từ chối" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Highest}" />
+                        </DataTrigger>
+
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Approved}">
+                            <Setter
+                                Property="Text"
+                                Value="Đã duyệt" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Incompleted}">
+                            <Setter
+                                Property="Text"
+                                Value="Không hoàn thành" />
                             <Setter
                                 Property="BackgroundColor"
                                 Value="{StaticResource Highest}" />
@@ -162,7 +186,7 @@
 
                 <Label
                     Margin="16,8,16,4"
-                    TextDecorations="Underline" 
+                    TextDecorations="Underline"
                     TextColor="{DynamicResource Description}"
                     Text="Comment" />
 
@@ -280,14 +304,18 @@
                     </control:FloatingButtonItemControl>
                     <control:FloatingButtonItemControl
                         Color="#FF3980"
-                        IsVisible="true" 
-                        Command="{Binding FollowCommand}"> 
+                        IsVisible="true"
+                        Command="{Binding FollowCommand}">
                         <control:FloatingButtonItemControl.Triggers>
                             <DataTrigger
                                 TargetType="control:FloatingButtonItemControl"
-                                Binding="{Binding Source={RelativeSource Self},Path=Parent.Parent.BindingContext.IsFollowed}" Value="True">
-                                <Setter Property="Title" Value="Bỏ theo dõi"/>
-                                <Setter Property="Icon">
+                                Binding="{Binding Source={RelativeSource Self},Path=Parent.Parent.BindingContext.IsFollowed}"
+                                Value="True">
+                                <Setter
+                                    Property="Title"
+                                    Value="Bỏ theo dõi" />
+                                <Setter
+                                    Property="Icon">
                                     <FontImageSource
                                         Color="{StaticResource Foreground}"
                                         FontFamily="{StaticResource FontMaterialdesign}"

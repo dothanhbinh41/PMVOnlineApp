@@ -18,6 +18,7 @@ namespace PMVOnline.Tasks.Models
      
 
     public class TaskDetailModel : CreateTaskModel
-    { 
+    {
+        public Guid AssigneeId { get; set; }
     } 
 }

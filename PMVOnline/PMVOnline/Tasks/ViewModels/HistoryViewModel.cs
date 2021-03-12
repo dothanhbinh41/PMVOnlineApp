@@ -16,7 +16,7 @@ namespace PMVOnline.Tasks.ViewModels
                  new HistoryModel
                  {
                      Action = "lam gi do",
-                     Assignee = "Do Thanh Binh",
+                     Actor = "Do Thanh Binh",
                      Date = DateTime.Now
                  }
             };
