@@ -4,6 +4,7 @@ using PMVOnline.Api.Dtos.Accounts;
 using PMVOnline.Api.Dtos.Authorizations;
 using PMVOnline.Api.Dtos.Tasks;
 using Refit;
+using System;
 using System.Threading.Tasks;
 
 namespace PMVOnline.Api
@@ -33,5 +34,18 @@ namespace PMVOnline.Api
 
         [Get("/api/app/task/{id}/task-files")]
         Task<ApiResponse<FileDto[]>> GetTaskFiles(long id);
+        
+        [Get("/api/app/task/assignee?target={target}")]
+        Task<ApiResponse<SimpleUserDto>> GetAssignee(int target);
+
+        [Multipart]
+        [Post("/api/File/UploadFile")]
+        Task<ApiResponse<FileDto>> Upload([AliasAs("file")] StreamPart bytes);
+
+        [Get("/api/File/DownloadFile?id={id}")]
+        Task<ApiResponse<byte[]>> DownloadFile(Guid id);
+
+        [Post("/api/app/task/task")]
+        Task<ApiResponse<CreateTaskResultDto>> CreateTask(CreateTaskRequestDto request);
     }
 }

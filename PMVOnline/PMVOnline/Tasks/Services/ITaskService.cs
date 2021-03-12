@@ -1,5 +1,6 @@
 ﻿using PMVOnline.Accounts.Models;
 using PMVOnline.Api;
+using PMVOnline.Api.Dtos.Tasks;
 using PMVOnline.Common.Services;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Extenstions;
@@ -33,14 +34,27 @@ namespace PMVOnline.Tasks.Services
         {
             this.applicationSettings = applicationSettings;
         }
-        public Task<bool> CreateTaskAsync(CreateTaskModel task)
+
+        public async Task<bool> CreateTaskAsync(CreateTaskModel task)
         {
-            return Task.FromResult(true);
+            var result = await Api.CreateTask(new PMVOnline.Api.Dtos.Tasks.CreateTaskRequestDto
+            {
+                AssigneeId = task.AssigneeId,
+                Content = task.Content,
+                DueDate = task.DueDate,
+                Files = task.Files,
+                Priority = (Priority)task.Priority,
+                ReferenceTasks = task.ReferenceTasks,
+                Target = ((Target?)task.Target?.Target) ?? Target.Other,
+                Title = task.Title
+            });
+            return result.Content != null;
         }
 
-        public Task<UserModel> GetAssigneeAsync(TaskTarget target)
+        public async Task<UserModel> GetAssigneeAsync(TaskTarget target)
         {
-            return Task.FromResult(new UserModel { Name = "Do Thanh" });
+            var result = await Api.GetAssignee((int)target);
+            return result.Content.ToModel();
         }
 
         public async Task<TaskActionModel[]> GetMyActionsAsync()

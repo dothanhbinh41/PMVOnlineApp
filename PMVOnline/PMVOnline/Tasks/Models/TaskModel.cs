@@ -9,6 +9,7 @@ namespace PMVOnline.Tasks.Models
     {
         public long Id { get; set; }
         public string Assignee { get; set; }
+        public Guid AssigneeId { get; set; }
         public string Creator { get; set; }
         public string Title { get; set; }
         public DateTime DueDate { get; set; }

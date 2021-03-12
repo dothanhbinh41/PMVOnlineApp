@@ -160,6 +160,7 @@ namespace PMVOnline
             containerRegistry.Register<ITaskService, TaskService>();
             containerRegistry.Register<IAuthenticationSerivce, AuthenticationSerivce>();
             containerRegistry.Register<IAccountService, AccountService>();
+            containerRegistry.Register<IFileService, FileService>();
         }
         void RegisterExternalService(IContainerRegistry containerRegistry)
         {

@@ -1,4 +1,5 @@
-﻿using PMVOnline.Api.Dtos.Tasks;
+﻿using PMVOnline.Accounts.Models;
+using PMVOnline.Api.Dtos.Tasks;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Models;
 using System;
@@ -87,6 +88,21 @@ namespace PMVOnline.Tasks.Extenstions
                 Id = obj.Id,
                 FileName = obj.Name,
                 FullPath = obj.Path
+            };
+        }
+        
+        public static UserModel ToModel(this SimpleUserDto obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+
+            return new UserModel
+            {
+                Id = obj.Id,
+                Name = obj.Name,
+                Surname = obj.Surname
             };
         }
 

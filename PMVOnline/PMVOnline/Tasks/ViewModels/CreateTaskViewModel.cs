@@ -26,18 +26,21 @@ namespace PMVOnline.Tasks.ViewModels
         readonly IDialogService dialogService;
         readonly IDateTimeService dateTimeService;
         readonly ITaskService taskService;
+        private readonly IFileService fileService;
 
         List<TaskModel> myTasks;
         public CreateTaskViewModel(
             INavigationService navigationService,
             IDialogService dialogService,
             IDateTimeService dateTimeService,
-            ITaskService taskService)
+            ITaskService taskService,
+            IFileService fileService)
         {
             this.navigationService = navigationService;
             this.dialogService = dialogService;
             this.dateTimeService = dateTimeService;
             this.taskService = taskService;
+            this.fileService = fileService;
         }
 
         public override async Task InitializeAsync(INavigationParameters parameters)
@@ -54,8 +57,15 @@ namespace PMVOnline.Tasks.ViewModels
             if (result?.Parameters?.ContainsKey(NavigationKey.Target) == true)
             {
                 Task.Target = result.Parameters.GetValue<TargetModel>(NavigationKey.Target);
+                IsBusy = true;
                 var assignee = await taskService.GetAssigneeAsync(Task.Target.Target);
-                Task.Assignee = assignee?.FullName;
+                IsBusy = false;
+                if (assignee == null)
+                {
+                    return;
+                }
+                Task.Assignee = assignee.FullName;
+                Task.AssigneeId = assignee.Id; 
             }
         }
 
@@ -78,6 +88,7 @@ namespace PMVOnline.Tasks.ViewModels
             if (date.HasValue)
             {
                 Task.Date = date.Value;
+                Task.DueDate = date.Value;
             }
         }
 
@@ -128,7 +139,23 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand CreateCommand => _CreateCommand = _CreateCommand ?? new AsyncCommand(ExecuteCreateCommand);
         async Task ExecuteCreateCommand()
         {
+            IsBusy = true;
+            await UploadFiles();
             var result = await taskService.CreateTaskAsync(Task);
+            IsBusy = false;
+        }
+
+        async Task UploadFiles()
+        {
+            List<Task<Guid>> files = new List<Task<Guid>>();
+            for (int i = 0; i < Files.Count; i++)
+            {
+                var file = Files[i];
+                var stream = await (new FileResult(file.FullPath)).OpenReadAsync();
+                files.Add(fileService.UploadAsync(stream, file.FileName));
+            }
+
+            await System.Threading.Tasks.Task.WhenAll(files).ContinueWith(t => Task.Files = t.Result);
         }
     }
 }

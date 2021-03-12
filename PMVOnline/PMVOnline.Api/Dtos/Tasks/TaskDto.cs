@@ -53,6 +53,29 @@ namespace PMVOnline.Api.Dtos.Tasks
         public ActionType LastAction { get; set; }
     }
 
+    public class CreateTaskResultDto
+    {
+        public long Id { get; set; }
+        public string Title { get; set; }
+        public DateTime DueDate { get; set; }
+        public DateTime? CompletedDate { get; set; }
+        public Priority Priority { get; set; }
+        public Target Target { get; set; }
+        public Status Status { get; set; } 
+    }
+
+    public class CreateTaskRequestDto
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public Target Target { get; set; }
+        public Priority Priority { get; set; }
+        public DateTime DueDate { get; set; }
+        public Guid[] Files { get; set; }
+        public long[] ReferenceTasks { get; set; }
+        public Guid AssigneeId { get; set; }
+    }
+
     public class TaskCommentDto
     {
         public Guid Id { get; set; }
