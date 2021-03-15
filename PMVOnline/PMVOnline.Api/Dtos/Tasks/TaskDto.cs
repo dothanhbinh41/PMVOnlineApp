@@ -95,6 +95,32 @@ namespace PMVOnline.Api.Dtos.Tasks
 
     }
 
+    public class ApproveTaskRequestDto
+    {
+        public long Id { get; set; }
+        public bool Approved { get; set; }
+        public string Note { get; set; }
+    }
+
+    public class FinishTaskRequestDto
+    {
+        public long Id { get; set; }
+        public bool Completed { get; set; }
+        public DateTime CompletedDate { get; set; }
+        public string Note { get; set; }
+    }
+    
+    public class FollowTaskRequestDto
+    {
+        public long Id { get; set; }
+        public bool Follow { get; set; } 
+    } 
+    
+    public class ReopenTaskRequestDto
+    {
+        public long Id { get; set; } 
+    }
+
     public class SimpleUserDto  
     {
         public Guid Id { get; set; }

@@ -23,6 +23,10 @@ namespace PMVOnline.Tasks.Services
         Task<TaskDetailModel> GetTaskAsync(long id);
         Task<CommentModel[]> GetTaskCommentsAsync(long id);
         Task<FileModel[]> GetTaskFilesAsync(long id);
+        Task<bool> ApproveTaskAsync(long id, bool approved, string note);
+        Task<bool> FollowTaskAsync(long id, bool follow);
+        Task<bool> ReopenAsync(long id);
+        Task<bool> CompleteTaskAsync(long id, bool completed, DateTime completedDate, string note);
         Task<HistoryModel[]> GetTaskHistoryAsync(long id);
     }
 
@@ -33,6 +37,29 @@ namespace PMVOnline.Tasks.Services
         public TaskService(IApplicationSettings applicationSettings)
         {
             this.applicationSettings = applicationSettings;
+        }
+
+        public async Task<bool> ApproveTaskAsync(long id, bool approved, string note)
+        {
+            var result = await Api.ApproveTask(new PMVOnline.Api.Dtos.Tasks.ApproveTaskRequestDto
+            {
+                Id = id,
+                Approved = approved,
+                Note = note
+            });
+            return result.Content;
+        }
+
+        public async Task<bool> CompleteTaskAsync(long id, bool completed, DateTime completedDate, string note)
+        {
+            var result = await Api.FinishTask(new PMVOnline.Api.Dtos.Tasks.FinishTaskRequestDto
+            {
+                Id = id,
+                Completed = completed,
+                Note = note,
+                CompletedDate = completedDate
+            });
+            return result.Content;
         }
 
         public async Task<bool> CreateTaskAsync(CreateTaskModel task)
@@ -49,6 +76,16 @@ namespace PMVOnline.Tasks.Services
                 Title = task.Title
             });
             return result.Content != null;
+        }
+
+        public async Task<bool> FollowTaskAsync(long id, bool follow)
+        {
+            var result = await Api.FollowTask(new PMVOnline.Api.Dtos.Tasks.FollowTaskRequestDto
+            {
+                Id = id, 
+                Follow = follow
+            });
+            return result.Content;
         }
 
         public async Task<UserModel> GetAssigneeAsync(TaskTarget target)
@@ -121,6 +158,15 @@ namespace PMVOnline.Tasks.Services
             }
 
             return new HistoryModel[0];
+        }
+
+        public async Task<bool> ReopenAsync(long id)
+        {
+            var result = await Api.ReopenTask(new PMVOnline.Api.Dtos.Tasks.ReopenTaskRequestDto
+            {
+                Id = id
+            });
+            return result.Content;
         }
     }
 }

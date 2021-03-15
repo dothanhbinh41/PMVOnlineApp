@@ -34,7 +34,7 @@ namespace PMVOnline.Api
 
         [Get("/api/app/task/{id}/task-files")]
         Task<ApiResponse<FileDto[]>> GetTaskFiles(long id);
-        
+
         [Get("/api/app/task/assignee?target={target}")]
         Task<ApiResponse<SimpleUserDto>> GetAssignee(int target);
 
@@ -47,5 +47,17 @@ namespace PMVOnline.Api
 
         [Post("/api/app/task/task")]
         Task<ApiResponse<CreateTaskResultDto>> CreateTask(CreateTaskRequestDto request);
+
+        [Post("/api/app/task/process-task")]
+        Task<ApiResponse<bool>> ApproveTask(ApproveTaskRequestDto request);
+        
+        [Post("/api/app/task/finish-task")]
+        Task<ApiResponse<bool>> FinishTask(FinishTaskRequestDto request);
+
+        [Post("/api/app/task/follow-task")]
+        Task<ApiResponse<bool>> FollowTask(FollowTaskRequestDto request);
+
+        [Post("/api/app/task/reopen-task")]
+        Task<ApiResponse<bool>> ReopenTask(ReopenTaskRequestDto request);
     }
 }

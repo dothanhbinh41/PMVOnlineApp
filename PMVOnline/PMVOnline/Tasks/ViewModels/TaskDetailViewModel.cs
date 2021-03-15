@@ -25,7 +25,7 @@ namespace PMVOnline.Tasks.ViewModels
         public TaskDetailViewModel(
             INavigationService navigationService,
             ITaskService taskService)
-        { 
+        {
             this.navigationService = navigationService;
             this.taskService = taskService;
         }
@@ -41,10 +41,10 @@ namespace PMVOnline.Tasks.ViewModels
         }
 
         async Task GetFiles(long id)
-        { 
+        {
             Files = new List<FileModel>(await taskService.GetTaskFilesAsync(id));
         }
-         
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -76,6 +76,9 @@ namespace PMVOnline.Tasks.ViewModels
         async Task ExecuteFollowCommand()
         {
             IsFollowed = !IsFollowed;
+            IsBusy = true;
+            await taskService.FollowTaskAsync(taskId, IsFollowed);
+            IsBusy = false;
         }
 
 
@@ -83,6 +86,25 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand ReOpenCommand => _ReOpenCommand = _ReOpenCommand ?? new AsyncCommand(ExecuteReOpenCommand);
         async Task ExecuteReOpenCommand()
         {
+            if (Task.Status == Models.TaskStatus.Approved || Task.Status == Models.TaskStatus.Pending)
+            {
+                return;
+            }
+            IsBusy = true;
+            await taskService.ReopenAsync(taskId);
+            IsBusy = false;
         }
+         
+        ICommand _FinishCommand;
+        public ICommand FinishCommand => _FinishCommand = _FinishCommand ?? new AsyncCommand(ExecuteFinishCommand);
+        async Task ExecuteFinishCommand()
+        { 
+        }
+         
+        ICommand _ApproveCommand;
+        public ICommand ApproveCommand => _ApproveCommand = _ApproveCommand ?? new AsyncCommand(ExecuteApproveCommand);
+        async Task ExecuteApproveCommand()
+        {
+        } 
     }
 }
