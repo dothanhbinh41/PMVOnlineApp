@@ -19,9 +19,9 @@ namespace PMVOnline.Common.Converters
                 }
                 if (remaining.TotalDays >= 1)
                 {
-                    return $"{remaining.Days}N {remaining.Hours}:{remaining.Minutes}";
+                    return $"{remaining.Days}N {remaining.Hours}h{remaining.Minutes}";
                 }
-                return $"{remaining.Hours}:{remaining.Minutes}";
+                return $"{remaining.Hours}h{remaining.Minutes}";
             }
             return value;
         }

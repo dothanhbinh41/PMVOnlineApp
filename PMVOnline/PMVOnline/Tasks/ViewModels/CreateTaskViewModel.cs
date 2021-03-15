@@ -46,7 +46,7 @@ namespace PMVOnline.Tasks.ViewModels
         public override async Task InitializeAsync(INavigationParameters parameters)
         {
             Files = new ObservableCollection<FileModel>();
-            myTasks = new List<TaskModel>(await taskService.GetMyLastTasksAsync());
+            myTasks = new List<TaskModel>(await taskService.GetMyTasksAsync(0));
         }
 
         ICommand _ChooseTargetCommand;
@@ -143,11 +143,20 @@ namespace PMVOnline.Tasks.ViewModels
             await UploadFiles();
             var result = await taskService.CreateTaskAsync(Task);
             IsBusy = false;
+
+            if (result)
+            {
+                Toast("Tao thanh cong");
+            }
+            else
+            {
+                Toast("Tao that bai");
+            }
         }
 
         async Task UploadFiles()
         {
-            List<Task<Guid>> files = new List<Task<Guid>>();
+            List<Task<FileModel>> files = new List<Task<FileModel>>();
             for (int i = 0; i < Files.Count; i++)
             {
                 var file = Files[i];
@@ -155,7 +164,7 @@ namespace PMVOnline.Tasks.ViewModels
                 files.Add(fileService.UploadAsync(stream, file.FileName));
             }
 
-            await System.Threading.Tasks.Task.WhenAll(files).ContinueWith(t => Task.Files = t.Result);
+            await System.Threading.Tasks.Task.WhenAll(files).ContinueWith(t => Task.Files = t.Result?.Select(c=>c.Id)?.ToArray());
         }
     }
 }

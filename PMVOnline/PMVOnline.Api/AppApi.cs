@@ -29,8 +29,8 @@ namespace PMVOnline.Api
         [Get("/api/app/task/{id}/task-comments")]
         Task<ApiResponse<TaskCommentDto[]>> GetTaskComments(long id);
 
-        [Get("/api/app/task/{id}/task-history?SkipCount={skip}&MaxResultCount={max}")]
-        Task<ApiResponse<TaskHistoryDto[]>> GetHistory(long id, int skip = 0,int max = 20);
+        [Get("/api/app/task/{id}/task-history")]
+        Task<ApiResponse<TaskHistoryDto[]>> GetHistory(long id);
 
         [Get("/api/app/task/{id}/task-files")]
         Task<ApiResponse<FileDto[]>> GetTaskFiles(long id);

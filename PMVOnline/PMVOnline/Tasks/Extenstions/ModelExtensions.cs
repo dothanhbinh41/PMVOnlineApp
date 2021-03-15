@@ -70,7 +70,7 @@ namespace PMVOnline.Tasks.Extenstions
 
             return new HistoryModel
             {
-                Date = obj.CreatedTime,
+                Date = obj.CreationTime,
                 Actor = $"{obj.Actor?.Surname} {obj.Actor?.Name}",
                 Action = obj.Action.ToAction()
             };
@@ -115,7 +115,7 @@ namespace PMVOnline.Tasks.Extenstions
 
             return new CommentModel
             {
-                Date = obj.CreatedTime,
+                Date = obj.CreationTime,
                 Sender = $"{obj.User?.Surname} {obj.User?.Name}",
                 Content = obj.Comment,
                 Files = obj.FileIds?.Select(d => new FileModel { Id = d.FileId })?.ToArray()

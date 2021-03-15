@@ -1,4 +1,5 @@
 ﻿using PMVOnline.Api;
+using PMVOnline.Tasks.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ namespace PMVOnline.Tasks.Services
 {
     public interface IFileService
     {
-        Task<Guid> UploadAsync(Stream file, string fileName);
+        Task<FileModel> UploadAsync(Stream file, string fileName);
         Task<byte[]> DownloadAsync(Guid id);
     }
 
@@ -20,14 +21,19 @@ namespace PMVOnline.Tasks.Services
             throw new NotImplementedException();
         }
 
-        public async Task<Guid> UploadAsync(Stream file, string fileName)
+        public async Task<FileModel> UploadAsync(Stream file, string fileName)
         {
             var result = await Api.Upload(new Refit.StreamPart(file, fileName));
-            if (result.Content == null)
+            if (result.Content != null)
             {
-                return Guid.Empty;
+                return new FileModel
+                {
+                    FileName = result.Content.Name,
+                    FullPath = result.Content.Path,
+                    Id = result.Content.Id
+                };
             }
-            return result.Content.Id;
+            return null;
         }
     }
 }

@@ -82,7 +82,7 @@ namespace PMVOnline.Api.Dtos.Tasks
         public long TaskId { get; set; }
         public string Comment { get; set; }
         public Guid UserId { get; set; }
-        public DateTime CreatedTime { get; set; }
+        public DateTime CreationTime { get; set; }
         public TaskFileDto[] FileIds { get; set; }
         public SimpleUserDto User { get; set; }
     }
@@ -91,7 +91,7 @@ namespace PMVOnline.Api.Dtos.Tasks
     { 
         public SimpleUserDto Actor { get; set; }
         public ActionType Action { get; set; }
-        public DateTime CreatedTime { get; set; }
+        public DateTime CreationTime { get; set; }
 
     }
 

@@ -64,7 +64,7 @@ namespace PMVOnline
         {
             InitializeComponent();
             VersionTracking.Track();
-            await NavigationService.NavigateAsync(Routes.SignIn);
+            await NavigationService.NavigateAsync(Routes.Welcome);
         }
 
         protected override void OnStart()
@@ -143,6 +143,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<TaskDetailPage, TaskDetailViewModel>();
             containerRegistry.RegisterForNavigation<CommentPage, CommentViewModel>();
             containerRegistry.RegisterForNavigation<HistoryPage, HistoryViewModel>();
+            containerRegistry.RegisterForNavigation<WelcomePage, WelcomeViewModel>();
         }
         void RegisterDialogs(IContainerRegistry containerRegistry)
         {
@@ -174,9 +175,10 @@ namespace PMVOnline
     public sealed partial class Routes
     {
         static readonly string navigation = nameof(NavigationPage);
-        public static readonly Uri SignIn = new Uri($"{nameof(SignInPage)}", UriKind.Relative);
+        //public static readonly Uri SignIn = new Uri($"{nameof(SignInPage)}", UriKind.Relative);
         //public static readonly Uri Home = new Uri($"{nameof(MainPage)}?SelectedTab={nameof(HomePage)}", UriKind.Relative);
         public static readonly Uri Home = new Uri($"PMVOnline:///{navigation}/{nameof(MainPage)}", UriKind.Absolute);
+        public static readonly Uri SignIn = new Uri($"PMVOnline:///{navigation}/{nameof(SignInPage)}", UriKind.Absolute);
 
         public static readonly Uri CreateTask = new Uri($"{nameof(CreateTaskPage)}", UriKind.Relative);
         public static readonly Uri TaskReference = new Uri($"{nameof(TaskReferencePage)}", UriKind.Relative);
@@ -184,6 +186,7 @@ namespace PMVOnline
         public static readonly Uri TaskDetail = new Uri($"{nameof(TaskDetailPage)}", UriKind.Relative);
         public static readonly Uri Comment = new Uri($"{nameof(CommentPage)}", UriKind.Relative);
         public static readonly Uri History = new Uri($"{nameof(HistoryPage)}", UriKind.Relative);
+        public static readonly Uri Welcome = new Uri($"{nameof(WelcomePage)}", UriKind.Relative);
     }
     public sealed partial class DialogRoutes
     {

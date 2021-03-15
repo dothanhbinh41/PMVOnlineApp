@@ -44,9 +44,11 @@
                             Placeholder="Đối tượng" />
                     </Grid>
                     <Entry
+                        Text="{Binding Task.Title}"
                         Placeholder="Mục đích" />
                     <Editor
                         AutoSize="TextChanges"
+                        Text="{Binding Task.Content}"
                         Placeholder="Nội dung" />
 
                     <Grid>

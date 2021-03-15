@@ -23,7 +23,7 @@
                                     <FormattedString>
                                         <Span
                                             TextColor="{StaticResource Text}" 
-                                            Text="{Binding Assignee}" />
+                                            Text="{Binding Actor}" />
                                         <Span
                                             Text=" " />
                                         <Span

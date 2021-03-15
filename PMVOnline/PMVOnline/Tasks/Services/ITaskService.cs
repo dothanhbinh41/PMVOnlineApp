@@ -23,7 +23,7 @@ namespace PMVOnline.Tasks.Services
         Task<TaskDetailModel> GetTaskAsync(long id);
         Task<CommentModel[]> GetTaskCommentsAsync(long id);
         Task<FileModel[]> GetTaskFilesAsync(long id);
-        Task<HistoryModel[]> GetTaskHistoryAsync(long id, int skip = 0, int max = 20);
+        Task<HistoryModel[]> GetTaskHistoryAsync(long id);
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
@@ -112,9 +112,9 @@ namespace PMVOnline.Tasks.Services
             return new FileModel[0];
         }
 
-        public async Task<HistoryModel[]> GetTaskHistoryAsync(long id, int skip = 0, int max = 20)
+        public async Task<HistoryModel[]> GetTaskHistoryAsync(long id)
         {
-            var result = await Api.GetHistory(id, skip, max);
+            var result = await Api.GetHistory(id);
             if (result.Content != null)
             {
                 return result.Content.Select(d => d.ToModel()).ToArray();
