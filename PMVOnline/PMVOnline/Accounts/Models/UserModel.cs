@@ -16,5 +16,13 @@ namespace PMVOnline.Accounts.Models
         public string PhoneNumber { get; set; }
         public bool HasPassword { get; set; }
         public bool IsExternal { get; set; }
+
+        public RoleModel[] Roles { get; set; }
+    }
+
+    public class RoleModel : ModelBase
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

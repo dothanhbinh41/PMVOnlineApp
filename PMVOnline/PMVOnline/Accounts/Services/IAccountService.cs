@@ -3,6 +3,7 @@ using PMVOnline.Api;
 using PMVOnline.Common.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,7 +37,8 @@ namespace PMVOnline.Accounts.Services
                     Name = result.Content.Name,
                     PhoneNumber = result.Content.PhoneNumber,
                     Surname = result.Content.Surname,
-                    UserName = result.Content.UserName
+                    UserName = result.Content.UserName,
+                    Roles = result.Content?.Roles?.Select(d => new RoleModel { Id = d.Id, Name = d.Name })?.ToArray()
                 };
                 applicationSettings.User = user;
                 return user;

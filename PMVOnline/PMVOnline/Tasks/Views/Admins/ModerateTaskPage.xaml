@@ -6,63 +6,149 @@
     BackgroundColor="{StaticResource Background}"
     xmlns:control="clr-namespace:PMVOnline.Common.Controls"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
-    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
-    <ScrollView>
-        <StackLayout>
-            <Frame
-                Margin="16,4">
-                <StackLayout
-                    Spacing="0"
-                    Margin="8">
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    x:Name="root">
 
-                    <Grid>
-                        <control:EntryAction
-                            Placeholder="Yêu Cầu"
-                            Text="{Binding Task.Target.Text}" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                TargetType="Entry">
+                <Setter
+                    Property="IsEnabled"
+                    Value="False" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid
+        RowDefinitions="*,64">
+        <ScrollView>
+            <StackLayout
+                Spacing="0">
+                <Button
+                    Margin="16,4"
+                    CornerRadius="{StaticResource Radius}"
+                    Style="{DynamicResource ButtonPrimary}"
+                    HorizontalOptions="Start"
+                    BorderWidth="1"
+                    HeightRequest="40">
+                    <Button.Triggers>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Pending}">
+                            <Setter
+                                Property="Text"
+                                Value="Chờ duyệt" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Completed}">
+                            <Setter
+                                Property="Text"
+                                Value="Hoàn thành" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Rejected}">
+                            <Setter
+                                Property="Text"
+                                Value="Từ chối" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Highest}" />
+                        </DataTrigger>
 
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Approved}">
+                            <Setter
+                                Property="Text"
+                                Value="Đã duyệt" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Incompleted}">
+                            <Setter
+                                Property="Text"
+                                Value="Không hoàn thành" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Highest}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+
+                <Frame
+                    Margin="16,4">
+                    <StackLayout
+                        Spacing="0"
+                        Margin="8">
+
+                        <Grid>
+                            <Entry
+                                Placeholder="Yêu Cầu"
+                                Text="{Binding Task.Target.Text}" />
+
+                            <control:EntryAction
+                                Grid.Column="1"
+                                IsEnabled="False"
+                                Placeholder="Đối tượng"
+                                Text="{Binding Task.Assignee}" />
+                        </Grid>
                         <Entry
-                            Grid.Column="1"
+                            Placeholder="Mục đích"
+                            Text="{Binding Task.Title}" />
+                        <Editor
                             IsEnabled="False"
-                            Placeholder="Đối tượng" />
-                    </Grid>
-                    <Entry
-                        Placeholder="Mục đích" />
-                    <Editor
-                        AutoSize="TextChanges"
-                        Placeholder="Nội dung" />
-                    <Grid>
+                            AutoSize="TextChanges"
+                            Placeholder="Nội dung"
+                            Text="{Binding Task.Content}" />
+
+                        <Grid>
+                            <Entry
+                                Placeholder="Độ Ưu Tiên"
+                                Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}" />
+                            <Entry
+                                Grid.Column="1"
+                                Placeholder="Thời hạn"
+                                Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                        </Grid>
+
                         <control:EntryAction
-                            Placeholder="Độ Ưu Tiên"
-                            Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}" />
-                        <control:EntryAction
-                            Grid.Column="1"
-                            Placeholder="Thời hạn"
-                            Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
-                    </Grid>
+                            Placeholder="Sự vụ liên quan"
+                            Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
+                            Command="{Binding ReferenceTasksCommand}" />
 
-                    <control:EntryAction
-                        Placeholder="Sự vụ liên quan"
-                        Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
-                        Command="{Binding ReferenceTasksCommand}" />
-
-                </StackLayout>
-            </Frame>
+                    </StackLayout>
+                </Frame>
 
 
-            <Label
-                Margin="16,8,16,0"
-                Grid.Row="1"
-                TextColor="{StaticResource Description}"
-                Text="Tệp Đính Kèm" />
-
-
-            <Grid
-                HeightRequest="64"
-                Margin="16,0">
+                <Label
+                    Margin="16,8,16,4"
+                    Grid.Row="1"
+                    TextDecorations="Underline"
+                    TextColor="{DynamicResource Description}"
+                    Text="Tệp Đính Kèm" />
 
 
                 <CollectionView
-                    Grid.Column="1"
+                    Margin="16,4"
                     ItemSizingStrategy="MeasureAllItems"
                     ItemsSource="{Binding Files}"
                     HeightRequest="44">
@@ -72,118 +158,244 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Frame
-                                    Margin="8">
-                                    <Grid
-                                        ColumnSpacing="0"
-                                        ColumnDefinitions="40,120">
-                                        <Image
-                                            Margin="4"
-                                            HeightRequest="40"
-                                            WidthRequest="40"
-                                            Source="{Binding FullPath}" />
-                                        <Label
-                                            Margin="4,0"
-                                            Style="{StaticResource LabelDescription}"
-                                            Grid.Column="1"
-                                            VerticalOptions="Center"
-                                            Text="{Binding FileName}" />
+                            <Frame
+                                Margin="8">
+                                <Grid
+                                    ColumnSpacing="0"
+                                    ColumnDefinitions="40,120">
+                                    <Image
+                                        Margin="4"
+                                        HeightRequest="40"
+                                        WidthRequest="40"
+                                        Source="{Binding FullPath}" />
+                                    <Label
+                                        Margin="4,0"
+                                        Style="{DynamicResource LabelDescription}"
+                                        Grid.Column="1"
+                                        VerticalOptions="Center"
+                                        Text="{Binding FileName}" />
+                                </Grid>
 
-                                    </Grid>
+                            </Frame>
 
-                                </Frame>
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding Source={Reference root},Path=BindingContext.RemoveFileCommand}"
-                                        CommandParameter="{Binding .}" />
-                                </Grid.GestureRecognizers>
-                            </Grid>
+
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-            </Grid>
 
+                <Label
+                    Margin="16,8,16,4"
+                    TextDecorations="Underline"
+                    TextColor="{DynamicResource Description}"
+                    Text="Bình luận" />
 
+                <StackLayout
+                    Margin="16,4"
+                    Spacing="4"
+                    BindableLayout.ItemsSource="{Binding Comments}">
+                    <BindableLayout.EmptyView>
+                        <Label
+                            Text="Chưa có bình luận nào" />
+                    </BindableLayout.EmptyView>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Margin="0,4">
+                                <Label
+                                    Style="{DynamicResource LabelNormal}"
+                                    TextColor="{StaticResource Text}"
+                                    Text="{Binding Sender}" />
+                                <Label
+                                    Style="{DynamicResource LabelDescription}"
+                                    Text="{Binding Date}" />
+                                <Frame
+                                    BackgroundColor="#EEEEEE">
+                                    <Label
+                                        Margin="8,4"
+                                        Style="{DynamicResource LabelDescription}"
+                                        TextColor="{StaticResource Text}"
+                                        Text="{Binding Content}" />
+                                </Frame>
 
-            <sh:Shadows
-                Grid.Row="5"
-                Margin="16"
-                CornerRadius="24"
-                VerticalOptions="Start"
-                Shades="{StaticResource ShadowPrimary}">
-                <Button
-                    Text="Tạo Sự Vụ"
-                    Command="{Binding CreateCommand}"
-                    Style="{StaticResource ButtonPrimary}">
-                    <Button.Background>
-                        <LinearGradientBrush
-                            EndPoint="1,0">
-                            <GradientStop
-                                Color="{StaticResource Primary}"
-                                Offset="0.1" />
-                            <GradientStop
-                                Color="{StaticResource EndPrimary}"
-                                Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-            </sh:Shadows>
+                                <ScrollView
+                                    Orientation="Horizontal">
+                                    <StackLayout
+                                        Spacing="8"
+                                        BindableLayout.ItemsSource="{Binding Files}"
+                                        Orientation="Horizontal">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame
+                                                    Margin="0">
+                                                    <Grid
+                                                        ColumnSpacing="0"
+                                                        ColumnDefinitions="40,120">
+                                                        <Image
+                                                            Margin="4"
+                                                            HeightRequest="40"
+                                                            WidthRequest="40"
+                                                            Source="{Binding FullPath}" />
+                                                        <Label
+                                                            Margin="4,0"
+                                                            Style="{DynamicResource LabelDescription}"
+                                                            Grid.Column="1"
+                                                            VerticalOptions="Center"
+                                                            Text="{Binding FileName}" />
+                                                    </Grid>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </ScrollView>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <control:FloatingButton
+            x:Name="floating"
+            HeightRequest="120"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Grid.RowSpan="2"
+            Margin="0,0,8,8">
+            <control:FloatingButton.Items>
+                <x:Array
+                    Type="{x:Type View}">
+                    <!--<control:FloatingButtonItemControl
+                        Color="#9DC457"
+                        IsVisible="true"
+                        Command="{Binding ReOpenCommand}"
+                        Title="Mở lại">
+                        <control:FloatingButtonItemControl.Icon>
+                            <FontImageSource
+                                Color="{StaticResource Foreground}"
+                                FontFamily="{StaticResource FontMaterialdesign}"
+                                Size="16"
+                                Glyph="{Static fontIcon:MaterialDesign.Reload}" />
+                        </control:FloatingButtonItemControl.Icon>
+                    </control:FloatingButtonItemControl>-->
+                    <control:FloatingButtonItemControl
+                        Color="#F45859"
+                        Title="Lịch sử"
+                        Command="{Binding HistoryCommand}">
+                        <control:FloatingButtonItemControl.Icon>
+                            <FontImageSource
+                                Color="{StaticResource Foreground}"
+                                FontFamily="{StaticResource FontMaterialdesign}"
+                                Size="16"
+                                Glyph="{Static fontIcon:MaterialDesign.History}" />
+                        </control:FloatingButtonItemControl.Icon>
+                    </control:FloatingButtonItemControl>
+                    <control:FloatingButtonItemControl
+                        Color="#9CD7F9"
+                        IsVisible="true"
+                        Title="Bình luận"
+                        Command="{Binding CommentCommand}">
+                        <control:FloatingButtonItemControl.Icon>
+                            <FontImageSource
+                                Color="{StaticResource Foreground}"
+                                FontFamily="{StaticResource FontMaterialdesign}"
+                                Size="16"
+                                Glyph="{Static fontIcon:MaterialDesign.Comment}" />
+                        </control:FloatingButtonItemControl.Icon>
+                    </control:FloatingButtonItemControl>
+                    <control:FloatingButtonItemControl
+                        Color="#FF3980"
+                        IsVisible="true"
+                        Command="{Binding FollowCommand}">
+                        <control:FloatingButtonItemControl.Triggers>
+                            <DataTrigger
+                                TargetType="control:FloatingButtonItemControl"
+                                Binding="{Binding Source={RelativeSource Self},Path=Parent.Parent.BindingContext.IsFollowed}"
+                                Value="True">
+                                <Setter
+                                    Property="Title"
+                                    Value="Bỏ theo dõi" />
+                                <Setter
+                                    Property="Icon">
+                                    <FontImageSource
+                                        Color="{StaticResource Foreground}"
+                                        FontFamily="{StaticResource FontMaterialdesign}"
+                                        Size="16"
+                                        Glyph="{Static fontIcon:MaterialDesign.HeartBroken}" />
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger
+                                TargetType="control:FloatingButtonItemControl"
+                                Binding="{Binding Source={RelativeSource Self},Path=Parent.Parent.BindingContext.IsFollowed}"
+                                Value="False">
+                                <Setter
+                                    Property="Title"
+                                    Value="Theo dõi" />
+                                <Setter
+                                    Property="Icon">
+                                    <FontImageSource
+                                        Color="{StaticResource Foreground}"
+                                        FontFamily="{StaticResource FontMaterialdesign}"
+                                        Size="16"
+                                        Glyph="{Static fontIcon:MaterialDesign.Heart}" />
+                                </Setter>
+                            </DataTrigger>
+                        </control:FloatingButtonItemControl.Triggers>
+                    </control:FloatingButtonItemControl>
 
+                </x:Array>
+            </control:FloatingButton.Items>
+        </control:FloatingButton>
 
-            <!--<control:FloatingButton
-                x:Name="floating"
-                HeightRequest="120"
-                HorizontalOptions="End"
-                VerticalOptions="End"
-                Grid.Row="2"
-                Margin="0,0,8,8">
-                <control:FloatingButton.Items>
-                    <x:Array
-                        Type="{x:Type View}">
-                        <control:FloatingButtonItemControl
-                            Color="#9DC457"
-                            IsVisible="true"
-                            Title="Re-Open"
-                            Command="{Binding StatisticsCommand}">
-                            <control:FloatingButtonItemControl.Icon>
-                                <FontImageSource
-                                    Color="{StaticResource Foreground}"
-                                    FontFamily="{StaticResource FontMaterialdesign}"
-                                    Size="16"
-                                    Glyph="{Static fontIcon:MaterialDesign.Reload}" />
-                            </control:FloatingButtonItemControl.Icon>
-                        </control:FloatingButtonItemControl>
-                        <control:FloatingButtonItemControl
-                            Color="#9CD7F9"
-                            IsVisible="true"
-                            Title="Commend"
-                            Command="{Binding StatisticsCommand}">
-                            <control:FloatingButtonItemControl.Icon>
-                                <FontImageSource
-                                    Color="{StaticResource Foreground}"
-                                    FontFamily="{StaticResource FontMaterialdesign}"
-                                    Size="16"
-                                    Glyph="{Static fontIcon:MaterialDesign.Comment}" />
-                            </control:FloatingButtonItemControl.Icon>
-                        </control:FloatingButtonItemControl>
-                        <control:FloatingButtonItemControl
-                            Color="#F45859"
-                            IsVisible="{Binding IsStarted}"
-                            Title="Lich Su"
-                            Command="{Binding ChangeClassCommand}">
-                            <control:FloatingButtonItemControl.Icon>
-                                <FontImageSource
-                                    Color="{StaticResource Foreground}"
-                                    FontFamily="{StaticResource FontMaterialdesign}"
-                                    Size="16"
-                                    Glyph="{Static fontIcon:MaterialDesign.History}" />
-                            </control:FloatingButtonItemControl.Icon>
-                        </control:FloatingButtonItemControl>
-                    </x:Array>
-                </control:FloatingButton.Items>
-            </control:FloatingButton>-->
-        </StackLayout>
-    </ScrollView>
+        <sh:Shadows
+            Grid.Row="1"
+            Margin="16,0,80,0"
+            CornerRadius="24"
+            HeightRequest="44"
+            VerticalOptions="Start"
+            Shades="{StaticResource ShadowPrimary}">
+            <Frame
+                HeightRequest="44"
+                CornerRadius="22">
+                <Grid
+                    ColumnSpacing="0"
+                    ColumnDefinitions="*,96">
+                    <Label
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        TextColor="White"
+                        Style="{StaticResource LabelNormal}"
+                        Text="Duyệt">
+                        <Label.Background>
+                            <LinearGradientBrush
+                                EndPoint="1,0">
+                                <GradientStop
+                                    Color="{StaticResource Primary}"
+                                    Offset="0.1" />
+                                <GradientStop
+                                    Color="{StaticResource EndPrimary}"
+                                    Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Label.Background>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ApproveCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        Style="{StaticResource LabelNormal}"
+                        Text="Không duyệt"
+                        TextColor="Black"
+                        BackgroundColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding RejectCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Frame>
+        </sh:Shadows>
+    </Grid>
 </ContentPage>
