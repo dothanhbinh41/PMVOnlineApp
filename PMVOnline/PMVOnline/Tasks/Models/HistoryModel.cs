@@ -9,6 +9,7 @@ namespace PMVOnline.Tasks.Models
     {
         public string Actor { get; set; }
         public string Action { get; set; }
+        public string Note { get; set; }
         public DateTime Date { get; set; }
     }
 }

@@ -29,6 +29,7 @@
                     Margin="16,4"
                     CornerRadius="{StaticResource Radius}"
                     Style="{DynamicResource ButtonPrimary}"
+                    Command="{Binding ReadCommand}"
                     HorizontalOptions="Start"
                     BorderWidth="1"
                     HeightRequest="40">
@@ -53,7 +54,7 @@
                                 Value="Hoàn thành" />
                             <Setter
                                 Property="BackgroundColor"
-                                Value="{StaticResource Primary}" />
+                                Value="{StaticResource Normal}" />
                         </DataTrigger>
                         <DataTrigger
                             TargetType="Button"
@@ -61,7 +62,7 @@
                             Value="{Static model:TaskStatus.Rejected}">
                             <Setter
                                 Property="Text"
-                                Value="Từ chối" />
+                                Value="Từ chối (*)" />
                             <Setter
                                 Property="BackgroundColor"
                                 Value="{StaticResource Highest}" />
@@ -85,7 +86,7 @@
                             Value="{Static model:TaskStatus.Incompleted}">
                             <Setter
                                 Property="Text"
-                                Value="Không hoàn thành" />
+                                Value="Không hoàn thành (*)" />
                             <Setter
                                 Property="BackgroundColor"
                                 Value="{StaticResource Highest}" />
@@ -347,14 +348,15 @@
         </control:FloatingButton>
 
         <sh:Shadows
+            IsVisible="{Binding Editable}"
             Grid.Row="1"
             Margin="16,0,80,0"
             CornerRadius="24"
             VerticalOptions="Start"
             Shades="{StaticResource ShadowPrimary}">
             <Button
-                Text="Tạo Sự Vụ"
-                Command="{Binding CreateCommand}"
+                Text="Kết thúc sự vụ"
+                Command="{Binding FinishCommand}"
                 Style="{DynamicResource ButtonPrimary}">
                 <Button.Background>
                     <LinearGradientBrush

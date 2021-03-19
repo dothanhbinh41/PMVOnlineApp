@@ -28,6 +28,7 @@ namespace PMVOnline.Tasks.Services
         Task<bool> ReopenAsync(long id);
         Task<bool> CompleteTaskAsync(long id, bool completed, DateTime completedDate, string note);
         Task<HistoryModel[]> GetTaskHistoryAsync(long id);
+        Task<string> GetNote(long id);
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
@@ -82,7 +83,7 @@ namespace PMVOnline.Tasks.Services
         {
             var result = await Api.FollowTask(new PMVOnline.Api.Dtos.Tasks.FollowTaskRequestDto
             {
-                Id = id, 
+                Id = id,
                 Follow = follow
             });
             return result.Content;
@@ -92,6 +93,12 @@ namespace PMVOnline.Tasks.Services
         {
             var result = await Api.GetAssignee((int)target);
             return result.Content.ToModel();
+        }
+
+        public async Task<string> GetNote(long id)
+        {
+            var result = await Api.GetNote(id); 
+            return result.Content;
         }
 
         public async Task<TaskActionModel[]> GetMyActionsAsync()

@@ -16,6 +16,7 @@ namespace PMVOnline.Api.Dtos.Tasks
         public Status Status { get; set; }
         public ActionType LastAction { get; set; }
         public Guid AssigneeId { get; set; } 
+        public Guid CreatorId { get; set; } 
         //public TaskFileDto[] TaskFiles { get; set; }
         public ReferenceTaskDto[] ReferenceTasks { get; set; } 
         public virtual SimpleUserDto Assignee { get; set; }
@@ -91,6 +92,7 @@ namespace PMVOnline.Api.Dtos.Tasks
     { 
         public SimpleUserDto Actor { get; set; }
         public ActionType Action { get; set; }
+        public string Note { get; set; }
         public DateTime CreationTime { get; set; }
 
     }

@@ -31,6 +31,7 @@ namespace PMVOnline.Accounts.Services
             {
                 var user = new UserModel
                 {
+                    Id = result.Content.Id,
                     Email = result.Content.Email,
                     HasPassword = result.Content.HasPassword,
                     IsExternal = result.Content.IsExternal,

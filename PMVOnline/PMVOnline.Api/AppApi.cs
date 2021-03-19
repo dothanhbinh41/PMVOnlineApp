@@ -32,6 +32,9 @@ namespace PMVOnline.Api
         [Get("/api/app/task/{id}/task-history")]
         Task<ApiResponse<TaskHistoryDto[]>> GetHistory(long id);
 
+        [Get("/api/app/task/{id}/note")]
+        Task<ApiResponse<string>> GetNote(long id);
+
         [Get("/api/app/task/{id}/task-files")]
         Task<ApiResponse<FileDto[]>> GetTaskFiles(long id);
 
@@ -50,7 +53,7 @@ namespace PMVOnline.Api
 
         [Post("/api/app/task/process-task")]
         Task<ApiResponse<bool>> ApproveTask(ApproveTaskRequestDto request);
-        
+
         [Post("/api/app/task/finish-task")]
         Task<ApiResponse<bool>> FinishTask(FinishTaskRequestDto request);
 

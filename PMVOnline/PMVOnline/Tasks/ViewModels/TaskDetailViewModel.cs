@@ -1,7 +1,11 @@
-﻿using PMVOnline.Common.Bases;
+﻿using PMVOnline.Accounts.Models;
+using PMVOnline.Common.Bases;
+using PMVOnline.Common.Services;
 using PMVOnline.Tasks.Models;
 using PMVOnline.Tasks.Services;
 using Prism.Navigation;
+using Prism.Services;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,26 +17,49 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TaskDetailViewModel : ViewModelBase
     {
+        public bool Editable { get; set; }
         public bool IsFollowed { get; set; } = true;
         public TaskDetailModel Task { get; set; }
         public List<FileModel> Files { get; set; }
         public List<CommentModel> Comments { get; set; }
         long taskId;
-
+        string note;
+        UserModel user;
         private readonly INavigationService navigationService;
         private readonly ITaskService taskService;
+        private readonly IApplicationSettings applicationSettings;
+        private readonly IPageDialogService dialogService;
 
         public TaskDetailViewModel(
             INavigationService navigationService,
-            ITaskService taskService)
+            ITaskService taskService,
+            IApplicationSettings applicationSettings,
+            IPageDialogService dialogService)
         {
             this.navigationService = navigationService;
             this.taskService = taskService;
+            this.applicationSettings = applicationSettings;
+            this.dialogService = dialogService;
+        }
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            user = applicationSettings.User;
         }
 
         async Task GetDetails(long id)
         {
             Task = await taskService.GetTaskAsync(id);
+            if (Task == null)
+            {
+                return;
+            }
+            Editable = (user.Id == Task.AssigneeId || user.Id == Task.CreatorId) && Task.Status == Models.TaskStatus.Approved;
+            if (Task.Status == Models.TaskStatus.Rejected || Task.Status == Models.TaskStatus.Completed || Task.Status == Models.TaskStatus.Incompleted)
+            {
+                note = (await taskService.GetNote(id));
+            }
         }
 
         async Task GetComments(long id)
@@ -48,7 +75,7 @@ namespace PMVOnline.Tasks.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.GetNavigationMode() == NavigationMode.Back)
+            if (parameters.GetNavigationMode() == NavigationMode.Back || !parameters.ContainsKey(NavigationKey.TaskId))
             {
                 return;
             }
@@ -82,6 +109,19 @@ namespace PMVOnline.Tasks.ViewModels
         }
 
 
+
+        ICommand _ReadCommand;
+        public ICommand ReadCommand => _ReadCommand = _ReadCommand ?? new AsyncCommand(ExecuteReadCommand);
+        async Task ExecuteReadCommand()
+        {
+            if (string.IsNullOrEmpty(note))
+            {
+                return;
+            }
+            await dialogService.DisplayAlertAsync("Lý do", note, "ok");
+        }
+
+
         ICommand _ReOpenCommand;
         public ICommand ReOpenCommand => _ReOpenCommand = _ReOpenCommand ?? new AsyncCommand(ExecuteReOpenCommand);
         async Task ExecuteReOpenCommand()
@@ -94,17 +134,12 @@ namespace PMVOnline.Tasks.ViewModels
             await taskService.ReopenAsync(taskId);
             IsBusy = false;
         }
-         
+
         ICommand _FinishCommand;
         public ICommand FinishCommand => _FinishCommand = _FinishCommand ?? new AsyncCommand(ExecuteFinishCommand);
         async Task ExecuteFinishCommand()
-        { 
-        }
-         
-        ICommand _ApproveCommand;
-        public ICommand ApproveCommand => _ApproveCommand = _ApproveCommand ?? new AsyncCommand(ExecuteApproveCommand);
-        async Task ExecuteApproveCommand()
         {
-        } 
+            await navigationService.NavigateAsync(Routes.CompleteTask, new NavigationParameters { { NavigationKey.TaskId, taskId } });
+        }
     }
 }

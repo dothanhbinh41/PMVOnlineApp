@@ -72,7 +72,8 @@ namespace PMVOnline.Tasks.Extenstions
             {
                 Date = obj.CreationTime,
                 Actor = $"{obj.Actor?.Surname} {obj.Actor?.Name}",
-                Action = obj.Action.ToAction()
+                Action = obj.Action.ToAction(),
+                Note = obj.Note
             };
         }
 
@@ -90,7 +91,7 @@ namespace PMVOnline.Tasks.Extenstions
                 FullPath = obj.Path
             };
         }
-        
+
         public static UserModel ToModel(this SimpleUserDto obj)
         {
             if (obj == null)
@@ -139,7 +140,9 @@ namespace PMVOnline.Tasks.Extenstions
                 Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target },
                 Priority = (TaskPriority)obj.Priority,
                 ReferenceTasks = obj.ReferenceTasks?.Select(c => c.ReferenceTaskId).ToArray(),
-                AssigneeId = obj.AssigneeId
+                AssigneeId = obj.AssigneeId,
+                CreatorId = obj.CreatorId,
+                LastAction = obj.LastAction
             };
         }
     }
