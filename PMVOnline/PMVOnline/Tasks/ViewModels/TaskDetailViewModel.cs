@@ -25,20 +25,25 @@ namespace PMVOnline.Tasks.ViewModels
         long taskId;
         string note;
         UserModel user;
-        private readonly INavigationService navigationService;
-        private readonly ITaskService taskService;
-        private readonly IApplicationSettings applicationSettings;
-        private readonly IPageDialogService dialogService;
+
+
+        readonly INavigationService navigationService;
+        readonly ITaskService taskService;
+        readonly IApplicationSettings applicationSettings;
+        readonly IFileService fileService;
+        readonly IPageDialogService dialogService;
 
         public TaskDetailViewModel(
             INavigationService navigationService,
             ITaskService taskService,
             IApplicationSettings applicationSettings,
+            IFileService fileService,
             IPageDialogService dialogService)
         {
             this.navigationService = navigationService;
             this.taskService = taskService;
             this.applicationSettings = applicationSettings;
+            this.fileService = fileService;
             this.dialogService = dialogService;
         }
 
@@ -58,7 +63,7 @@ namespace PMVOnline.Tasks.ViewModels
             Editable = (user.Id == Task.AssigneeId || user.Id == Task.CreatorId) && Task.Status == Models.TaskStatus.Approved;
             if (Task.Status == Models.TaskStatus.Rejected || Task.Status == Models.TaskStatus.Completed || Task.Status == Models.TaskStatus.Incompleted)
             {
-                note = (await taskService.GetNote(id));
+                note = (await taskService.GetNoteAsync(id));
             }
         }
 
@@ -75,8 +80,13 @@ namespace PMVOnline.Tasks.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.GetNavigationMode() == NavigationMode.Back || !parameters.ContainsKey(NavigationKey.TaskId))
+            if (parameters.GetNavigationMode() == NavigationMode.Back)
             {
+                if (parameters.ContainsKey("Comment"))
+                {
+                    IsBusy = true;
+                    GetComments(taskId).ContinueWith(t => IsBusy = false);
+                }
                 return;
             }
             taskId = parameters.GetValue<long>(NavigationKey.TaskId);
@@ -108,8 +118,6 @@ namespace PMVOnline.Tasks.ViewModels
             IsBusy = false;
         }
 
-
-
         ICommand _ReadCommand;
         public ICommand ReadCommand => _ReadCommand = _ReadCommand ?? new AsyncCommand(ExecuteReadCommand);
         async Task ExecuteReadCommand()
@@ -140,6 +148,14 @@ namespace PMVOnline.Tasks.ViewModels
         async Task ExecuteFinishCommand()
         {
             await navigationService.NavigateAsync(Routes.CompleteTask, new NavigationParameters { { NavigationKey.TaskId, taskId } });
+        }
+         
+
+        ICommand _DownloadCommand;
+        public ICommand DownloadCommand => _DownloadCommand = _DownloadCommand ?? new AsyncCommand<FileModel>(ExecuteDownloadCommand);
+        async Task ExecuteDownloadCommand(FileModel file)
+        {
+            await Xamarin.Essentials.Browser.OpenAsync(fileService.DownloadString(file.Id));
         }
     }
 }

@@ -12,6 +12,7 @@ namespace PMVOnline.Tasks.Services
     {
         Task<FileModel> UploadAsync(Stream file, string fileName);
         Task<byte[]> DownloadAsync(Guid id);
+        string DownloadString(Guid id);
     }
 
     public class FileService : AuthApiProvider<AppApi>, IFileService
@@ -19,6 +20,11 @@ namespace PMVOnline.Tasks.Services
         public Task<byte[]> DownloadAsync(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public string DownloadString(Guid id)
+        {
+            return $"{ApiBase.ServerApi}/api/File/DownloadFile?id={id}";
         }
 
         public async Task<FileModel> UploadAsync(Stream file, string fileName)

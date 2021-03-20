@@ -62,5 +62,8 @@ namespace PMVOnline.Api
 
         [Post("/api/app/task/reopen-task")]
         Task<ApiResponse<bool>> ReopenTask(ReopenTaskRequestDto request);
+
+        [Post("/api/app/task/{id}/send-comment")]
+        Task<ApiResponse<bool>> SendComment(long id, CommentRequestDto request);
     }
 }

@@ -10,4 +10,6 @@
         x:Key="ReferenceTasksIdConverter" />
     <converter:TaskStatusConverter
         x:Key="TaskStatusConverter" />
+    <converter:CollectionVisibilityConverter
+        x:Key="CollectionVisibilityConverter" />
 </ResourceDictionary>

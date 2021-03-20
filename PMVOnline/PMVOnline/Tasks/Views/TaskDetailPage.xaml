@@ -141,14 +141,15 @@
 
 
                 <Label
+                    IsVisible="{Binding Files,Converter={StaticResource CollectionVisibilityConverter}}"
                     Margin="16,8,16,4"
                     Grid.Row="1"
                     TextDecorations="Underline"
                     TextColor="{DynamicResource Description}"
                     Text="Tệp Đính Kèm" />
 
-
                 <CollectionView
+                    IsVisible="{Binding Files,Converter={StaticResource CollectionVisibilityConverter}}"
                     Margin="16,4"
                     ItemSizingStrategy="MeasureAllItems"
                     ItemsSource="{Binding Files}"
@@ -197,7 +198,7 @@
                     BindableLayout.ItemsSource="{Binding Comments}">
                     <BindableLayout.EmptyView>
                         <Label
-                            Text="Chua co comment nao" />
+                            Text="Chưa có comment nào" />
                     </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
@@ -236,13 +237,18 @@
                                                             Margin="4"
                                                             HeightRequest="40"
                                                             WidthRequest="40"
-                                                            Source="{Binding FullPath}" />
+                                                            Source="ic_cloud.png" />
                                                         <Label
                                                             Margin="4,0"
                                                             Style="{DynamicResource LabelDescription}"
                                                             Grid.Column="1"
                                                             VerticalOptions="Center"
                                                             Text="{Binding FileName}" />
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer
+                                                                Command="{Binding Source={Reference root},Path=BindingContext.DownloadCommand}"
+                                                                CommandParameter="{Binding .}" />
+                                                        </Grid.GestureRecognizers>
                                                     </Grid>
                                                 </Frame>
                                             </DataTemplate>

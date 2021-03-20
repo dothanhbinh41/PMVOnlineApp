@@ -119,7 +119,7 @@ namespace PMVOnline.Tasks.Extenstions
                 Date = obj.CreationTime,
                 Sender = $"{obj.User?.Surname} {obj.User?.Name}",
                 Content = obj.Comment,
-                Files = obj.FileIds?.Select(d => new FileModel { Id = d.FileId })?.ToArray()
+                Files = obj.FileIds?.Select(d => new FileModel { Id = d.FileId , FileName = d.FileName, FullPath = d.FilePath })?.ToArray()
             };
         }
 

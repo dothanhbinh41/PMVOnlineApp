@@ -15,7 +15,7 @@ namespace PMVOnline.Common.Converters
                 var remaining = dt.Subtract(DateTime.Now);
                 if (remaining < TimeSpan.Zero)
                 {
-                    return "00:00";
+                    return "Quá hạn";
                 }
                 if (remaining.TotalDays >= 1)
                 {

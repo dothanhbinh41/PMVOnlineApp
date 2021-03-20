@@ -42,7 +42,7 @@ namespace PMVOnline.Tasks.ViewModels
         public override void RaiseIsActiveChanged()
         {
             base.RaiseIsActiveChanged();
-            if (!IsActive)
+            if (!IsActive || Tasks?.Count > 0)
             {
                 return;
             }

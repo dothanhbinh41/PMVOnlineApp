@@ -28,12 +28,13 @@ namespace PMVOnline.Tasks.Services
         Task<bool> ReopenAsync(long id);
         Task<bool> CompleteTaskAsync(long id, bool completed, DateTime completedDate, string note);
         Task<HistoryModel[]> GetTaskHistoryAsync(long id);
-        Task<string> GetNote(long id);
+        Task<string> GetNoteAsync(long id);
+        Task<bool> SendCommentAsync(long id, string comment, Guid[] files);
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
     {
-        private readonly IApplicationSettings applicationSettings;
+        readonly IApplicationSettings applicationSettings;
 
         public TaskService(IApplicationSettings applicationSettings)
         {
@@ -95,9 +96,9 @@ namespace PMVOnline.Tasks.Services
             return result.Content.ToModel();
         }
 
-        public async Task<string> GetNote(long id)
+        public async Task<string> GetNoteAsync(long id)
         {
-            var result = await Api.GetNote(id); 
+            var result = await Api.GetNote(id);
             return result.Content;
         }
 
@@ -172,6 +173,16 @@ namespace PMVOnline.Tasks.Services
             var result = await Api.ReopenTask(new PMVOnline.Api.Dtos.Tasks.ReopenTaskRequestDto
             {
                 Id = id
+            });
+            return result.Content;
+        }
+
+        public async Task<bool> SendCommentAsync(long id, string comment, Guid[] files)
+        {
+            var result = await Api.SendComment(id, new PMVOnline.Api.Dtos.Tasks.CommentRequestDto
+            {
+                Comment = comment,
+                Files = files
             });
             return result.Content;
         }

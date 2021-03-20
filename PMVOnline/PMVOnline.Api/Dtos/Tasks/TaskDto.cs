@@ -30,6 +30,8 @@ namespace PMVOnline.Api.Dtos.Tasks
     public class TaskFileDto
     {
         public Guid FileId { get; set; }
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
     }
 
     public class FileDto
@@ -128,6 +130,12 @@ namespace PMVOnline.Api.Dtos.Tasks
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+    }
+
+    public class CommentRequestDto
+    {
+        public string  Comment { get; set; }
+        public Guid[]  Files { get; set; }
     }
 
     public enum Target

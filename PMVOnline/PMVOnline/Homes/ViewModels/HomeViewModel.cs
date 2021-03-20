@@ -34,7 +34,7 @@ namespace PMVOnline.Homes.ViewModels
         public override void RaiseIsActiveChanged()
         {
             base.RaiseIsActiveChanged();
-            if (!IsActive)
+            if (!IsActive || Actions?.Count > 0)
             {
                 return;
             }
