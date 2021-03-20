@@ -70,7 +70,7 @@ namespace PMVOnline
 
         protected override void OnStart()
         {
-            AppCenter.Start("android=ff9085a0-5b3d-427f-8003-4005cfef9339;ios=7a5ae654-4193-4e5e-9525-663f5ededef0", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("android=840c1b8d-55b3-4ac2-b946-e54277ee2a58;ios=7a5ae654-4193-4e5e-9525-663f5ededef0", typeof(Analytics), typeof(Crashes));
             Container.Resolve<IFontsizeService>().Init();
             //await Initialize();
         }
