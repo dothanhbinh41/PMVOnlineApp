@@ -192,6 +192,7 @@
                             </Frame>
 
                             <Frame
+                                IsVisible="True"
                                 Margin="0,6,24,0"
                                 BackgroundColor="{StaticResource Primary}"
                                 HorizontalOptions="End"
@@ -202,6 +203,32 @@
                                     TextColor="{StaticResource Foreground}"
                                     VerticalOptions="Center"
                                     Text="{Binding DueDate,Mode=OneWay,Converter={StaticResource RemainingTimeConverter}}" />
+                                <Frame.Triggers>
+                                    <DataTrigger
+                                        TargetType="Frame"
+                                        Binding="{Binding Status}"
+                                        Value="{Static model:TaskStatus.Completed}">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        TargetType="Frame"
+                                        Binding="{Binding Status}"
+                                        Value="{Static model:TaskStatus.Incompleted}">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        TargetType="Frame"
+                                        Binding="{Binding Status}"
+                                        Value="{Static model:TaskStatus.Rejected}">
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
                             </Frame>
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer

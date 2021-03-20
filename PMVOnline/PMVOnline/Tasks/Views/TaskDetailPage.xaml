@@ -169,15 +169,19 @@
                                         Margin="4"
                                         HeightRequest="40"
                                         WidthRequest="40"
-                                        Source="{Binding FullPath}" />
+                                        Source="ic_cloud.png" />
                                     <Label
                                         Margin="4,0"
                                         Style="{DynamicResource LabelDescription}"
                                         Grid.Column="1"
                                         VerticalOptions="Center"
                                         Text="{Binding FileName}" />
-                                </Grid>
-
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={Reference root},Path=BindingContext.DownloadCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                </Grid> 
                             </Frame>
 
 

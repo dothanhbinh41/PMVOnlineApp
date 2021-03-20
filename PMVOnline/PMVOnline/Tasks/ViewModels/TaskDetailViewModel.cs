@@ -79,6 +79,10 @@ namespace PMVOnline.Tasks.ViewModels
                     IsBusy = true;
                     GetComments(taskId).ContinueWith(t => IsBusy = false);
                 }
+                if (parameters.ContainsKey(NavigationKey.Reload))
+                { 
+                    LoadData();
+                }
                 return;
             }
             taskId = parameters.GetValue<long>(NavigationKey.TaskId);

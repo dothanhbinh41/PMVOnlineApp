@@ -29,14 +29,15 @@ namespace PMVOnline.Tasks.ViewModels
             this.taskService = taskService;
             this.applicationServices = applicationServices;
         }
-
+         
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if(parameters.GetNavigationMode()== NavigationMode.Back && parameters.ContainsKey("reload"))
+            if (parameters.ContainsKey(NavigationKey.Reload))
             {
                 LoadData();
             }
+            return;
         }
 
         public override void RaiseIsActiveChanged()

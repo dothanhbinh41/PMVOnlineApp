@@ -63,7 +63,7 @@ namespace PMVOnline.Tasks.ViewModels
             if (result)
             {
                 Toast("Hoàn thành");
-                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.TaskId, taskId } });
+                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true } });
             }
             else
             {

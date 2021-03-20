@@ -65,7 +65,7 @@ namespace PMVOnline.Tasks.ViewModels
                     return;
                 }
                 Task.Assignee = assignee.FullName;
-                Task.AssigneeId = assignee.Id; 
+                Task.AssigneeId = assignee.Id;
             }
         }
 
@@ -147,6 +147,7 @@ namespace PMVOnline.Tasks.ViewModels
             if (result)
             {
                 Toast("Tao thanh cong");
+                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true } });
             }
             else
             {
@@ -164,7 +165,7 @@ namespace PMVOnline.Tasks.ViewModels
                 files.Add(fileService.UploadAsync(stream, file.FileName));
             }
 
-            await System.Threading.Tasks.Task.WhenAll(files).ContinueWith(t => Task.Files = t.Result?.Select(c=>c.Id)?.ToArray());
+            await System.Threading.Tasks.Task.WhenAll(files).ContinueWith(t => Task.Files = t.Result?.Select(c => c.Id)?.ToArray());
         }
     }
 }

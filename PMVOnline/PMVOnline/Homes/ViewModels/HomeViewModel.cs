@@ -30,6 +30,15 @@ namespace PMVOnline.Homes.ViewModels
             this.applicationServices = applicationServices;
         }
 
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters); 
+            if (parameters.ContainsKey(NavigationKey.Reload))
+            {
+                LoadData();
+            }
+            return;
+        }
 
         public override void RaiseIsActiveChanged()
         {

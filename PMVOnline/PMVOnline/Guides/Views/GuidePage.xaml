@@ -3,10 +3,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PMVOnline.Guides.Views.GuidePage"
-    BackgroundColor="{StaticResource Background}"
-    >
+    BackgroundColor="{StaticResource Background}">
     <WebView
-        BackgroundColor="{StaticResource Background}" 
-        Source="http://zing.vn/"
-        />
+        BackgroundColor="{StaticResource Background}">
+        <WebView.Source>
+            <HtmlWebViewSource
+                Html="{Binding Content}" />
+        </WebView.Source>
+    </WebView>
 </ContentPage>

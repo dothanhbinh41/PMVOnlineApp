@@ -138,6 +138,11 @@ namespace PMVOnline.Api.Dtos.Tasks
         public Guid[]  Files { get; set; }
     }
 
+    public class GuideResultDto
+    {
+        public string Content { get; set; }
+    }
+
     public enum Target
     {
         BuyCommodity, Payment, Storage, Make, Other, BuyOther

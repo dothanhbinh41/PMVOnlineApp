@@ -65,5 +65,9 @@ namespace PMVOnline.Api
 
         [Post("/api/app/task/{id}/send-comment")]
         Task<ApiResponse<bool>> SendComment(long id, CommentRequestDto request);
+
+
+        [Get("/api/app/guide/guide")]
+        Task<ApiResponse<GuideResultDto>> GetGuide();
     }
 }

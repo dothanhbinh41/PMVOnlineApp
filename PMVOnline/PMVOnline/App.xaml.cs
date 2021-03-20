@@ -37,6 +37,7 @@ using PMVOnline.Accounts.Services;
 using DryIoc;
 using PMVOnline.Tasks.Services;
 using PMVOnline.Authentications.Services;
+using PMVOnline.Guides.Services;
 
 namespace PMVOnline
 {
@@ -163,6 +164,7 @@ namespace PMVOnline
             containerRegistry.Register<IAuthenticationSerivce, AuthenticationSerivce>();
             containerRegistry.Register<IAccountService, AccountService>();
             containerRegistry.Register<IFileService, FileService>();
+            containerRegistry.Register<IGuideService, GuideService>();
         }
         void RegisterExternalService(IContainerRegistry containerRegistry)
         {
@@ -206,5 +208,6 @@ namespace PMVOnline
         public const string CloneTask = "CloneTask";
         public const string MyTasks = "MyTasks";
         public const string TaskId = "TaskId";
+        public const string Reload = "Reload";
     }
 }

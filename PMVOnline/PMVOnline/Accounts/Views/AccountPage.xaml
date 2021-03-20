@@ -40,7 +40,7 @@
                 HeightRequest="48"
                 Icon="{Static fontIcon:MaterialDesign.Lock}"
                 Color="{StaticResource Primary}"
-                Text="ChangePassword"
+                Text="Thay đổi mật khẩu"
                 IconAction="{Static fontIcon:MaterialDesign.ChevronRight}"
                 Command="{Binding ChangePasswordCommand}" />
             <control:LabelIconAction
@@ -49,7 +49,7 @@
                 Icon="{Static fontIcon:MaterialDesign.SearchWeb}"
                 IconAction="{Static fontIcon:MaterialDesign.ChevronRight}"
                 Color="{StaticResource Primary}"
-                Text="{Binding Fontsize,StringFormat='Fontsize : {0}'}"
+                Text="{Binding Fontsize,StringFormat='Kích thước chữ : {0}'}"
                 Command="{Binding ChangeFontsizeCommand}" />
 
             <Grid
@@ -59,7 +59,7 @@
                    
                     Icon="{Static fontIcon:MaterialDesign.BellOutline}"
                     Color="{StaticResource Primary}"
-                    Text="Notification"
+                    Text="Thông báo"
                     Command="{Binding NotificationCommand}" />
                 <Switch  
                     Margin="8,0"

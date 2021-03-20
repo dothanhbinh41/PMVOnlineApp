@@ -25,15 +25,18 @@ namespace PMVOnline.Tasks.ViewModels.Admins
         long taskId;
 
         readonly INavigationService navigationService;
-        readonly ITaskService taskService; 
+        readonly ITaskService taskService;
+        readonly IFileService fileService;
 
         public ModerateTaskViewModel(
             INavigationService navigationService,
             ITaskService taskService,
+            IFileService fileService,
             IPageDialogService pageDialogService)
         {
             this.navigationService = navigationService;
-            this.taskService = taskService; 
+            this.taskService = taskService;
+            this.fileService = fileService;
         }
 
         async Task GetDetails(long id)
@@ -123,6 +126,13 @@ namespace PMVOnline.Tasks.ViewModels.Admins
             {
                 Toast("Duyệt không thành công");
             }
+        }
+
+        ICommand _DownloadCommand;
+        public ICommand DownloadCommand => _DownloadCommand = _DownloadCommand ?? new AsyncCommand<FileModel>(ExecuteDownloadCommand);
+        async Task ExecuteDownloadCommand(FileModel file)
+        {
+            await Xamarin.Essentials.Browser.OpenAsync(fileService.DownloadString(file.Id));
         }
     }
 }
