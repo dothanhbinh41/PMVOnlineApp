@@ -16,11 +16,12 @@ namespace PMVOnline.Homes.ViewModels
 {
     public class HomeViewModel : TabViewModelBase
     {
+        public bool IsLoading { get; set; }
         public List<TaskActionModel> Actions { get; set; }
 
         readonly INavigationService navigationService;
-        private readonly ITaskService taskService;
-        private readonly IApplicationSettings applicationServices;
+        readonly ITaskService taskService;
+        readonly IApplicationSettings applicationServices;
 
         public HomeViewModel(INavigationService navigationService, ITaskService taskService, IApplicationSettings applicationServices)
         {
@@ -37,8 +38,16 @@ namespace PMVOnline.Homes.ViewModels
             {
                 return;
             }
-            taskService.GetMyActionsAsync().ContinueWith(d => Actions = new List<TaskActionModel>(d.Result));
+            LoadData();
         }
+
+        async Task LoadData()
+        {
+            IsLoading = true;
+            await taskService.GetMyActionsAsync().ContinueWith(d => Actions = new List<TaskActionModel>(d.Result));
+            IsLoading = false;
+        }
+
 
         ICommand _ViewDetailCommand;
         public ICommand ViewDetailCommand => _ViewDetailCommand = _ViewDetailCommand ?? new AsyncCommand<TaskActionModel>(ExecuteViewDetailCommand);
@@ -58,5 +67,15 @@ namespace PMVOnline.Homes.ViewModels
             }
             var xx = await navigationService.NavigateAsync(Routes.TaskDetail, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
         }
+
+
+
+        ICommand _ReloadCommand;
+        public ICommand ReloadCommand => _ReloadCommand = _ReloadCommand ?? new AsyncCommand(ExecuteReloadCommand);
+        async Task ExecuteReloadCommand()
+        {
+            await LoadData();
+        }
+
     }
 }

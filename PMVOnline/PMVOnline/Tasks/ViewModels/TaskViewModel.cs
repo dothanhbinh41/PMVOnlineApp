@@ -17,11 +17,11 @@ namespace PMVOnline.Tasks.ViewModels
     public class TaskViewModel : TabViewModelBase
     {
         public List<TaskActionModel> Tasks { get; set; }
-
+        public bool IsLoading { get; set; }
 
         readonly INavigationService navigationService;
-        private readonly ITaskService taskService;
-        private readonly IApplicationSettings applicationServices;
+        readonly ITaskService taskService;
+        readonly IApplicationSettings applicationServices;
 
         public TaskViewModel(INavigationService navigationService, ITaskService taskService, IApplicationSettings applicationServices)
         {
@@ -33,19 +33,33 @@ namespace PMVOnline.Tasks.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
+            if(parameters.GetNavigationMode()== NavigationMode.Back && parameters.ContainsKey("reload"))
+            {
+                LoadData();
+            }
         }
 
         public override void RaiseIsActiveChanged()
         {
             base.RaiseIsActiveChanged();
-            taskService.GetMyTasksAsync(0).ContinueWith(t =>
+            if (!IsActive)
+            {
+                return;
+            }
+            LoadData();
+        }
+
+        async Task LoadData()
+        {
+            IsLoading = true;
+            await taskService.GetMyTasksAsync(0, 100).ContinueWith(t =>
             {
                 if (t.Result != null)
                 {
                     Tasks = new List<TaskActionModel>(t.Result);
                 }
             });
+            IsLoading = false;
         }
 
         ICommand _CreateCommand;
@@ -73,6 +87,13 @@ namespace PMVOnline.Tasks.ViewModels
             }
 
             var xx = await navigationService.NavigateAsync(Routes.TaskDetail, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
+        }
+         
+        ICommand _ReloadCommand;
+        public ICommand ReloadCommand => _ReloadCommand = _ReloadCommand ?? new AsyncCommand(ExecuteReloadCommand);
+        async Task ExecuteReloadCommand()
+        {
+            await LoadData();
         }
 
     }
