@@ -8,6 +8,7 @@ using Prism.Services;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -55,16 +56,7 @@ namespace PMVOnline.Tasks.ViewModels
 
         async Task GetDetails(long id)
         {
-            Task = await taskService.GetTaskAsync(id);
-            if (Task == null)
-            {
-                return;
-            }
-            Editable = (user.Id == Task.AssigneeId || user.Id == Task.CreatorId) && Task.Status == Models.TaskStatus.Approved;
-            if (Task.Status == Models.TaskStatus.Rejected || Task.Status == Models.TaskStatus.Completed || Task.Status == Models.TaskStatus.Incompleted)
-            {
-                note = (await taskService.GetNoteAsync(id));
-            }
+            Task = await taskService.GetTaskAsync(id); 
         }
 
         async Task GetComments(long id)
@@ -90,8 +82,23 @@ namespace PMVOnline.Tasks.ViewModels
                 return;
             }
             taskId = parameters.GetValue<long>(NavigationKey.TaskId);
+            LoadData();
+        }
+
+        async Task LoadData()
+        {
             IsBusy = true;
-            System.Threading.Tasks.Task.WhenAll(GetDetails(taskId), GetComments(taskId), GetFiles(taskId)).ContinueWith(t => IsBusy = false);
+            await System.Threading.Tasks.Task.WhenAll(GetDetails(taskId), GetComments(taskId), GetFiles(taskId)).ContinueWith(t => IsBusy = false);
+            if (Task == null)
+            {
+                return;
+            }
+            Editable = (user.Id == Task.AssigneeId || user.Id == Task.CreatorId) && Task.Status == Models.TaskStatus.Approved; 
+            if (Task.Status == Models.TaskStatus.Rejected || Task.Status == Models.TaskStatus.Completed || Task.Status == Models.TaskStatus.Incompleted)
+            {
+                note = (await taskService.GetNoteAsync(taskId));
+            }
+            IsBusy = false;
         }
 
         ICommand _CommentCommand;
