@@ -1,4 +1,5 @@
-﻿using PMVOnline.Accounts.Services;
+﻿using Plugin.FirebasePushNotification;
+using PMVOnline.Accounts.Services;
 using PMVOnline.Authentications.Services;
 using PMVOnline.Common.Bases;
 using PMVOnline.Common.Services;
@@ -49,6 +50,7 @@ namespace PMVOnline.Authentications.ViewModels
             {
                 var user = await accountService.GetAccountInformationAsync();
                 applicationServices.User = user;
+                await SendToken();
                 await navigationService.NavigateAsync(Routes.Home);
                 IsBusy = false;
                 Toast("Đăng nhập thành công!");
@@ -64,6 +66,12 @@ namespace PMVOnline.Authentications.ViewModels
         public ICommand LostPasswordCommand => _LostPasswordCommand = _LostPasswordCommand ?? new AsyncCommand(ExecuteLostPasswordCommand);
         async Task ExecuteLostPasswordCommand()
         {
+        }
+
+        async Task SendToken()
+        {
+            var token = await CrossFirebasePushNotification.Current.GetTokenAsync();
+            await accountService.SaveDeviceTokenAsync(token);
         }
     }
 }

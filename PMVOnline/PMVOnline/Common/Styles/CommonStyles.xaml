@@ -33,7 +33,7 @@
             Value="{DynamicResource FontSizeNormal}" />
         <Setter
             Property="BackgroundColor"
-            Value="Transparent" />
+            Value="{StaticResource Foreground}" />
         <Setter
             Property="PlaceholderColor"
             Value="{StaticResource Description}" />
@@ -51,7 +51,7 @@
             Value="{DynamicResource FontSizeNormal}" />
         <Setter
             Property="BackgroundColor"
-            Value="Transparent" />
+            Value="{StaticResource Foreground}" />
         <Setter
             Property="PlaceholderColor"
             Value="{StaticResource Description}" />

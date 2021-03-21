@@ -12,6 +12,7 @@ namespace PMVOnline.Accounts.Services
     public interface IAccountService
     {
         Task<UserModel> GetAccountInformationAsync();
+        Task<bool> SaveDeviceTokenAsync(string token);
     }
 
     public class AccountService : AuthApiProvider<AppApi>, IAccountService
@@ -45,6 +46,12 @@ namespace PMVOnline.Accounts.Services
                 return user;
             }
             return null;
+        }
+
+        public async Task<bool> SaveDeviceTokenAsync(string token)
+        {
+            var result = await Api.SaveDeviceToken(new PMVOnline.Api.Dtos.Tasks.SaveDeviceTokenRequestDto { Token = token }); 
+            return result?.Content == true;
         }
     }
 }

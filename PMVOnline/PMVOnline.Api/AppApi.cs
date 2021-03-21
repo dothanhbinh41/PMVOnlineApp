@@ -65,6 +65,9 @@ namespace PMVOnline.Api
 
         [Post("/api/app/task/{id}/send-comment")]
         Task<ApiResponse<bool>> SendComment(long id, CommentRequestDto request);
+        
+        [Post("/api/app/device-token/save-device-token")]
+        Task<ApiResponse<bool>> SaveDeviceToken(SaveDeviceTokenRequestDto request);
 
 
         [Get("/api/app/guide/guide")]

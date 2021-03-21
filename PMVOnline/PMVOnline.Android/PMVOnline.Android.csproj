@@ -36,6 +36,11 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\WS\PMVOnlineApp\PMVOnline\PMVOnline.Android\Keystores\testkeystore.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyPass>Binhdo1989</AndroidSigningKeyPass>
+    <AndroidSigningStorePass>Binhdo1989</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>testkeystore</AndroidSigningKeyAlias>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,6 +55,11 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\WS\PMVOnlineApp\PMVOnline\PMVOnline.Android\Keystores\testkeystore.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>testkeystore</AndroidSigningKeyAlias>
+    <AndroidSigningStorePass>Binhdo1989</AndroidSigningStorePass>
+    <AndroidSigningKeyPass>Binhdo1989</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -95,6 +105,7 @@
     <Compile Include="Services\DateTimeService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -197,6 +208,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_cloud.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

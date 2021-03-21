@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PMVOnline.Api.Dtos.Tasks
 {
-    public class FullTaskDto 
+    public class FullTaskDto
     {
         public long Id { get; set; }
         public string Title { get; set; }
@@ -15,15 +15,15 @@ namespace PMVOnline.Api.Dtos.Tasks
         public Target Target { get; set; }
         public Status Status { get; set; }
         public ActionType LastAction { get; set; }
-        public Guid AssigneeId { get; set; } 
-        public Guid CreatorId { get; set; } 
+        public Guid AssigneeId { get; set; }
+        public Guid CreatorId { get; set; }
         //public TaskFileDto[] TaskFiles { get; set; }
-        public ReferenceTaskDto[] ReferenceTasks { get; set; } 
+        public ReferenceTaskDto[] ReferenceTasks { get; set; }
         public virtual SimpleUserDto Assignee { get; set; }
     }
 
     public class ReferenceTaskDto
-    { 
+    {
         public long ReferenceTaskId { get; set; }
     }
 
@@ -64,7 +64,7 @@ namespace PMVOnline.Api.Dtos.Tasks
         public DateTime? CompletedDate { get; set; }
         public Priority Priority { get; set; }
         public Target Target { get; set; }
-        public Status Status { get; set; } 
+        public Status Status { get; set; }
     }
 
     public class CreateTaskRequestDto
@@ -91,7 +91,7 @@ namespace PMVOnline.Api.Dtos.Tasks
     }
 
     public class TaskHistoryDto
-    { 
+    {
         public SimpleUserDto Actor { get; set; }
         public ActionType Action { get; set; }
         public string Note { get; set; }
@@ -113,19 +113,19 @@ namespace PMVOnline.Api.Dtos.Tasks
         public DateTime CompletedDate { get; set; }
         public string Note { get; set; }
     }
-    
+
     public class FollowTaskRequestDto
     {
         public long Id { get; set; }
-        public bool Follow { get; set; } 
-    } 
-    
-    public class ReopenTaskRequestDto
-    {
-        public long Id { get; set; } 
+        public bool Follow { get; set; }
     }
 
-    public class SimpleUserDto  
+    public class ReopenTaskRequestDto
+    {
+        public long Id { get; set; }
+    }
+
+    public class SimpleUserDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -134,10 +134,15 @@ namespace PMVOnline.Api.Dtos.Tasks
 
     public class CommentRequestDto
     {
-        public string  Comment { get; set; }
-        public Guid[]  Files { get; set; }
+        public string Comment { get; set; }
+        public Guid[] Files { get; set; }
     }
 
+    public class SaveDeviceTokenRequestDto
+    {
+        public string Token { get; set; }
+        public int Device { get; set; }
+    }
     public class GuideResultDto
     {
         public string Content { get; set; }

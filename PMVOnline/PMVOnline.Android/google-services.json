@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "34482589605",
+    "project_id": "pmvonline-336b2",
+    "storage_bucket": "pmvonline-336b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34482589605:android:e0f44a6852d4cb0259224c",
+        "android_client_info": {
+          "package_name": "info.binhdo.pmvonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34482589605-rhhhi2a57tdrbp7vua5v4124j184osul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoe-IRtGWYZMHsYhhGLoU_jnP7oAQVrQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34482589605-rhhhi2a57tdrbp7vua5v4124j184osul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -72,34 +72,62 @@ namespace PMVOnline
         {
             AppCenter.Start("android=840c1b8d-55b3-4ac2-b946-e54277ee2a58;ios=7a5ae654-4193-4e5e-9525-663f5ededef0", typeof(Analytics), typeof(Crashes));
             Container.Resolve<IFontsizeService>().Init();
-            //await Initialize();
+            Initialize();
         }
 
         async Task Initialize()
         {
-            //var token = await CrossFirebasePushNotification.Current.GetTokenAsync();
+            CrossFirebasePushNotification.Current.Subscribe("general");
+            CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
+            {
 
-            //CrossFirebasePushNotification.Current.Subscribe("general");
-            //CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
-            //{
+            };
 
-            //};
+            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
+            {
+                if (MainPage is NavigationPage nav && nav.CurrentPage is TabbedPage tab)
+                {
+                    for (int i = 0; i < tab.Children.Count; i++)
+                    {
+                        if (tab.Children[i].BindingContext is HomeViewModel h)
+                        {
+                            h.ReloadCommand?.Execute(null);
+                        }
 
-            //CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
-            //{
-            //};
+                        if (tab.Children[i].BindingContext is TaskViewModel t)
+                        {
+                            t.ReloadCommand?.Execute(null);
+                        }
+                    }
+                }
+            };
 
-            //CrossFirebasePushNotification.Current.OnNotificationOpened += (s, p) =>
-            //{
-            //};
+            CrossFirebasePushNotification.Current.OnNotificationOpened += (s, p) =>
+            {
+                //if (MainPage is NavigationPage nav && nav.CurrentPage is TabbedPage tab)
+                //{
+                //    for (int i = 0; i < tab.Children.Count; i++)
+                //    {
+                //        if (tab.Children[i].BindingContext is HomeViewModel h)
+                //        {
+                //            h.ReloadCommand?.Execute(null);
+                //        }
 
-            //CrossFirebasePushNotification.Current.OnNotificationAction += (s, p) =>
-            //{
-            //};
+                //        if (tab.Children[i].BindingContext is TaskViewModel t)
+                //        {
+                //            t.ReloadCommand?.Execute(null);
+                //        }
+                //    }
+                //}
+            };
 
-            //CrossFirebasePushNotification.Current.OnNotificationDeleted += (s, p) =>
-            //{
-            //};
+            CrossFirebasePushNotification.Current.OnNotificationAction += (s, p) =>
+            {
+            };
+
+            CrossFirebasePushNotification.Current.OnNotificationDeleted += (s, p) =>
+            {
+            };
         }
 
         protected override void OnSleep()

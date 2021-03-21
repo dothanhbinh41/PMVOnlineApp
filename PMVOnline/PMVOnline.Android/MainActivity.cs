@@ -12,6 +12,10 @@ using Acr.UserDialogs;
 using PMVOnline.Common.Services;
 using PMVOnline.Droid.Services;
 using PMVOnline.Accounts.Services;
+using Plugin.FirebasePushNotification;
+using Firebase;
+using Android.Content;
+using Xamarin.Essentials;
 
 namespace PMVOnline.Droid
 {
@@ -41,6 +45,40 @@ namespace PMVOnline.Droid
         {
             UserDialogs.Init(this);
             Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
+            FirebaseApp.InitializeApp(this, new FirebaseOptions.Builder()
+                .SetApiKey("AIzaSyDoe-IRtGWYZMHsYhhGLoU_jnP7oAQVrQU")
+                .SetApplicationId("info.binhdo.pmvonline")
+                .SetGcmSenderId("34482589605")
+                .SetStorageBucket("pmvonline-336b2.appspot.com")
+                .SetProjectId("pmvonline-336b2")
+                .Build());
+
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {
+                //Change for your default notification channel id here
+                FirebasePushNotificationManager.DefaultNotificationChannelId = "FirebasePushNotificationChannel";
+
+                //Change for your default notification channel name here
+                FirebasePushNotificationManager.DefaultNotificationChannelName = "general";
+            }
+            FirebasePushNotificationManager.Initialize(this, false);
+            FirebasePushNotificationManager.NotificationActivityType = typeof(MainActivity);
+            FirebasePushNotificationManager.IconResource = Resource.Drawable.bg_splash;
+            FirebasePushNotificationManager.LargeIconResource = Resource.Drawable.bg_splash;
+            FirebasePushNotificationManager.ShouldShowWhen = Preferences.Get("UseNotification", true);
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            FirebasePushNotificationManager.ShouldShowWhen = Preferences.Get("UseNotification", true);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            base.OnNewIntent(intent);
+            FirebasePushNotificationManager.ProcessIntent(this, intent);
         }
 
         public class AndroidPlatform : IPlatformInitializer
