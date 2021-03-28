@@ -67,17 +67,29 @@ namespace PMVOnline.Tasks.ViewModels
         async Task LoadData()
         {
             IsLoading = true;
-            await taskService.GetMyTasksAsync(0, 100).ContinueWith(t =>
-            {
-                if (t.Result != null)
-                {
-                    Tasks = new List<TaskActionModel>(t.Result);
-                }
-            });
-
-            await taskService.GetUsersInMyTasksAsync().ContinueWith(t => Users = new List<UserModel>(t.Result));
+            await LoadTasks();
+            await LoadUsers();
             IsLoading = false;
         }
+
+        async Task LoadTasks()
+        {
+            var result = await taskService.GetMyTasksAsync(SelectedUsers?.Select(d => d.Id)?.ToArray() ?? new Guid[0], StartDate, EndDate, 0, 100);
+            if (result!=null)
+            {
+                Tasks = new List<TaskActionModel>(result);
+            }
+        }
+
+        async Task LoadUsers()
+        { 
+            var result = await taskService.GetUsersInMyTasksAsync();
+            if (result?.Length > 0)
+            {
+                Users = new List<UserModel>(result);
+            }
+        }
+
 
         ICommand _CreateCommand;
         public ICommand CreateCommand => _CreateCommand = _CreateCommand ?? new AsyncCommand(ExcuteCreateCommand);
@@ -123,14 +135,30 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand ChooseStartDateCommand => _ChooseStartDateCommand = _ChooseStartDateCommand ?? new AsyncCommand(ExecuteChooseStartDateCommand);
         async Task ExecuteChooseStartDateCommand()
         {
-            StartDate = await dateTimeService.PickDateAsync(current: StartDate, max: EndDate);
+            var startDate = await dateTimeService.PickDateAsync(current: StartDate, max: EndDate);
+            if (StartDate == startDate)
+            {
+                return;
+            }
+            StartDate = startDate;
+            IsBusy = true;
+            await LoadTasks();
+            IsBusy = false;
         }
 
         ICommand _ChooseEndDateCommand;
         public ICommand ChooseEndDateCommand => _ChooseEndDateCommand = _ChooseEndDateCommand ?? new AsyncCommand(ExecuteChooseEndDateCommand);
         async Task ExecuteChooseEndDateCommand()
         {
-            EndDate = await dateTimeService.PickDateAsync(current: EndDate, min: StartDate);
+            var endDate = await dateTimeService.PickDateAsync(current: EndDate, min: StartDate);
+            if (EndDate == endDate)
+            {
+                return;
+            }
+            EndDate = endDate;
+            IsBusy = true;
+            await LoadTasks();
+            IsBusy = false;
         }
 
         ICommand _ChooseUserCommand;
@@ -138,7 +166,7 @@ namespace PMVOnline.Tasks.ViewModels
         async Task ExecuteChooseUserCommand()
         {
         }
-         
+
         ICommand _RemoveFilterCommand;
         public ICommand RemoveFilterCommand => _RemoveFilterCommand = _RemoveFilterCommand ?? new AsyncCommand(ExecuteRemoveFilterCommand);
         async Task ExecuteRemoveFilterCommand()
@@ -146,6 +174,9 @@ namespace PMVOnline.Tasks.ViewModels
             StartDate = null;
             EndDate = null;
             SelectedUsers = new List<UserModel>();
-        } 
+            IsBusy = true;
+            await LoadTasks();
+            IsBusy = false;
+        }
     }
 }

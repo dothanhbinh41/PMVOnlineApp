@@ -171,12 +171,21 @@ namespace PMVOnline.Api.Dtos.Tasks
     public class DepartmentUserDto
     {
         public int DepartmentId { get; set; }
-        public DepartmentDto Department { get; set; } 
+        public DepartmentDto Department { get; set; }
         public bool IsLeader { get; set; }
     }
     public class DepartmentDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public class GetMyTaskRequestDto
+    {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public Guid[] Users { get; set; }
+        public int SkipCount { get; set; } = 0;
+        public int MaxResultCount { get; set; } = 100;
     }
 }

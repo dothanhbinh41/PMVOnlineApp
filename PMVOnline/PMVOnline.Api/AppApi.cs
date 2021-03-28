@@ -17,8 +17,8 @@ namespace PMVOnline.Api
         [Get("/api/identity/my-profile")]
         Task<ApiResponse<ProfileDto>> GetMyProfile();
 
-        [Get("/api/app/task/my-tasks?MaxResultCount={max}&SkipCount={skip}")]
-        Task<ApiResponse<TaskDto[]>> GetMyTasks(int skip, int max);
+        [Post("/api/app/task/search-my-tasks")]
+        Task<ApiResponse<TaskDto[]>> SearchMyTasks(GetMyTaskRequestDto request);
 
         [Get("/api/app/task/my-actions")]
         Task<ApiResponse<TaskDto[]>> GetMyActions();

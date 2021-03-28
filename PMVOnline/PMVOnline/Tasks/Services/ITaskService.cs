@@ -18,7 +18,7 @@ namespace PMVOnline.Tasks.Services
         Task<UserModel> GetAssigneeAsync(TaskTarget target);
         Task<bool> CreateTaskAsync(CreateTaskModel task);
         Task<TaskModel[]> GetMyLastTasksAsync();
-        Task<TaskActionModel[]> GetMyTasksAsync(int skip, int max = 20);
+        Task<TaskActionModel[]> GetMyTasksAsync(Guid[] users = null, DateTime? startDate = null, DateTime? endDate = null, int skipCount = 0, int maxResultCount = 100);
         Task<TaskActionModel[]> GetMyActionsAsync();
         Task<TaskDetailModel> GetTaskAsync(long id);
         Task<CommentModel[]> GetTaskCommentsAsync(long id);
@@ -120,9 +120,17 @@ namespace PMVOnline.Tasks.Services
             return new TaskModel[0];
         }
 
-        public async Task<TaskActionModel[]> GetMyTasksAsync(int skip, int max = 20)
+        public async Task<TaskActionModel[]> GetMyTasksAsync(Guid[] users = null, DateTime? startDate = null, DateTime? endDate = null, int skipCount = 0, int maxResultCount = 100)
         {
-            var result = await Api.GetMyTasks(skip, max);
+            if (startDate.HasValue)
+            {
+                startDate = startDate.Value.ToUniversalTime();
+            }
+            if (endDate.HasValue)
+            {
+                endDate = endDate.Value.ToUniversalTime();
+            }
+            var result = await Api.SearchMyTasks(new GetMyTaskRequestDto { SkipCount = skipCount, MaxResultCount = maxResultCount, Users = users ?? new Guid[0], StartDate = startDate, EndDate = endDate });
             if (result.Content != null)
             {
                 return result.Content.Select(d => d.ToModel(applicationSettings.User.Id)).ToArray();

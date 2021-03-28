@@ -46,7 +46,7 @@ namespace PMVOnline.Tasks.ViewModels
         public override async Task InitializeAsync(INavigationParameters parameters)
         {
             Files = new ObservableCollection<FileModel>();
-            myTasks = new List<TaskModel>(await taskService.GetMyTasksAsync(0));
+            myTasks = new List<TaskModel>(await taskService.GetMyTasksAsync());
         }
 
         ICommand _ChooseTargetCommand;
