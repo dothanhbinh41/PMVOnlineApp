@@ -27,16 +27,19 @@ namespace PMVOnline.Tasks.ViewModels.Admins
         readonly INavigationService navigationService;
         readonly ITaskService taskService;
         readonly IFileService fileService;
+        private readonly IDialogService dialogService;
 
         public ModerateTaskViewModel(
             INavigationService navigationService,
             ITaskService taskService,
             IFileService fileService,
+            IDialogService dialogService,
             IPageDialogService pageDialogService)
         {
             this.navigationService = navigationService;
             this.taskService = taskService;
             this.fileService = fileService;
+            this.dialogService = dialogService;
         }
 
         async Task GetDetails(long id)
@@ -96,13 +99,26 @@ namespace PMVOnline.Tasks.ViewModels.Admins
         public ICommand RejectCommand => _RejectCommand = _RejectCommand ?? new AsyncCommand(ExecuteRejectCommand);
         async Task ExecuteRejectCommand()
         {
+            var noteResult = await dialogService.ShowDialogAsync(DialogRoutes.WriteNote);
+            if (!noteResult.Parameters.ContainsKey(NavigationKey.Note))
+            {
+                return;
+            }
+
+            var note = noteResult.Parameters.GetValue<string>(NavigationKey.Note);
+            if (string.IsNullOrWhiteSpace(note))
+            {
+                Toast("Bạn phải ghi lý do");
+                return;
+            }
+
             IsBusy = true;
             var result = await taskService.ApproveTaskAsync(taskId, false, string.Empty);
             IsBusy = false;
             if (result)
             {
                 Toast("Không duyệt thành công");
-                await navigationService.GoBackAsync();
+                await navigationService.GoBackAsync({ NavigationKey.Reload, true });
             }
             else
             {

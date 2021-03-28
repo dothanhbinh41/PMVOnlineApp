@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Dialogs.WriteNoteDialog"
+    xmlns:prism ="http://prismlibrary.com"
+    prism:DialogLayout.RelativeWidthRequest="1"
+    prism:DialogLayout.RelativeHeightRequest="1"
+    >
+    <Grid
+        VerticalOptions="Start"
+        RowSpacing="16"
+        RowDefinitions="64,Auto">
+        <Grid
+            Margin="16,0"
+            RowSpacing="0">
+
+
+            <StackLayout
+                Spacing="8"
+                Orientation="Horizontal"
+                HorizontalOptions="End"
+                Grid.Row="1"
+                Grid.RowSpan="2">
+                <Button
+                    Text="Hủy"
+                    Style="{DynamicResource ButtonPrimary}"
+                    BackgroundColor="{StaticResource Highest}"
+                    Command="{Binding CloseCommand}" />
+                <Button
+                    Style="{DynamicResource ButtonPrimary}"
+                    BackgroundColor="{StaticResource Normal}"
+                    Text="Xong"
+                    Command="{Binding FinishCommand}" />
+            </StackLayout>
+        </Grid>
+        <Frame
+            Grid.Row="1"
+            HorizontalOptions="FillAndExpand"
+            Margin="16,0">
+            <Grid> 
+                <ContentView
+                    VerticalOptions="Start" 
+                    HeightRequest="30" />
+
+                <Editor
+                    Placeholder="Lý do"
+                    AutoSize="TextChanges"
+                    Text="{Binding Note}" />
+            </Grid>
+        </Frame>
+    </Grid> 
+</ContentView>

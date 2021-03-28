@@ -183,6 +183,7 @@ namespace PMVOnline
             containerRegistry.RegisterDialog<MultiSelectTaskDialog, MultiSelectTaskViewModel>();
             containerRegistry.RegisterDialog<SelectTaskDialog, SelectTaskViewModel>();
             containerRegistry.RegisterDialog<ChooseUsersDialog, ChooseUsersViewModel>();
+            containerRegistry.RegisterDialog<WriteNoteDialog, WriteNoteViewModel>();
         }
 
         void RegisterService(IContainerRegistry containerRegistry)
@@ -229,6 +230,7 @@ namespace PMVOnline
         public static readonly string MultiSelectTask = $"{nameof(MultiSelectTaskDialog)}";
         public static readonly string SelectTask = $"{nameof(SelectTaskDialog)}";
         public static readonly string ChooseUsers = $"{nameof(ChooseUsersDialog)}";
+        public static readonly string WriteNote = $"{nameof(WriteNoteDialog)}";
     }
 
     public class NavigationKey
@@ -240,6 +242,7 @@ namespace PMVOnline
         public const string MyTasks = "MyTasks";
         public const string TaskId = "TaskId";
         public const string Reload = "Reload";
+        public const string Note = "Note";
         public const string Users = "Users";
         public const string SelectedUsers = "SelectedUsers";
     }
