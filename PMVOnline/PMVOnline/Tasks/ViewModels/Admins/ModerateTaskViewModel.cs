@@ -118,7 +118,7 @@ namespace PMVOnline.Tasks.ViewModels.Admins
             if (result)
             {
                 Toast("Không duyệt thành công");
-                await navigationService.GoBackAsync({ NavigationKey.Reload, true });
+                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true } });
             }
             else
             {
