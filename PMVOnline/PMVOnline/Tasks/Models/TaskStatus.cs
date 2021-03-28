@@ -6,6 +6,6 @@ namespace PMVOnline.Tasks.Models
 {
     public enum TaskStatus
     {
-        Pending, Approved, Rejected, Completed, Incompleted
+        Pending,Requested, Approved, Rejected, Completed, Incompleted
     }
 }

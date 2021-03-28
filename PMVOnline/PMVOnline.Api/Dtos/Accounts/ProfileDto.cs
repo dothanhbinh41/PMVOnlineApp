@@ -13,14 +13,6 @@ namespace PMVOnline.Api.Dtos.Accounts
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
         public bool HasPassword { get; set; }
-        public bool IsExternal { get; set; }
-
-        public RoleDto[] Roles { set; get; }
-    }
-
-    public class RoleDto
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-    }
+        public bool IsExternal { get; set; } 
+    } 
 }

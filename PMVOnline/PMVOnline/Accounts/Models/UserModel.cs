@@ -17,12 +17,21 @@ namespace PMVOnline.Accounts.Models
         public bool HasPassword { get; set; }
         public bool IsExternal { get; set; }
 
-        public RoleModel[] Roles { get; set; }
+        public DepartmentModel[] Departments { get; set; }
     }
 
-    public class RoleModel : ModelBase
+    public class DepartmentModel : ModelBase
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsLeader { get; set; }
+    }
+
+    public class DepartmentName
+    {
+        public const string Stocker = "stocker";
+        public const string Accountant = "accountant";
+        public const string Buy = "buy";
+        public const string Director = "director";
     }
 }

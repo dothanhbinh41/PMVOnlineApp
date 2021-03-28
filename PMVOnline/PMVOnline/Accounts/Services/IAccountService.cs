@@ -28,6 +28,7 @@ namespace PMVOnline.Accounts.Services
         public async Task<UserModel> GetAccountInformationAsync()
         {
             var result = await Api.GetMyProfile();
+            var departments = await Api.GetMyDepartment();
             if (result.Content != null)
             {
                 var user = new UserModel
@@ -39,9 +40,15 @@ namespace PMVOnline.Accounts.Services
                     Name = result.Content.Name,
                     PhoneNumber = result.Content.PhoneNumber,
                     Surname = result.Content.Surname,
-                    UserName = result.Content.UserName,
-                    Roles = result.Content?.Roles?.Select(d => new RoleModel { Id = d.Id, Name = d.Name })?.ToArray()
+                    UserName = result.Content.UserName
                 };
+
+
+                if (departments.Content != null)
+                {
+                    user.Departments = departments.Content.Select(d => new DepartmentModel { Id = d.DepartmentId, IsLeader = d.IsLeader, Name = d.Department?.Name }).ToArray();
+                } 
+
                 applicationSettings.User = user;
                 return user;
             }
@@ -50,7 +57,7 @@ namespace PMVOnline.Accounts.Services
 
         public async Task<bool> SaveDeviceTokenAsync(string token)
         {
-            var result = await Api.SaveDeviceToken(new PMVOnline.Api.Dtos.Tasks.SaveDeviceTokenRequestDto { Token = token }); 
+            var result = await Api.SaveDeviceToken(new PMVOnline.Api.Dtos.Tasks.SaveDeviceTokenRequestDto { Token = token });
             return result?.Content == true;
         }
     }

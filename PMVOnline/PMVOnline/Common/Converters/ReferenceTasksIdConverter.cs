@@ -13,7 +13,15 @@ namespace PMVOnline.Common.Converters
         {
             if (value is long[] ids)
             {
-                return $"({ids.Length}) {ids.Select(d=>$"#{d}").Aggregate((d1,d2)=>d1+" "+d2)}";
+                if (ids.Length == 0)
+                {
+                    return string.Empty;
+                }
+                if (ids.Length == 1)
+                {
+                    return $"#{ids[0]}";
+                }
+                return $"({ids.Length}) {ids.Select(d => $"#{d}").Aggregate((d1, d2) => d1 + " " + d2)}";
             }
             return value;
         }

@@ -1,4 +1,5 @@
-﻿using PMVOnline.Common.Bases;
+﻿using PMVOnline.Accounts.Models;
+using PMVOnline.Common.Bases;
 using PMVOnline.Common.Services;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Models;
@@ -16,6 +17,7 @@ namespace PMVOnline.Homes.ViewModels
 {
     public class HomeViewModel : TabViewModelBase
     {
+        public UserModel User { get; set; }
         public bool IsLoading { get; set; }
         public List<TaskActionModel> Actions { get; set; }
 
@@ -36,7 +38,7 @@ namespace PMVOnline.Homes.ViewModels
             if (parameters.ContainsKey(NavigationKey.Reload))
             {
                 LoadData();
-            }
+            } 
             return;
         }
 
@@ -47,6 +49,7 @@ namespace PMVOnline.Homes.ViewModels
             {
                 return;
             }
+            User = applicationServices.User;
             LoadData();
         }
 
@@ -69,7 +72,7 @@ namespace PMVOnline.Homes.ViewModels
                 return;
             }
 
-            if (user.Roles?.Any(c => c.Name == "admin") == true && task.Status == Tasks.Models.TaskStatus.Pending)
+            if (user.Departments?.Any(c => c.Name == DepartmentName.Director) == true && task.Status == Tasks.Models.TaskStatus.Requested)
             {
                 var result = await navigationService.NavigateAsync(Routes.ModerateTask, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
                 return;

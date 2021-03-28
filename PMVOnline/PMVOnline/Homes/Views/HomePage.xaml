@@ -33,7 +33,7 @@
                         <Span
                             Style="{DynamicResource LabelTitle}"
                             TextColor="{StaticResource Primary}"
-                            Text="Do Thanh Binh" />
+                            Text="{Binding User.FullName}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -45,7 +45,7 @@
                     HeightRequest="16"
                     WidthRequest="12"
                     CornerRadius="6"
-                    Color="{StaticResource High}" />
+                    Color="{StaticResource Highest}" />
                 <Label
                     VerticalOptions="Center"
                     Style="{DynamicResource LabelDescription}"
@@ -54,7 +54,7 @@
                     HeightRequest="16"
                     WidthRequest="12"
                     CornerRadius="6"
-                    Color="{StaticResource Highest}" />
+                    Color="{StaticResource High}" />
                 <Label
                     VerticalOptions="Center"
                     Style="{DynamicResource LabelDescription}"

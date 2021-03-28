@@ -18,6 +18,7 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TaskDetailViewModel : ViewModelBase
     {
+        public string ButonText => Task == null ? "" : Task.Status == Models.TaskStatus.Pending ? "Yêu cầu duyệt" : "Kết thúc";
         public bool Editable { get; set; }
         public bool IsFollowed { get; set; } = true;
         public TaskDetailModel Task { get; set; }
@@ -56,7 +57,7 @@ namespace PMVOnline.Tasks.ViewModels
 
         async Task GetDetails(long id)
         {
-            Task = await taskService.GetTaskAsync(id); 
+            Task = await taskService.GetTaskAsync(id);
         }
 
         async Task GetComments(long id)
@@ -80,7 +81,7 @@ namespace PMVOnline.Tasks.ViewModels
                     GetComments(taskId).ContinueWith(t => IsBusy = false);
                 }
                 if (parameters.ContainsKey(NavigationKey.Reload))
-                { 
+                {
                     LoadData();
                 }
                 return;
@@ -97,13 +98,13 @@ namespace PMVOnline.Tasks.ViewModels
             {
                 return;
             }
-            Editable = (user.Id == Task.AssigneeId || user.Id == Task.CreatorId) && Task.Status == Models.TaskStatus.Approved; 
+            Editable = (user.Id == Task.AssigneeId && Task.Status == Models.TaskStatus.Approved) || (user.Id == Task.CreatorId && Task.Status == Models.TaskStatus.Pending);
             if (Task.Status == Models.TaskStatus.Rejected || Task.Status == Models.TaskStatus.Completed || Task.Status == Models.TaskStatus.Incompleted)
             {
                 note = (await taskService.GetNoteAsync(taskId));
             }
             IsBusy = false;
-        }
+        } 
 
         ICommand _CommentCommand;
         public ICommand CommentCommand => _CommentCommand = _CommentCommand ?? new AsyncCommand(ExecuteCommentCommand);
@@ -125,8 +126,16 @@ namespace PMVOnline.Tasks.ViewModels
         {
             IsFollowed = !IsFollowed;
             IsBusy = true;
-            await taskService.FollowTaskAsync(taskId, IsFollowed);
+            var result = await taskService.FollowTaskAsync(taskId, IsFollowed);
             IsBusy = false;
+            if (result)
+            {
+                Toast(IsFollowed ? "Theo dõi thành công" : "Bỏ theo dõi thành công");
+            }
+            else
+            {
+                Toast("Lỗi xảy ra");
+            }
         }
 
         ICommand _ReadCommand;
@@ -150,17 +159,44 @@ namespace PMVOnline.Tasks.ViewModels
                 return;
             }
             IsBusy = true;
-            await taskService.ReopenAsync(taskId);
+            var result = await taskService.ReopenAsync(taskId);
             IsBusy = false;
+            if (result)
+            {
+                Toast("Mở lại thành công");
+                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true } });
+            }
+            else
+            {
+                Toast("Lỗi xảy ra");
+            }
         }
 
         ICommand _FinishCommand;
         public ICommand FinishCommand => _FinishCommand = _FinishCommand ?? new AsyncCommand(ExecuteFinishCommand);
         async Task ExecuteFinishCommand()
         {
-            await navigationService.NavigateAsync(Routes.CompleteTask, new NavigationParameters { { NavigationKey.TaskId, taskId } });
+            if (Task.Status == Models.TaskStatus.Approved)
+            {
+                await navigationService.NavigateAsync(Routes.CompleteTask, new NavigationParameters { { NavigationKey.TaskId, taskId } });
+            }
+            else
+            {
+                IsBusy = true;
+                var result = await taskService.RequestAsync(taskId);
+                IsBusy = false;
+                if (result)
+                {
+                    Toast("Yêu cầu duyệt thành công");
+                    await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true } });
+                }
+                else
+                {
+                    Toast("Lỗi xảy ra");
+                }
+            }
         }
-         
+
 
         ICommand _DownloadCommand;
         public ICommand DownloadCommand => _DownloadCommand = _DownloadCommand ?? new AsyncCommand<FileModel>(ExecuteDownloadCommand);

@@ -65,7 +65,7 @@ namespace PMVOnline.Tasks.ViewModels.Admins
             IsBusy = true;
             System.Threading.Tasks.Task.WhenAll(GetDetails(taskId), GetComments(taskId), GetFiles(taskId)).ContinueWith(t => IsBusy = false);
         }
-         
+
 
         ICommand _CommentCommand;
         public ICommand CommentCommand => _CommentCommand = _CommentCommand ?? new AsyncCommand(ExecuteCommentCommand);
@@ -120,7 +120,7 @@ namespace PMVOnline.Tasks.ViewModels.Admins
             if (result)
             {
                 Toast("Duyệt thành công");
-                await navigationService.GoBackAsync();
+                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true } });
             }
             else
             {

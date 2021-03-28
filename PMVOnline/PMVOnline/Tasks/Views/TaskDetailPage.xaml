@@ -40,6 +40,17 @@
                             Value="{Static model:TaskStatus.Pending}">
                             <Setter
                                 Property="Text"
+                                Value="Chờ" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Requested}">
+                            <Setter
+                                Property="Text"
                                 Value="Chờ duyệt" />
                             <Setter
                                 Property="BackgroundColor"
@@ -365,7 +376,7 @@
             VerticalOptions="Start"
             Shades="{StaticResource ShadowPrimary}">
             <Button
-                Text="Kết thúc sự vụ"
+                Text="{Binding ButonText}"
                 Command="{Binding FinishCommand}"
                 Style="{DynamicResource ButtonPrimary}">
                 <Button.Background>

@@ -30,6 +30,7 @@ namespace PMVOnline.Tasks.Services
         Task<HistoryModel[]> GetTaskHistoryAsync(long id);
         Task<string> GetNoteAsync(long id);
         Task<bool> SendCommentAsync(long id, string comment, Guid[] files);
+        Task<bool> RequestAsync(long id);
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
@@ -43,7 +44,7 @@ namespace PMVOnline.Tasks.Services
 
         public async Task<bool> ApproveTaskAsync(long id, bool approved, string note)
         {
-            var result = await Api.ApproveTask(new PMVOnline.Api.Dtos.Tasks.ApproveTaskRequestDto
+            var result = await Api.ApproveTask(new ApproveTaskRequestDto
             {
                 Id = id,
                 Approved = approved,
@@ -54,7 +55,7 @@ namespace PMVOnline.Tasks.Services
 
         public async Task<bool> CompleteTaskAsync(long id, bool completed, DateTime completedDate, string note)
         {
-            var result = await Api.FinishTask(new PMVOnline.Api.Dtos.Tasks.FinishTaskRequestDto
+            var result = await Api.FinishTask(new FinishTaskRequestDto
             {
                 Id = id,
                 Completed = completed,
@@ -66,7 +67,7 @@ namespace PMVOnline.Tasks.Services
 
         public async Task<bool> CreateTaskAsync(CreateTaskModel task)
         {
-            var result = await Api.CreateTask(new PMVOnline.Api.Dtos.Tasks.CreateTaskRequestDto
+            var result = await Api.CreateTask(new CreateTaskRequestDto
             {
                 AssigneeId = task.AssigneeId,
                 Content = task.Content,
@@ -82,7 +83,7 @@ namespace PMVOnline.Tasks.Services
 
         public async Task<bool> FollowTaskAsync(long id, bool follow)
         {
-            var result = await Api.FollowTask(new PMVOnline.Api.Dtos.Tasks.FollowTaskRequestDto
+            var result = await Api.FollowTask(new FollowTaskRequestDto
             {
                 Id = id,
                 Follow = follow
@@ -170,7 +171,7 @@ namespace PMVOnline.Tasks.Services
 
         public async Task<bool> ReopenAsync(long id)
         {
-            var result = await Api.ReopenTask(new PMVOnline.Api.Dtos.Tasks.ReopenTaskRequestDto
+            var result = await Api.ReopenTask(new ReopenTaskRequestDto
             {
                 Id = id
             });
@@ -179,10 +180,19 @@ namespace PMVOnline.Tasks.Services
 
         public async Task<bool> SendCommentAsync(long id, string comment, Guid[] files)
         {
-            var result = await Api.SendComment(id, new PMVOnline.Api.Dtos.Tasks.CommentRequestDto
+            var result = await Api.SendComment(id, new CommentRequestDto
             {
                 Comment = comment,
                 Files = files
+            });
+            return result.Content;
+        }
+
+        public async Task<bool> RequestAsync(long id)
+        {
+            var result = await Api.RequestTask(new ReopenTaskRequestDto
+            {
+                Id = id
             });
             return result.Content;
         }

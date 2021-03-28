@@ -1,4 +1,5 @@
-﻿using PMVOnline.Common.Bases;
+﻿using PMVOnline.Accounts.Models;
+using PMVOnline.Common.Bases;
 using PMVOnline.Common.Services;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Models;
@@ -81,7 +82,7 @@ namespace PMVOnline.Tasks.ViewModels
                 return;
             }
 
-            if (user.Roles?.Any(c => c.Name == "admin") == true && task.Status == Models.TaskStatus.Pending)
+            if (user.Departments?.Any(c => c.Name == DepartmentName.Director) == true && task.Status == Models.TaskStatus.Requested)
             {
                 var result = await navigationService.NavigateAsync(Routes.ModerateTask, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
                 return;

@@ -23,6 +23,8 @@ namespace PMVOnline.Common.Converters
                     case TaskStatus.Incompleted:
                         return "Không hoàn thành";
                     case TaskStatus.Pending:
+                        return "Đang chờ";
+                    case TaskStatus.Requested:
                         return "Chờ duyệt";
                     case TaskStatus.Rejected:
                     default:

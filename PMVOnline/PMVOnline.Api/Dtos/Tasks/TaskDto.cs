@@ -160,11 +160,23 @@ namespace PMVOnline.Api.Dtos.Tasks
 
     public enum Status
     {
-        Pending, Approved, Rejected, Completed, Incompleted
+        Pending, Requested, Approved, Rejected, Completed, Incompleted
     }
 
     public enum ActionType
     {
-        CreateTask, ApprovedTask, RejectedTask, Comment, CompletedTask, IncompletedTask, ChangeAssignee, Reopen, Follow, Unfollow
+        CreateTask, RequestTask, ApprovedTask, RejectedTask, Comment, CompletedTask, IncompletedTask, ChangeAssignee, Reopen, Follow, Unfollow
+    }
+
+    public class DepartmentUserDto
+    {
+        public int DepartmentId { get; set; }
+        public DepartmentDto Department { get; set; } 
+        public bool IsLeader { get; set; }
+    }
+    public class DepartmentDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

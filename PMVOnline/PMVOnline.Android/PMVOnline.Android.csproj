@@ -36,7 +36,7 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidSigningKeyStore>C:\WS\PMVOnlineApp\PMVOnline\PMVOnline.Android\Keystores\testkeystore.keystore</AndroidSigningKeyStore>
     <AndroidSigningKeyPass>Binhdo1989</AndroidSigningKeyPass>
     <AndroidSigningStorePass>Binhdo1989</AndroidSigningStorePass>
@@ -105,7 +105,6 @@
     <Compile Include="Services\DateTimeService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />

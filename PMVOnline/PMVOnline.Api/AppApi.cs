@@ -63,6 +63,9 @@ namespace PMVOnline.Api
         [Post("/api/app/task/reopen-task")]
         Task<ApiResponse<bool>> ReopenTask(ReopenTaskRequestDto request);
 
+        [Post("/api/app/task/request-task")]
+        Task<ApiResponse<bool>> RequestTask(ReopenTaskRequestDto request);
+
         [Post("/api/app/task/{id}/send-comment")]
         Task<ApiResponse<bool>> SendComment(long id, CommentRequestDto request);
         
@@ -72,5 +75,8 @@ namespace PMVOnline.Api
 
         [Get("/api/app/guide/guide")]
         Task<ApiResponse<GuideResultDto>> GetGuide();
+
+        [Get("/api/app/department/my-departments")]
+        Task<ApiResponse<DepartmentUserDto[]>> GetMyDepartment();
     }
 }
