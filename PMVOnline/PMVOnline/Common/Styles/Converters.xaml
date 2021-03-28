@@ -12,4 +12,6 @@
         x:Key="TaskStatusConverter" />
     <converter:CollectionVisibilityConverter
         x:Key="CollectionVisibilityConverter" />
+    <converter:SelectUsersConverter
+        x:Key="SelectUsersConverter" />
 </ResourceDictionary>

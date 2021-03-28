@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Dialogs.ChooseUsersDialog"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    x:Name="root">
+    <Grid
+        RowSpacing="16"
+        RowDefinitions="64,*">
+        <Grid
+            Margin="16,0"
+            RowSpacing="0">
+
+
+            <StackLayout
+                Spacing="8"
+                Orientation="Horizontal"
+                HorizontalOptions="End"
+                Grid.Row="1"
+                Grid.RowSpan="2">
+                <Button
+                    Text="Hủy"
+                    Style="{DynamicResource ButtonPrimary}"
+                    BackgroundColor="{StaticResource Highest}"
+                    Command="{Binding CloseCommand}" />
+                <Button
+                    Style="{DynamicResource ButtonPrimary}"
+                    BackgroundColor="{StaticResource Normal}"
+                    Text="Xong"
+                    Command="{Binding DoneCommand}" />
+            </StackLayout>
+        </Grid>
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Users}"
+            SelectionMode="None"
+            ItemSizingStrategy="MeasureFirstItem">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Frame
+                            Margin="12,6"
+                            HeightRequest="48">
+                            <Grid 
+                                Margin="12,0">
+                                <Label
+                                    LineBreakMode="MiddleTruncation"
+                                    VerticalOptions="Center"
+                                    Style="{DynamicResource LabelNormal}"
+                                    TextColor="{StaticResource Text}"
+                                    Text="{Binding User.FullName}" />
+
+                                <Label
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="End"
+                                    FontSize="20"
+                                    TextColor="{StaticResource Primary}"
+                                    FontFamily="{StaticResource FontMaterialdesign}"
+                                    Text="{Static fontIcon:MaterialDesign.CheckCircle}"
+                                    IsVisible="{Binding IsSelected}" />
+                            </Grid>
+
+                        </Frame>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={Reference root},Path=BindingContext.SelectCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentView>

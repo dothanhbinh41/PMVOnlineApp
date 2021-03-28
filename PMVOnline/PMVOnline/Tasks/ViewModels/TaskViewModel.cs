@@ -5,6 +5,7 @@ using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Models;
 using PMVOnline.Tasks.Services;
 using Prism.Navigation;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,18 +31,21 @@ namespace PMVOnline.Tasks.ViewModels
         readonly ITaskService taskService;
         readonly IApplicationSettings applicationServices;
         readonly IDateTimeService dateTimeService;
+        private readonly IDialogService dialogService;
 
         public TaskViewModel(
             INavigationService navigationService,
             ITaskService taskService,
             IApplicationSettings applicationServices,
-            IDateTimeService dateTimeService
+            IDateTimeService dateTimeService,
+            IDialogService dialogService
             )
         {
             this.navigationService = navigationService;
             this.taskService = taskService;
             this.applicationServices = applicationServices;
             this.dateTimeService = dateTimeService;
+            this.dialogService = dialogService;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -75,14 +79,14 @@ namespace PMVOnline.Tasks.ViewModels
         async Task LoadTasks()
         {
             var result = await taskService.GetMyTasksAsync(SelectedUsers?.Select(d => d.Id)?.ToArray() ?? new Guid[0], StartDate, EndDate, 0, 100);
-            if (result!=null)
+            if (result != null)
             {
                 Tasks = new List<TaskActionModel>(result);
             }
         }
 
         async Task LoadUsers()
-        { 
+        {
             var result = await taskService.GetUsersInMyTasksAsync();
             if (result?.Length > 0)
             {
@@ -165,6 +169,16 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand ChooseUserCommand => _ChooseUserCommand = _ChooseUserCommand ?? new AsyncCommand(ExecuteChooseUserCommand);
         async Task ExecuteChooseUserCommand()
         {
+            var result = await dialogService.ShowDialogAsync(DialogRoutes.ChooseUsers, new DialogParameters { { NavigationKey.SelectedUsers, SelectedUsers }, { NavigationKey.Users, Users } });
+            if (!result.Parameters.ContainsKey(NavigationKey.SelectedUsers))
+            {
+                return;
+            }
+
+            SelectedUsers = result.Parameters.GetValue<List<UserModel>>(NavigationKey.SelectedUsers);
+            IsBusy = true;
+            await LoadTasks();
+            IsBusy = false;
         }
 
         ICommand _RemoveFilterCommand;

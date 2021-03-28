@@ -38,6 +38,7 @@ using DryIoc;
 using PMVOnline.Tasks.Services;
 using PMVOnline.Authentications.Services;
 using PMVOnline.Guides.Services;
+using PMVOnline.Tasks.ViewModels.Dialogs;
 
 namespace PMVOnline
 {
@@ -181,6 +182,7 @@ namespace PMVOnline
             containerRegistry.RegisterDialog<ChoosePriorityDialog, ChoosePriorityViewModel>();
             containerRegistry.RegisterDialog<MultiSelectTaskDialog, MultiSelectTaskViewModel>();
             containerRegistry.RegisterDialog<SelectTaskDialog, SelectTaskViewModel>();
+            containerRegistry.RegisterDialog<ChooseUsersDialog, ChooseUsersViewModel>();
         }
 
         void RegisterService(IContainerRegistry containerRegistry)
@@ -226,6 +228,7 @@ namespace PMVOnline
         public static readonly string ChoosePriority = $"{nameof(ChoosePriorityDialog)}";
         public static readonly string MultiSelectTask = $"{nameof(MultiSelectTaskDialog)}";
         public static readonly string SelectTask = $"{nameof(SelectTaskDialog)}";
+        public static readonly string ChooseUsers = $"{nameof(ChooseUsersDialog)}";
     }
 
     public class NavigationKey
@@ -237,5 +240,7 @@ namespace PMVOnline
         public const string MyTasks = "MyTasks";
         public const string TaskId = "TaskId";
         public const string Reload = "Reload";
+        public const string Users = "Users";
+        public const string SelectedUsers = "SelectedUsers";
     }
 }

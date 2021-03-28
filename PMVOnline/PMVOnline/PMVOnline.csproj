@@ -49,6 +49,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>EdutalkResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Tasks\Dialogs\ChooseUsersDialog.xaml.cs">
+      <DependentUpon>ChooseUsersDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Tasks\Dialogs\SelectTaskDialog.xaml.cs">
       <DependentUpon>SelectTaskDialog.xaml</DependentUpon>
     </Compile>

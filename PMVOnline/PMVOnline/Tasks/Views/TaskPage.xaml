@@ -54,6 +54,7 @@
                                 <control:EntryAction
                                     Grid.ColumnSpan="2"
                                     Placeholder="Đối tượng liên quan"
+                                    Text="{Binding SelectedUsers,Converter={StaticResource SelectUsersConverter}}"
                                     Command="{Binding ChooseUserCommand}" />
                                 <control:EntryAction
                                     Grid.Row="1"
