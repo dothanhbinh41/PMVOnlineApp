@@ -5,6 +5,7 @@
     x:Class="PMVOnline.Tasks.Views.TaskPage"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    xmlns:control="clr-namespace:PMVOnline.Common.Controls"
     x:Name="root">
     <Grid
         RowSpacing="0"
@@ -33,6 +34,8 @@
                 Command="{Binding CreateCommand}" />
         </StackLayout>
 
+
+
         <RefreshView
             Grid.Row="1"
             IsRefreshing="{Binding IsLoading}"
@@ -41,6 +44,46 @@
                 SelectionMode="None"
                 ItemSizingStrategy="MeasureFirstItem"
                 ItemsSource="{Binding Tasks}">
+                <CollectionView.Header>
+                    <StackLayout>
+                        <Frame
+                            Margin="8">
+                            <Grid
+                                ColumnDefinitions="*,*"
+                                RowDefinitions="64,64">
+                                <control:EntryAction
+                                    Grid.ColumnSpan="2"
+                                    Placeholder="Đối tượng liên quan"
+                                    Command="{Binding ChooseUserCommand}" />
+                                <control:EntryAction
+                                    Grid.Row="1"
+                                    Placeholder="Từ ngày"
+                                    Text="{Binding StartDate,StringFormat='{0:dd/MM/yyyy}'}"
+                                    Command="{Binding ChooseStartDateCommand}" />
+                                <control:EntryAction
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Placeholder="Đến ngày"
+                                    Text="{Binding EndDate,StringFormat='{0:dd/MM/yyyy}'}"
+                                    Command="{Binding ChooseEndDateCommand}" />
+                               
+                            </Grid>
+                        </Frame>
+                        <Button
+                            HeightRequest="40"
+                            HorizontalOptions="Center"
+                            Padding="16,0"
+                            Grid.ColumnSpan="2"
+                            BorderColor="Red"
+                            BorderWidth="1"
+                            BackgroundColor="{StaticResource Background}"
+                            TextColor="{StaticResource Primary}"
+                            Style="{StaticResource ButtonPrimary}"
+                            Grid.Row="2"
+                            Command="{Binding RemoveFilterCommand}"
+                            Text="Xóa lọc" />
+                    </StackLayout>
+                </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid

@@ -8,7 +8,7 @@ namespace PMVOnline.Common.Services
     public interface IDateTimeService
     {
         Task<DateTime?> PickDateTimeAsync(DateTime? min = null, DateTime? current = null, DateTime? max = null);
-        //Task<DateTime?> PickDateAsync(DateTime? min = null, DateTime? current = null, DateTime? max = null);
+        Task<DateTime?> PickDateAsync(DateTime? min = null, DateTime? current = null, DateTime? max = null);
         //Task<(int, int)> PickTimeAsync();
     }
 }

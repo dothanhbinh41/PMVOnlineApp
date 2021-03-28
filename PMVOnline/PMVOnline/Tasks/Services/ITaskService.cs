@@ -31,6 +31,7 @@ namespace PMVOnline.Tasks.Services
         Task<string> GetNoteAsync(long id);
         Task<bool> SendCommentAsync(long id, string comment, Guid[] files);
         Task<bool> RequestAsync(long id);
+        Task<UserModel[]> GetUsersInMyTasksAsync();
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
@@ -71,7 +72,7 @@ namespace PMVOnline.Tasks.Services
             {
                 AssigneeId = task.AssigneeId,
                 Content = task.Content,
-                DueDate = task.DueDate,
+                DueDate = task.DueDate.ToUniversalTime(),
                 Files = task.Files,
                 Priority = (Priority)task.Priority,
                 ReferenceTasks = task.ReferenceTasks,
@@ -195,6 +196,16 @@ namespace PMVOnline.Tasks.Services
                 Id = id
             });
             return result.Content;
+        }
+
+        public async Task<UserModel[]> GetUsersInMyTasksAsync()
+        {
+            var result = await Api.GetUsersInMyTasks();
+            if (result?.Content?.Length > 0)
+            {
+                return result.Content.Select(d => d.ToModel()).ToArray();
+            }
+            return new UserModel[0];
         }
     }
 }

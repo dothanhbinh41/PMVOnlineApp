@@ -225,7 +225,7 @@
                                     Text="{Binding Sender}" />
                                 <Label
                                     Style="{DynamicResource LabelDescription}"
-                                    Text="{Binding Date}" />
+                                    Text="{Binding Date,StringFormat='{0:HHH:mm dd/MM/yyyy}'}" />
                                 <Frame
                                     BackgroundColor="#EEEEEE">
                                     <Label

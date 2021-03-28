@@ -17,20 +17,33 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TaskViewModel : TabViewModelBase
     {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public List<UserModel> Users { get; set; }
+        public List<UserModel> SelectedUsers { get; set; }
+
+
         public List<TaskActionModel> Tasks { get; set; }
         public bool IsLoading { get; set; }
 
         readonly INavigationService navigationService;
         readonly ITaskService taskService;
         readonly IApplicationSettings applicationServices;
+        readonly IDateTimeService dateTimeService;
 
-        public TaskViewModel(INavigationService navigationService, ITaskService taskService, IApplicationSettings applicationServices)
+        public TaskViewModel(
+            INavigationService navigationService,
+            ITaskService taskService,
+            IApplicationSettings applicationServices,
+            IDateTimeService dateTimeService
+            )
         {
             this.navigationService = navigationService;
             this.taskService = taskService;
             this.applicationServices = applicationServices;
+            this.dateTimeService = dateTimeService;
         }
-         
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -61,6 +74,8 @@ namespace PMVOnline.Tasks.ViewModels
                     Tasks = new List<TaskActionModel>(t.Result);
                 }
             });
+
+            await taskService.GetUsersInMyTasksAsync().ContinueWith(t => Users = new List<UserModel>(t.Result));
             IsLoading = false;
         }
 
@@ -90,7 +105,7 @@ namespace PMVOnline.Tasks.ViewModels
 
             var xx = await navigationService.NavigateAsync(Routes.TaskDetail, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
         }
-         
+
         ICommand _ReloadCommand;
         public ICommand ReloadCommand => _ReloadCommand = _ReloadCommand ?? new AsyncCommand(ExecuteReloadCommand);
         async Task ExecuteReloadCommand()
@@ -98,5 +113,39 @@ namespace PMVOnline.Tasks.ViewModels
             await LoadData();
         }
 
+        ICommand _FilterCommand;
+        public ICommand FilterCommand => _FilterCommand = _FilterCommand ?? new AsyncCommand(ExecuteFilterCommand);
+        async Task ExecuteFilterCommand()
+        {
+        }
+
+        ICommand _ChooseStartDateCommand;
+        public ICommand ChooseStartDateCommand => _ChooseStartDateCommand = _ChooseStartDateCommand ?? new AsyncCommand(ExecuteChooseStartDateCommand);
+        async Task ExecuteChooseStartDateCommand()
+        {
+            StartDate = await dateTimeService.PickDateAsync(current: StartDate, max: EndDate);
+        }
+
+        ICommand _ChooseEndDateCommand;
+        public ICommand ChooseEndDateCommand => _ChooseEndDateCommand = _ChooseEndDateCommand ?? new AsyncCommand(ExecuteChooseEndDateCommand);
+        async Task ExecuteChooseEndDateCommand()
+        {
+            EndDate = await dateTimeService.PickDateAsync(current: EndDate, min: StartDate);
+        }
+
+        ICommand _ChooseUserCommand;
+        public ICommand ChooseUserCommand => _ChooseUserCommand = _ChooseUserCommand ?? new AsyncCommand(ExecuteChooseUserCommand);
+        async Task ExecuteChooseUserCommand()
+        {
+        }
+         
+        ICommand _RemoveFilterCommand;
+        public ICommand RemoveFilterCommand => _RemoveFilterCommand = _RemoveFilterCommand ?? new AsyncCommand(ExecuteRemoveFilterCommand);
+        async Task ExecuteRemoveFilterCommand()
+        {
+            StartDate = null;
+            EndDate = null;
+            SelectedUsers = new List<UserModel>();
+        } 
     }
 }

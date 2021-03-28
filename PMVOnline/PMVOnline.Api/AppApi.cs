@@ -78,5 +78,8 @@ namespace PMVOnline.Api
 
         [Get("/api/app/department/my-departments")]
         Task<ApiResponse<DepartmentUserDto[]>> GetMyDepartment();
+
+        [Get("/api/app/task/users-in-my-tasks")]
+        Task<ApiResponse<SimpleUserDto[]>> GetUsersInMyTasks();
     }
 }

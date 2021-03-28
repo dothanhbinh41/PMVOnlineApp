@@ -22,7 +22,7 @@ namespace PMVOnline.Tasks.Extenstions
             {
                 IsCreatedByMe = obj.Creator.Id == myId,
                 Id = obj.Id,
-                DueDate = obj.DueDate,
+                DueDate = obj.DueDate.ToLocalTime(),
                 Priority = (TaskPriority)obj.Priority,
                 Status = (TaskStatus)obj.Status,
                 Title = obj.Title,
@@ -70,7 +70,7 @@ namespace PMVOnline.Tasks.Extenstions
 
             return new HistoryModel
             {
-                Date = obj.CreationTime,
+                Date = obj.CreationTime.ToLocalTime(),
                 Actor = $"{obj.Actor?.Surname} {obj.Actor?.Name}",
                 Action = obj.Action.ToAction(),
                 Note = obj.Note
@@ -116,7 +116,7 @@ namespace PMVOnline.Tasks.Extenstions
 
             return new CommentModel
             {
-                Date = obj.CreationTime,
+                Date = obj.CreationTime.ToLocalTime(),
                 Sender = $"{obj.User?.Surname} {obj.User?.Name}",
                 Content = obj.Comment,
                 Files = obj.FileIds?.Select(d => new FileModel { Id = d.FileId , FileName = d.FileName, FullPath = d.FilePath })?.ToArray()
@@ -135,7 +135,7 @@ namespace PMVOnline.Tasks.Extenstions
                 Content = obj.Content,
                 Assignee = $"{obj.Assignee.Surname} {obj.Assignee.Name}",
                 Title = obj.Title,
-                DueDate = obj.DueDate,
+                DueDate = obj.DueDate.ToLocalTime(),
                 Status = (TaskStatus)obj.Status,
                 Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target },
                 Priority = (TaskPriority)obj.Priority,
