@@ -19,7 +19,7 @@ namespace PMVOnline.Tasks.ViewModels.Admins
     public class ModerateTaskViewModel : ViewModelBase
     {
         public bool IsFollowed { get; set; } = true;
-        public TaskDetailModel Task { get; set; }
+        public TaskModel Task { get; set; }
         public List<FileModel> Files { get; set; }
         public List<CommentModel> Comments { get; set; }
         long taskId;

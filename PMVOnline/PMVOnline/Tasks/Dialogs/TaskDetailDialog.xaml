@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PMVOnline.Tasks.Views.TaskDetailDialog"
+    BackgroundColor="{StaticResource Background}"
+    xmlns:control="clr-namespace:PMVOnline.Common.Controls"
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    x:Name="root">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style
+                TargetType="Entry">
+                <Setter
+                    Property="IsEnabled"
+                    Value="False" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ScrollView>
+        <StackLayout
+            Spacing="0">
+            <Grid
+                ColumnDefinitions="*,*">
+                
+                <Button
+                    Margin="16,4"
+                    CornerRadius="{StaticResource Radius}"
+                    Style="{DynamicResource ButtonPrimary}"
+                    Command="{Binding ReadCommand}" 
+                    BorderWidth="1"
+                    HeightRequest="40">
+                    <Button.Triggers>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Pending}">
+                            <Setter
+                                Property="Text"
+                                Value="Chờ" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Requested}">
+                            <Setter
+                                Property="Text"
+                                Value="Chờ duyệt" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Completed}">
+                            <Setter
+                                Property="Text"
+                                Value="Hoàn thành" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Normal}" />
+                        </DataTrigger>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Rejected}">
+                            <Setter
+                                Property="Text"
+                                Value="Từ chối (*)" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Highest}" />
+                        </DataTrigger>
+
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Approved}">
+                            <Setter
+                                Property="Text"
+                                Value="Đã duyệt" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Primary}" />
+                        </DataTrigger>
+
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding Task.Status}"
+                            Value="{Static model:TaskStatus.Incompleted}">
+                            <Setter
+                                Property="Text"
+                                Value="Không hoàn thành (*)" />
+                            <Setter
+                                Property="BackgroundColor"
+                                Value="{StaticResource Highest}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button
+                    Margin="16,4"
+                    CornerRadius="{StaticResource Radius}"
+                    Style="{DynamicResource ButtonPrimary}"
+                    Command="{Binding CloseCommand}"
+                    BackgroundColor="{StaticResource High}"
+                    BorderWidth="1"
+                    HeightRequest="40"
+                    Grid.Column="1"
+                    Text="Đóng"
+                    />
+            </Grid>
+
+
+            <Frame
+                Margin="16,4">
+                <StackLayout
+                    Spacing="0"
+                    Margin="8">
+
+                    <Grid>
+                        <Entry
+                            Placeholder="Yêu Cầu"
+                            Text="{Binding Task.Target.Text}" />
+
+                        <Entry
+                            Grid.Column="1"
+                            Placeholder="Đối tượng"
+                            Text="{Binding Task.Assignee}" />
+                    </Grid>
+                    <Entry
+                        Placeholder="Mục đích"
+                        Text="{Binding Task.Title}" />
+                    <Editor
+                        IsEnabled="{Binding Edited}"
+                        AutoSize="TextChanges"
+                        Placeholder="Nội dung"
+                        Text="{Binding Task.Content}" />
+
+                    <Grid>
+                        <Entry
+                            Placeholder="Độ Ưu Tiên"
+                            Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}" />
+                        <Entry
+                            Grid.Column="1"
+                            Placeholder="Thời hạn"
+                            Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                    </Grid>
+
+                    <control:EntryAction
+                        Placeholder="Sự vụ liên quan"
+                        IsEnabled="{Binding Edited}"
+                        Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
+                        Command="{Binding ReferenceTasksCommand}" />
+
+                </StackLayout>
+            </Frame>
+
+
+            <Label
+                IsVisible="{Binding Files,Converter={StaticResource CollectionVisibilityConverter}}"
+                Margin="16,8,16,4"
+                Grid.Row="1"
+                TextDecorations="Underline"
+                TextColor="{DynamicResource Description}"
+                Text="Tệp Đính Kèm" />
+
+            <CollectionView
+                IsVisible="{Binding Files,Converter={StaticResource CollectionVisibilityConverter}}"
+                Margin="16,4"
+                ItemSizingStrategy="MeasureAllItems"
+                ItemsSource="{Binding Files}"
+                HeightRequest="44">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            Margin="8">
+                            <Grid
+                                ColumnSpacing="0"
+                                ColumnDefinitions="40,120">
+                                <Image
+                                    Margin="4"
+                                    HeightRequest="40"
+                                    WidthRequest="40"
+                                    Source="ic_cloud.png" />
+                                <Label
+                                    Margin="4,0"
+                                    Style="{DynamicResource LabelDescription}"
+                                    Grid.Column="1"
+                                    VerticalOptions="Center"
+                                    Text="{Binding FileName}" />
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={Reference root},Path=BindingContext.DownloadCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </Frame>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+
+            <Label
+                Margin="16,8,16,4"
+                TextDecorations="Underline"
+                TextColor="{DynamicResource Description}"
+                Text="Comment" />
+
+            <StackLayout
+                Margin="16,4"
+                Spacing="4"
+                BindableLayout.ItemsSource="{Binding Comments}">
+                <BindableLayout.EmptyView>
+                    <Label
+                        Text="Chưa có comment nào" />
+                </BindableLayout.EmptyView>
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            Margin="0,4">
+                            <Label
+                                Style="{DynamicResource LabelNormal}"
+                                TextColor="{StaticResource Text}"
+                                Text="{Binding Sender}" />
+                            <Label
+                                Style="{DynamicResource LabelDescription}"
+                                Text="{Binding Date,StringFormat='{0:HHH:mm dd/MM/yyyy}'}" />
+                            <Frame
+                                BackgroundColor="#EEEEEE">
+                                <Label
+                                    Margin="8,4"
+                                    Style="{DynamicResource LabelDescription}"
+                                    TextColor="{StaticResource Text}"
+                                    Text="{Binding Content}" />
+                            </Frame>
+
+                            <ScrollView
+                                Orientation="Horizontal">
+                                <StackLayout
+                                    Spacing="8"
+                                    BindableLayout.ItemsSource="{Binding Files}"
+                                    Orientation="Horizontal">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame
+                                                Margin="0">
+                                                <Grid
+                                                    ColumnSpacing="0"
+                                                    ColumnDefinitions="40,120">
+                                                    <Image
+                                                        Margin="4"
+                                                        HeightRequest="40"
+                                                        WidthRequest="40"
+                                                        Source="ic_cloud.png" />
+                                                    <Label
+                                                        Margin="4,0"
+                                                        Style="{DynamicResource LabelDescription}"
+                                                        Grid.Column="1"
+                                                        VerticalOptions="Center"
+                                                        Text="{Binding FileName}" />
+                                                    <Grid.GestureRecognizers>
+                                                        <TapGestureRecognizer
+                                                            Command="{Binding Source={Reference root},Path=BindingContext.DownloadCommand}"
+                                                            CommandParameter="{Binding .}" />
+                                                    </Grid.GestureRecognizers>
+                                                </Grid>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                            </ScrollView>
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+</ContentView>

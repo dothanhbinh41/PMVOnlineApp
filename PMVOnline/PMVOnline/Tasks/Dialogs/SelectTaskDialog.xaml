@@ -11,21 +11,23 @@
         RowDefinitions="64,*">
         <Grid
             Margin="16,0"
-            RowSpacing="0">
+            ColumnDefinitions="*,80">
+            <Frame
+                Margin="0,8">
+                <SearchBar
+                    Keyboard="Numeric"
+                    Placeholder="Nhập Id"
+                    Text="{Binding Id}"
+                    SearchCommand="{Binding SearchCommand}" />
+            </Frame>
 
-
-            <StackLayout
-                Spacing="8"
-                Orientation="Horizontal"
-                HorizontalOptions="End"
-                Grid.Row="1"
-                Grid.RowSpan="2">
-                <Button
-                    Text="Hủy"
-                    Style="{DynamicResource ButtonPrimary}"
-                    BackgroundColor="{StaticResource Highest}"
-                    Command="{Binding CloseCommand}" />
-            </StackLayout>
+            <Button
+                Margin="0,8"
+                Grid.Column="1"
+                Text="Hủy"
+                Style="{DynamicResource ButtonPrimary}"
+                BackgroundColor="{StaticResource Highest}"
+                Command="{Binding CloseCommand}" />
         </Grid>
 
         <CollectionView
@@ -98,7 +100,7 @@
                                         LineBreakMode="MiddleTruncation"
                                         Style="{DynamicResource LabelDescription}"
                                         TextColor="{StaticResource Text}"
-                                        Text="{Binding Task.Assignee}" />
+                                        Text="{Binding Task.Actor}" />
 
                                     <Label
                                         Style="{DynamicResource LabelDescription}"

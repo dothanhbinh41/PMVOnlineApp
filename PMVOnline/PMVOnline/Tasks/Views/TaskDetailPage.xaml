@@ -10,6 +10,12 @@
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     x:Name="root"
     Title="{Binding Task.Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IsEnabled="{Binding Editable}"
+            Text="{Binding ButtonEdit}"
+            Command="{Binding EditCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style
@@ -113,38 +119,43 @@
                         Margin="8">
 
                         <Grid>
-                            <Entry
+                            <control:EntryAction
+                                IsEnabled="{Binding Edited}"
                                 Placeholder="Yêu Cầu"
-                                Text="{Binding Task.Target.Text}" />
+                                Text="{Binding Task.Target.Text}"
+                                Command="{Binding ChooseTargetCommand}" /> 
 
                             <control:EntryAction
-                                Grid.Column="1"
-                                IsEnabled="False"
+                                Grid.Column="1" 
                                 Placeholder="Đối tượng"
                                 Text="{Binding Task.Assignee}" />
                         </Grid>
                         <Entry
+                            IsEnabled="{Binding Edited}"
                             Placeholder="Mục đích"
                             Text="{Binding Task.Title}" />
                         <Editor
-                            IsEnabled="False"
+                            IsEnabled="{Binding Edited}"
                             AutoSize="TextChanges"
                             Placeholder="Nội dung"
                             Text="{Binding Task.Content}" />
 
                         <Grid>
-                            <Entry
+                            <control:EntryAction
+                                IsEnabled="{Binding Edited}"
                                 Placeholder="Độ Ưu Tiên"
-                                Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}" />
-                            <Entry
+                                Text="{Binding Task.Priority,Converter={StaticResource PriorityToStringConverter}}"
+                                Command="{Binding ChoosePriorityCommand}" />
+                            <control:EntryAction
                                 Grid.Column="1"
                                 Placeholder="Thời hạn"
-                                Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                                Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}"
+                                Command="{Binding ChooseDueDateCommand}" /> 
                         </Grid>
 
                         <control:EntryAction
-                            Placeholder="Sự vụ liên quan"
-                            Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
+                            Placeholder="Sự vụ liên quan" 
+                            Text="{Binding ReferenceTasks, Converter={StaticResource ReferenceTasksIdConverter}}"
                             Command="{Binding ReferenceTasksCommand}" />
 
                     </StackLayout>
@@ -192,7 +203,7 @@
                                             Command="{Binding Source={Reference root},Path=BindingContext.DownloadCommand}"
                                             CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
-                                </Grid> 
+                                </Grid>
                             </Frame>
 
 
@@ -323,7 +334,7 @@
                                 Size="16"
                                 Glyph="{Static fontIcon:MaterialDesign.Comment}" />
                         </control:FloatingButtonItemControl.Icon>
-                    </control:FloatingButtonItemControl>
+                    </control:FloatingButtonItemControl> 
                     <control:FloatingButtonItemControl
                         Color="#FF3980"
                         IsVisible="true"

@@ -16,11 +16,12 @@ namespace PMVOnline.Tasks.Services
     public interface ITaskService
     {
         Task<UserModel> GetAssigneeAsync(TaskTarget target);
-        Task<bool> CreateTaskAsync(CreateTaskModel task);
+        Task<bool> CreateTaskAsync(TaskModel task);
         Task<TaskModel[]> GetMyLastTasksAsync();
         Task<TaskActionModel[]> GetMyTasksAsync(Guid[] users = null, DateTime? startDate = null, DateTime? endDate = null, int skipCount = 0, int maxResultCount = 100);
         Task<TaskActionModel[]> GetMyActionsAsync();
-        Task<TaskDetailModel> GetTaskAsync(long id);
+        Task<TaskModel> GetTaskAsync(long id);
+        Task<TaskModel[]> GetReferenceTasksAsync(long id);
         Task<CommentModel[]> GetTaskCommentsAsync(long id);
         Task<FileModel[]> GetTaskFilesAsync(long id);
         Task<bool> ApproveTaskAsync(long id, bool approved, string note);
@@ -66,7 +67,7 @@ namespace PMVOnline.Tasks.Services
             return result.Content;
         }
 
-        public async Task<bool> CreateTaskAsync(CreateTaskModel task)
+        public async Task<bool> CreateTaskAsync(TaskModel task)
         {
             var result = await Api.CreateTask(new CreateTaskRequestDto
             {
@@ -139,7 +140,7 @@ namespace PMVOnline.Tasks.Services
             return new TaskActionModel[0];
         }
 
-        public async Task<TaskDetailModel> GetTaskAsync(long id)
+        public async Task<TaskModel> GetTaskAsync(long id)
         {
             var result = await Api.GetTask(id);
             return result.Content?.ToModel();
@@ -214,6 +215,16 @@ namespace PMVOnline.Tasks.Services
                 return result.Content.Select(d => d.ToModel()).ToArray();
             }
             return new UserModel[0];
+        }
+
+        public async Task<TaskModel[]> GetReferenceTasksAsync(long id)
+        {
+            var result = await Api.GetReferenceTasks(id);
+            if (result.Content?.Length > 0)
+            {
+                return result.Content.Select(d => d.ToModel()).ToArray();
+            }
+            return new TaskModel[0];
         }
     }
 }

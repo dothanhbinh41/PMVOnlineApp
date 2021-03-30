@@ -18,7 +18,7 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class CreateTaskViewModel : ViewModelBase
     {
-        public CreateTaskModel Task { get; set; } = new CreateTaskModel();
+        public TaskModel Task { get; set; } = new TaskModel();
         public TaskModel TaskCloned { get; set; }
         public ObservableCollection<FileModel> Files { get; set; }
 
@@ -111,6 +111,7 @@ namespace PMVOnline.Tasks.ViewModels
             if (param?.Parameters?.ContainsKey(NavigationKey.CloneTask) == true)
             {
                 TaskCloned = param.Parameters.GetValue<TaskModel>(NavigationKey.CloneTask);
+                Task = await taskService.GetTaskAsync(TaskCloned.Id);
             }
         }
 

@@ -26,6 +26,9 @@ namespace PMVOnline.Api
         [Get("/api/app/task/{id}/task")]
         Task<ApiResponse<FullTaskDto>> GetTask(long id);
 
+        [Get("/api/app/task/{id}/reference-tasks")]
+        Task<ApiResponse<FullTaskDto[]>> GetReferenceTasks(long id);
+
         [Get("/api/app/task/{id}/task-comments")]
         Task<ApiResponse<TaskCommentDto[]>> GetTaskComments(long id);
 

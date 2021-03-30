@@ -26,6 +26,7 @@
                     BackgroundColor="{StaticResource Highest}"
                     Command="{Binding CloseCommand}" />
                 <Button
+                    IsVisible="{Binding Editable}"
                     Style="{DynamicResource ButtonPrimary}"
                     BackgroundColor="{StaticResource Normal}"
                     Text="Xong"
@@ -51,7 +52,7 @@
                                 ColumnSpacing="6"
                                 RowSpacing="4"
                                 ColumnDefinitions="12,*">
-                                <BoxView 
+                                <BoxView
                                     CornerRadius="6,0,6,0">
                                     <BoxView.Triggers>
                                         <DataTrigger
@@ -90,7 +91,7 @@
                                         TextColor="{StaticResource Text}">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span 
+                                                <Span
                                                     Text="{Binding Task.Id,StringFormat='#{0}'}" />
                                                 <Span
                                                     Text="   " />
@@ -102,16 +103,30 @@
                                     <Label
                                         LineBreakMode="MiddleTruncation"
                                         Style="{DynamicResource LabelDescription}"
-                                        TextColor="{StaticResource Text}"  
-                                        Text="{Binding Task.Assignee}" /> 
+                                        TextColor="{StaticResource Text}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    Text="Người tạo : " />
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding Task.Creator}" />
+                                                <Span
+                                                    Text="  Đối tượng : " />
+                                                <Span
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding Task.Assignee}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
                                     <Label
                                         Style="{DynamicResource LabelDescription}"
                                         Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
                                 </StackLayout>
-                                
+
                                 <Label
-                                    Grid.Column="1" 
+                                    Grid.Column="1"
                                     Margin="0,0,8,0"
                                     VerticalOptions="Center"
                                     HorizontalOptions="End"
@@ -125,9 +140,9 @@
                         </Frame>
 
                         <Frame
-                            Margin="0,6,24,0"
+                            Margin="24,6,0,0"
                             BackgroundColor="{StaticResource Primary}"
-                            HorizontalOptions="End"
+                            HorizontalOptions="Start"
                             Grid.RowSpan="2">
                             <Label
                                 Margin="8,0"
@@ -136,6 +151,19 @@
                                 VerticalOptions="Center"
                                 Text="{Binding Task.Status}" />
                         </Frame>
+
+                        <Button
+                            Margin="0,0,24,0"
+                            HeightRequest="40"  
+                            BackgroundColor="{StaticResource Primary}"
+                            VerticalOptions="Start"
+                            HorizontalOptions="End"
+                            Grid.RowSpan="3"
+                            Text="Xem chi tiết"
+                            TextColor="White"
+                            Command="{Binding Source={Reference root},Path=BindingContext.OpenDetailCommand}"
+                            CommandParameter="{Binding .}" />
+
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer
                                 Command="{Binding Source={Reference root},Path=BindingContext.SelectCommand}"

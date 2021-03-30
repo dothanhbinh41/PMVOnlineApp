@@ -7,7 +7,7 @@
     <Entry
         x:Name="entry"
         IsEnabled="False"
-        Text="{Binding Text}"
+        Text="{Binding Text}" 
         Placeholder="{Binding Placeholder}" />
     <Button
         Visual="Default"

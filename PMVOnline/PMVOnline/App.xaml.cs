@@ -170,7 +170,7 @@ namespace PMVOnline
             containerRegistry.RegisterForNavigation<CreateTaskPage, CreateTaskViewModel>();
             containerRegistry.RegisterForNavigation<TaskReferencePage, TaskReferenceViewModel>();
             containerRegistry.RegisterForNavigation<ModerateTaskPage, ModerateTaskViewModel>();
-            containerRegistry.RegisterForNavigation<TaskDetailPage, TaskDetailViewModel>();
+            containerRegistry.RegisterForNavigation<TaskDetailPage, Tasks.ViewModels.TaskDetailViewModel>();
             containerRegistry.RegisterForNavigation<CommentPage, CommentViewModel>();
             containerRegistry.RegisterForNavigation<HistoryPage, HistoryViewModel>();
             containerRegistry.RegisterForNavigation<WelcomePage, WelcomeViewModel>();
@@ -184,6 +184,7 @@ namespace PMVOnline
             containerRegistry.RegisterDialog<SelectTaskDialog, SelectTaskViewModel>();
             containerRegistry.RegisterDialog<ChooseUsersDialog, ChooseUsersViewModel>();
             containerRegistry.RegisterDialog<WriteNoteDialog, WriteNoteViewModel>();
+            containerRegistry.RegisterDialog<TaskDetailDialog, Tasks.ViewModels.Dialogs.TaskDetailViewModel>();
         }
 
         void RegisterService(IContainerRegistry containerRegistry)
@@ -231,6 +232,7 @@ namespace PMVOnline
         public static readonly string SelectTask = $"{nameof(SelectTaskDialog)}";
         public static readonly string ChooseUsers = $"{nameof(ChooseUsersDialog)}";
         public static readonly string WriteNote = $"{nameof(WriteNoteDialog)}";
+        public static readonly string TaskDetail = $"{nameof(TaskDetailDialog)}";
     }
 
     public class NavigationKey
@@ -245,5 +247,7 @@ namespace PMVOnline
         public const string Note = "Note";
         public const string Users = "Users";
         public const string SelectedUsers = "SelectedUsers";
+        public const string Completed = "Completed";
+        public const string Editable = "Editable";
     }
 }

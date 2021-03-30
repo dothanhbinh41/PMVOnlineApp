@@ -58,6 +58,9 @@
     <Compile Update="Tasks\Dialogs\MultiSelectTaskDialog.xaml.cs">
       <DependentUpon>MultiSelectTaskDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Tasks\Dialogs\TaskDetailDialog.xaml.cs">
+      <DependentUpon>TaskDetailDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Tasks\Views\TaskDetailPage.xaml.cs">
       <DependentUpon>TaskDetailPage.xaml</DependentUpon>
     </Compile>

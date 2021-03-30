@@ -17,9 +17,10 @@ namespace PMVOnline.Api.Dtos.Tasks
         public ActionType LastAction { get; set; }
         public Guid AssigneeId { get; set; }
         public Guid CreatorId { get; set; }
-        //public TaskFileDto[] TaskFiles { get; set; }
-        public ReferenceTaskDto[] ReferenceTasks { get; set; }
+        //public TaskFileDto[] TaskFiles { get; set; } 
         public virtual SimpleUserDto Assignee { get; set; }
+        public virtual SimpleUserDto Creator { get; set; }
+        public virtual SimpleUserDto LastModifier { get; set; }
     }
 
     public class ReferenceTaskDto

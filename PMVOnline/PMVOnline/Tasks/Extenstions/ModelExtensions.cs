@@ -28,7 +28,8 @@ namespace PMVOnline.Tasks.Extenstions
                 Title = obj.Title,
                 Creator = $"{obj.Creator?.Surname} {obj.Creator?.Name}",
                 Actor = $"{obj.LastModifier?.Surname} {obj.LastModifier?.Name}",
-                Action = obj.LastAction.ToAction()
+                Action = obj.LastAction.ToAction(),
+                Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target }, 
             };
         }
 
@@ -123,23 +124,23 @@ namespace PMVOnline.Tasks.Extenstions
             };
         }
 
-        public static TaskDetailModel ToModel(this FullTaskDto obj)
+        public static TaskModel ToModel(this FullTaskDto obj)
         {
             if (obj == null)
             {
                 return null;
             }
-            return new TaskDetailModel
+            return new TaskModel
             {
-                Id = obj.Id,
+                Id = obj.Id, 
                 Content = obj.Content,
-                Assignee = $"{obj.Assignee.Surname} {obj.Assignee.Name}",
+                Assignee = $"{obj.Assignee?.Surname??""} {obj.Assignee?.Name??""}",
+                Creator = $"{obj.Creator?.Surname??""} {obj.Creator?.Name??""}", 
                 Title = obj.Title,
                 DueDate = obj.DueDate.ToLocalTime(),
                 Status = (TaskStatus)obj.Status,
                 Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target },
                 Priority = (TaskPriority)obj.Priority,
-                ReferenceTasks = obj.ReferenceTasks?.Select(c => c.ReferenceTaskId).ToArray(),
                 AssigneeId = obj.AssigneeId,
                 CreatorId = obj.CreatorId,
                 LastAction = obj.LastAction

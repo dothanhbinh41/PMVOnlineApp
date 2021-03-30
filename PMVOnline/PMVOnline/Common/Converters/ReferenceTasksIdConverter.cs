@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PMVOnline.Tasks.Models;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -11,17 +12,17 @@ namespace PMVOnline.Common.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is long[] ids)
+            if (value is IList<TaskModel> ids)
             {
-                if (ids.Length == 0)
+                if (ids.Count == 0)
                 {
                     return string.Empty;
                 }
-                if (ids.Length == 1)
+                if (ids.Count == 1)
                 {
-                    return $"#{ids[0]}";
+                    return $"#{ids[0].Id}";
                 }
-                return $"({ids.Length}) {ids.Select(d => $"#{d}").Aggregate((d1, d2) => d1 + " " + d2)}";
+                return $"({ids.Count}) {ids.Select(d => $"#{d.Id}").Aggregate((d1, d2) => d1 + " " + d2)}";
             }
             return value;
         }
