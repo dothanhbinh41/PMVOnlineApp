@@ -29,7 +29,7 @@ namespace PMVOnline.Tasks.Extenstions
                 Creator = $"{obj.Creator?.Surname} {obj.Creator?.Name}",
                 Actor = $"{obj.LastModifier?.Surname} {obj.LastModifier?.Name}",
                 Action = obj.LastAction.ToAction(),
-                Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target }, 
+                Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target },
             };
         }
 
@@ -120,7 +120,7 @@ namespace PMVOnline.Tasks.Extenstions
                 Date = obj.CreationTime.ToLocalTime(),
                 Sender = $"{obj.User?.Surname} {obj.User?.Name}",
                 Content = obj.Comment,
-                Files = obj.FileIds?.Select(d => new FileModel { Id = d.FileId , FileName = d.FileName, FullPath = d.FilePath })?.ToArray()
+                Files = obj.FileIds?.Select(d => new FileModel { Id = d.FileId, FileName = d.FileName, FullPath = d.FilePath })?.ToArray()
             };
         }
 
@@ -132,10 +132,10 @@ namespace PMVOnline.Tasks.Extenstions
             }
             return new TaskModel
             {
-                Id = obj.Id, 
+                Id = obj.Id,
                 Content = obj.Content,
-                Assignee = $"{obj.Assignee?.Surname??""} {obj.Assignee?.Name??""}",
-                Creator = $"{obj.Creator?.Surname??""} {obj.Creator?.Name??""}", 
+                Assignee = obj.Assignee == null ? "" : $"{obj.Assignee.Surname} {obj.Assignee.Name}",
+                Creator = obj.Creator == null ? "" : $"{obj.Creator.Surname} {obj.Creator.Name}",
                 Title = obj.Title,
                 DueDate = obj.DueDate.ToLocalTime(),
                 Status = (TaskStatus)obj.Status,
