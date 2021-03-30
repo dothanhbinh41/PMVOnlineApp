@@ -153,9 +153,8 @@
                     </Grid>
 
                     <control:EntryAction
-                        Placeholder="Sự vụ liên quan"
-                        IsEnabled="{Binding Edited}"
-                        Text="{Binding Task.ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
+                        Placeholder="Sự vụ liên quan" 
+                        Text="{Binding ReferenceTasks,Converter={StaticResource ReferenceTasksIdConverter}}"
                         Command="{Binding ReferenceTasksCommand}" />
 
                 </StackLayout>

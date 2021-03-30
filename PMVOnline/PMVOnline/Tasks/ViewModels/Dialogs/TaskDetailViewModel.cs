@@ -25,6 +25,7 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
         public TaskModel Task { get; set; }
         public List<FileModel> Files { get; set; }
         public List<CommentModel> Comments { get; set; }
+        public List<TaskModel> ReferenceTasks { get; set; }
         long taskId;
         string note;
         UserModel user;
@@ -64,6 +65,11 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
             Files = new List<FileModel>(await taskService.GetTaskFilesAsync(id));
         }
 
+        async Task GetReferenceTasks(long id)
+        {
+            ReferenceTasks = new List<TaskModel>(await taskService.GetReferenceTasksAsync(id));
+        }
+
         public override void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);
@@ -74,7 +80,7 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
 
         async Task LoadData()
         {
-            await System.Threading.Tasks.Task.WhenAll(GetDetails(taskId), GetComments(taskId), GetFiles(taskId));
+            await System.Threading.Tasks.Task.WhenAll(GetDetails(taskId), GetComments(taskId), GetFiles(taskId), GetReferenceTasks(taskId));
             if (Task == null)
             {
                 return;
@@ -108,18 +114,15 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
         public ICommand ReferenceTasksCommand => _ReferenceTasksCommand = _ReferenceTasksCommand ?? new AsyncCommand(ExecuteReferenceTasksCommand);
         async Task ExecuteReferenceTasksCommand()
         {
-            //    var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, Task.ReferenceTasks }, { NavigationKey.MyTasks, myTasks } });
-            //    if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
-            //    {
-            //        Task.ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).Select(d => d.Id).ToArray();
-            //    }
+            if (ReferenceTasks?.Count > 0)
+                await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, ReferenceTasks }, { NavigationKey.MyTasks, ReferenceTasks } });
         }
-         
+
         ICommand _CloseCommand;
         public ICommand CloseCommand => _CloseCommand = _CloseCommand ?? new Command(ExecuteCloseCommand);
         void ExecuteCloseCommand()
         {
             RequestClose?.Invoke(new DialogParameters());
-        } 
+        }
     }
 }
