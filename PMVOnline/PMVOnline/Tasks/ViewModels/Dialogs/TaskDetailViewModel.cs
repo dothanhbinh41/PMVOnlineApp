@@ -79,7 +79,7 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
         }
 
         async Task LoadData()
-        {
+        { 
             await System.Threading.Tasks.Task.WhenAll(GetDetails(taskId), GetComments(taskId), GetFiles(taskId), GetReferenceTasks(taskId));
             if (Task == null)
             {

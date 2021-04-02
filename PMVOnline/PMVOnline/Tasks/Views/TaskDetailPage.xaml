@@ -148,6 +148,7 @@
                                 Command="{Binding ChoosePriorityCommand}" />
                             <control:EntryAction
                                 Grid.Column="1"
+                                IsEnabled="{Binding Edited}"
                                 Placeholder="Thời hạn"
                                 Text="{Binding Task.Date,StringFormat='{0:HH:mm dd/MM/yyyy}'}"
                                 Command="{Binding ChooseDueDateCommand}" /> 

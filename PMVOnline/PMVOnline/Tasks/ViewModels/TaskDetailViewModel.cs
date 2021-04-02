@@ -33,8 +33,7 @@ namespace PMVOnline.Tasks.ViewModels
         public List<CommentModel> Comments { get; set; }
         long taskId;
         string note;
-        UserModel user;
-
+        UserModel user; 
 
         readonly INavigationService navigationService;
         readonly ITaskService taskService;
@@ -278,11 +277,15 @@ namespace PMVOnline.Tasks.ViewModels
         {
             if (Edited)
             {
+                var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, ReferenceTasks }, { NavigationKey.MyTasks, myTasks }, { NavigationKey.Editable, true } });
+                if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
+                {
+                    ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).ToList();
+                }
                 return;
             }
 
-
-            var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, ReferenceTasks }, { NavigationKey.MyTasks, ReferenceTasks }, { NavigationKey.Editable, false } }); 
+            await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, ReferenceTasks }, { NavigationKey.MyTasks, ReferenceTasks }, { NavigationKey.Editable, false } }); 
         }
 
         ICommand _AddFileCommand;
