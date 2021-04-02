@@ -260,6 +260,10 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand ChooseDueDateCommand => _ChooseDueDateCommand = _ChooseDueDateCommand ?? new AsyncCommand(ExecuteChooseDueDateCommand);
         async Task ExecuteChooseDueDateCommand()
         {
+            if (Task == null)
+            {
+                return;
+            }
             var date = await dateTimeService.PickDateTimeAsync(DateTime.Now, Task.Date);
             if (date.HasValue)
             {

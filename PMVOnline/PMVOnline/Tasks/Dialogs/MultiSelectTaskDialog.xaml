@@ -43,7 +43,7 @@
                 <DataTemplate>
                     <Grid
                         RowSpacing="0"
-                        RowDefinitions="12,18,72">
+                        RowDefinitions="16,18,88">
                         <Frame
                             Margin="12,6"
                             Grid.Row="1"
@@ -154,9 +154,10 @@
 
                         <Button
                             Margin="0,0,24,0"
-                            HeightRequest="40"  
+                            Padding="12,4"
+                            HeightRequest="32"  
                             BackgroundColor="{StaticResource Primary}"
-                            VerticalOptions="Start"
+                            VerticalOptions="End"
                             HorizontalOptions="End"
                             Grid.RowSpan="3"
                             Text="Xem chi tiết"

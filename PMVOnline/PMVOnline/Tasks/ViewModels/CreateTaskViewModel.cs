@@ -96,10 +96,11 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand ReferenceTasksCommand => _ReferenceTasksCommand = _ReferenceTasksCommand ?? new AsyncCommand(ExecuteReferenceTasksCommand);
         async Task ExecuteReferenceTasksCommand()
         {
-            var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, Task.ReferenceTasks }, { NavigationKey.MyTasks, myTasks }, { NavigationKey.Editable, true } });
+            var myRef = Task.ReferenceTasks;
+            var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, new List<TaskModel>(myRef??new TaskModel[0]) }, { NavigationKey.MyTasks, myTasks }, { NavigationKey.Editable, true } });
             if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
             {
-                Task.ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).Select(d => d.Id).ToArray();
+                Task.ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).ToArray();
             }
         }
 

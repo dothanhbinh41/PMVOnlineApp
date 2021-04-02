@@ -113,7 +113,7 @@ namespace PMVOnline.Tasks.ViewModels.Admins
             }
 
             IsBusy = true;
-            var result = await taskService.ApproveTaskAsync(taskId, false, string.Empty);
+            var result = await taskService.ApproveTaskAsync(taskId, false, note);
             IsBusy = false;
             if (result)
             {

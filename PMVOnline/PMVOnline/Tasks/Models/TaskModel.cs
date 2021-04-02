@@ -23,7 +23,7 @@ namespace PMVOnline.Tasks.Models
 
         public DateTime? Date { get; set; }
         public TargetModel Target { get; set; }
-        public long[] ReferenceTasks { get; set; }
+        public TaskModel[] ReferenceTasks { get; set; }
         public Guid[] Files { get; set; }
         public string Content { get; set; }
 

@@ -76,7 +76,7 @@ namespace PMVOnline.Tasks.Services
                 DueDate = task.DueDate.ToUniversalTime(),
                 Files = task.Files,
                 Priority = (Priority)task.Priority,
-                ReferenceTasks = task.ReferenceTasks,
+                ReferenceTasks = task.ReferenceTasks?.Select(d=>d.Id)?.ToArray()??new long[0],
                 Target = ((Target?)task.Target?.Target) ?? Target.Other,
                 Title = task.Title
             });
