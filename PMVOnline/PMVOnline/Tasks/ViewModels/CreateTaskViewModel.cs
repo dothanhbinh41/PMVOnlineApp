@@ -133,7 +133,7 @@ namespace PMVOnline.Tasks.ViewModels
         ICommand _RemoveFileCommand;
         public ICommand RemoveFileCommand => _RemoveFileCommand = _RemoveFileCommand ?? new Command<FileModel>(ExecuteRemoveFileCommand);
         void ExecuteRemoveFileCommand(FileModel file)
-        {
+        {  
             Files?.Remove(file);
         }
 

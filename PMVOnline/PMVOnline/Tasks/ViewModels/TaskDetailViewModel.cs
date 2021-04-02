@@ -8,6 +8,7 @@ using Prism.Services;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -29,11 +30,11 @@ namespace PMVOnline.Tasks.ViewModels
         public bool IsFollowed { get; set; } = true;
         public TaskModel Task { get; set; }
         public List<TaskModel> ReferenceTasks { get; set; }
-        public List<FileModel> Files { get; set; }
+        public ObservableCollection<FileModel> Files { get; set; }
         public List<CommentModel> Comments { get; set; }
         long taskId;
         string note;
-        UserModel user; 
+        UserModel user;
 
         readonly INavigationService navigationService;
         readonly ITaskService taskService;
@@ -79,7 +80,7 @@ namespace PMVOnline.Tasks.ViewModels
 
         async Task GetFiles(long id)
         {
-            Files = new List<FileModel>(await taskService.GetTaskFilesAsync(id));
+            Files = new ObservableCollection<FileModel>(await taskService.GetTaskFilesAsync(id));
         }
 
         async Task GetReferenceTasks(long id)
@@ -285,40 +286,81 @@ namespace PMVOnline.Tasks.ViewModels
                 return;
             }
 
-            await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, ReferenceTasks }, { NavigationKey.MyTasks, ReferenceTasks }, { NavigationKey.Editable, false } }); 
+            await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, ReferenceTasks }, { NavigationKey.MyTasks, ReferenceTasks }, { NavigationKey.Editable, false } });
         }
 
         ICommand _AddFileCommand;
         public ICommand AddFileCommand => _AddFileCommand = _AddFileCommand ?? new AsyncCommand(ExecuteAddFileCommand);
         async Task ExecuteAddFileCommand()
         {
+            if (!Edited)
+            {
+                return;
+            }
+
             var files = await FilePicker.PickMultipleAsync(PickOptions.Default);
             if (files?.Any() == true)
             {
                 foreach (var item in files)
                 {
-                    Files.Add(new FileModel { ContentType = item.ContentType, FileName = item.FileName, FullPath = item.FullPath });
+                    Files?.Add(new FileModel { ContentType = item.ContentType, FileName = item.FileName, FullPath = item.FullPath });
                 }
             }
         }
 
         ICommand _RemoveFileCommand;
-        public ICommand RemoveFileCommand => _RemoveFileCommand = _RemoveFileCommand ?? new Command<FileModel>(ExecuteRemoveFileCommand);
-        void ExecuteRemoveFileCommand(FileModel file)
+        public ICommand RemoveFileCommand => _RemoveFileCommand = _RemoveFileCommand ?? new AsyncCommand<FileModel>(ExecuteRemoveFileCommand);
+        async Task ExecuteRemoveFileCommand(FileModel file)
         {
-            Files?.Remove(file);
+            if (Edited)
+                Files?.Remove(file);
+            else
+                await ExecuteDownloadCommand(file);
         }
 
         ICommand _EditCommand;
         public ICommand EditCommand => _EditCommand = _EditCommand ?? new AsyncCommand(ExecuteEditCommand);
         async Task ExecuteEditCommand()
         {
+            if (user.Id != Task.CreatorId)
+            {
+                return;
+            }
+
             Edited = !Edited;
             if (!Edited)
             {
-
+                IsBusy = true;
+                var result = await taskService.UpdateTaskAsync(Task);
+                IsBusy = false;
+                if (result)
+                {
+                    Toast("Cập nhật thành công");
+                }
+                else
+                {
+                    Toast("Cập nhật thất bại");
+                }
             }
         }
 
+
+        public void OnReferenceTasksChanged()
+        {
+            if (Task == null)
+            {
+                return;
+            }
+            Task.ReferenceTasks = ReferenceTasks?.ToArray() ?? new TaskModel[0];
+        }
+
+        public void OnFilesChanged()
+        {
+            if (Task == null)
+            {
+                return;
+            }
+            Task.Files = Files?.Select(d => d.Id)?.ToArray() ?? new Guid[0];
+        }
     }
 }

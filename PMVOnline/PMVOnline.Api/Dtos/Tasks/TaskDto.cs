@@ -67,7 +67,10 @@ namespace PMVOnline.Api.Dtos.Tasks
         public Target Target { get; set; }
         public Status Status { get; set; }
     }
-
+    public class UpdateTaskRequestDto: CreateTaskRequestDto
+    {
+        public long Id { get; set; } 
+    }
     public class CreateTaskRequestDto
     {
         public string Title { get; set; }

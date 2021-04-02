@@ -54,6 +54,9 @@ namespace PMVOnline.Api
         [Post("/api/app/task/task")]
         Task<ApiResponse<CreateTaskResultDto>> CreateTask(CreateTaskRequestDto request);
 
+        [Put("/api/app/task/task")]
+        Task<ApiResponse<CreateTaskResultDto>> UpdateTask(UpdateTaskRequestDto request);
+
         [Post("/api/app/task/process-task")]
         Task<ApiResponse<bool>> ApproveTask(ApproveTaskRequestDto request);
 

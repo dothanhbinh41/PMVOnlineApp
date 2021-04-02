@@ -163,55 +163,95 @@
                 </Frame>
 
 
-                <Label
-                    IsVisible="{Binding Files,Converter={StaticResource CollectionVisibilityConverter}}"
+                <Label 
                     Margin="16,8,16,4"
                     Grid.Row="1"
                     TextDecorations="Underline"
                     TextColor="{DynamicResource Description}"
                     Text="Tệp Đính Kèm" />
+                <Grid 
+                    HeightRequest="64"
+                    Margin="16,0"
+                    ColumnDefinitions="56,*">
 
-                <CollectionView
-                    IsVisible="{Binding Files,Converter={StaticResource CollectionVisibilityConverter}}"
-                    Margin="16,4"
-                    ItemSizingStrategy="MeasureAllItems"
-                    ItemsSource="{Binding Files}"
-                    HeightRequest="44">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout
-                            Orientation="Horizontal" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame
-                                Margin="8">
-                                <Grid
-                                    ColumnSpacing="0"
-                                    ColumnDefinitions="40,120">
-                                    <Image
-                                        Margin="4"
-                                        HeightRequest="40"
-                                        WidthRequest="40"
-                                        Source="ic_cloud.png" />
+
+                    <sh:Shadows
+                        IsVisible="{Binding Edited}"
+                        Margin="0,8,8,8"
+                        CornerRadius="6"
+                        Shades="{StaticResource ShadowPrimary}">
+                        <Button
+                            FontSize="24"
+                            Style="{StaticResource ButtonPrimary}"
+                            TextColor="{StaticResource Primary}"
+                            CornerRadius="{StaticResource Radius}"
+                            BackgroundColor="{StaticResource Foreground}"
+                            FontFamily="{StaticResource FontMaterialdesign}"
+                            Text="{Static fontIcon:MaterialDesign.Plus}"
+                            Command="{Binding AddFileCommand}" />
+                    </sh:Shadows>
+                    <CollectionView
+                        Grid.Column="1"
+                        ItemSizingStrategy="MeasureAllItems"
+                        ItemsSource="{Binding Files}"
+                        HeightRequest="44">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout
+                                Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Frame
+                                        Margin="8">
+                                        <Grid
+                                            ColumnSpacing="0"
+                                            ColumnDefinitions="40,120">
+                                            <Image
+                                                Margin="4"
+                                                HeightRequest="40"
+                                                WidthRequest="40"
+                                                Source="ic_cloud.png" />
+                                            <Image
+                                                Margin="4"
+                                                IsVisible="{Binding Edited}"
+                                                HeightRequest="40"
+                                                WidthRequest="40"
+                                                Source="{Binding FullPath}" />
+                                            <Label
+                                                Margin="4,0"
+                                                Style="{DynamicResource LabelDescription}"
+                                                Grid.Column="1"
+                                                VerticalOptions="Center"
+                                                Text="{Binding FileName}" />
+                                            <!--<BoxView
+                                            Color="#000000"
+                                            Opacity="0.3"
+                                            Grid.ColumnSpan="2"
+                                            />-->
+
+                                        </Grid>
+
+                                    </Frame>
                                     <Label
-                                        Margin="4,0"
-                                        Style="{DynamicResource LabelDescription}"
-                                        Grid.Column="1"
-                                        VerticalOptions="Center"
-                                        Text="{Binding FileName}" />
+                                        VerticalOptions="Start"
+                                        HorizontalOptions="End"
+                                        FontSize="20"
+                                        IsVisible="{Binding Edited}"
+                                        TextColor="{StaticResource Highest}"
+                                        FontFamily="{StaticResource FontMaterialdesign}"
+                                        Text="{Static fontIcon:MaterialDesign.DeleteCircle}" />
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer
-                                            Command="{Binding Source={Reference root},Path=BindingContext.DownloadCommand}"
+                                            Command="{Binding Source={Reference root},Path=BindingContext.RemoveFileCommand}"
                                             CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
                                 </Grid>
-                            </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
+                </Grid> 
 
                 <Label
                     Margin="16,8,16,4"

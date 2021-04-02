@@ -17,6 +17,7 @@ namespace PMVOnline.Tasks.Services
     {
         Task<UserModel> GetAssigneeAsync(TaskTarget target);
         Task<bool> CreateTaskAsync(TaskModel task);
+        Task<bool> UpdateTaskAsync(TaskModel task);
         Task<TaskModel[]> GetMyLastTasksAsync();
         Task<TaskActionModel[]> GetMyTasksAsync(Guid[] users = null, DateTime? startDate = null, DateTime? endDate = null, int skipCount = 0, int maxResultCount = 100);
         Task<TaskActionModel[]> GetMyActionsAsync();
@@ -76,7 +77,7 @@ namespace PMVOnline.Tasks.Services
                 DueDate = task.DueDate.ToUniversalTime(),
                 Files = task.Files,
                 Priority = (Priority)task.Priority,
-                ReferenceTasks = task.ReferenceTasks?.Select(d=>d.Id)?.ToArray()??new long[0],
+                ReferenceTasks = task.ReferenceTasks?.Select(d => d.Id)?.ToArray() ?? new long[0],
                 Target = ((Target?)task.Target?.Target) ?? Target.Other,
                 Title = task.Title
             });
@@ -225,6 +226,23 @@ namespace PMVOnline.Tasks.Services
                 return result.Content.Select(d => d.ToModel()).ToArray();
             }
             return new TaskModel[0];
+        }
+
+        public async Task<bool> UpdateTaskAsync(TaskModel task)
+        {
+            var result = await Api.UpdateTask(new UpdateTaskRequestDto
+            {
+                Id = task.Id,
+                AssigneeId = task.AssigneeId,
+                Content = task.Content,
+                DueDate = task.DueDate.ToUniversalTime(),
+                Files = task.Files,
+                Priority = (Priority)task.Priority,
+                ReferenceTasks = task.ReferenceTasks?.Select(d => d.Id)?.ToArray() ?? new long[0],
+                Target = ((Target?)task.Target?.Target) ?? Target.Other,
+                Title = task.Title
+            });
+            return result.Content != null;
         }
     }
 }
