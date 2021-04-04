@@ -129,6 +129,8 @@
                             <control:EntryAction
                                 Grid.Column="1" 
                                 Placeholder="Đối tượng"
+                                IsEnabled="{Binding Edited}"
+                                Command="{Binding ChooseAssigneeCommand}"
                                 Text="{Binding Task.Assignee}" />
                         </Grid>
                         <Entry

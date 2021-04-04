@@ -43,6 +43,9 @@ namespace PMVOnline.Api
 
         [Get("/api/app/task/assignee?target={target}")]
         Task<ApiResponse<SimpleUserDto>> GetAssignee(int target);
+        
+        [Get("/api/app/task/member?target={target}")]
+        Task<ApiResponse<SimpleUserDto[]>> GetMembers(int target);
 
         [Multipart]
         [Post("/api/File/UploadFile")]

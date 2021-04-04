@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PMVOnline.Accounts.Models;
 using PMVOnline.Common.Bases;
 using PMVOnline.Common.Services;
 using PMVOnline.Tasks.Models;
@@ -29,6 +30,9 @@ namespace PMVOnline.Tasks.ViewModels
         private readonly IFileService fileService;
 
         List<TaskModel> myTasks;
+        UserModel[] users;
+        UserModel assignee;
+
         public CreateTaskViewModel(
             INavigationService navigationService,
             IDialogService dialogService,
@@ -46,6 +50,16 @@ namespace PMVOnline.Tasks.ViewModels
         public override async Task InitializeAsync(INavigationParameters parameters)
         {
             Files = new ObservableCollection<FileModel>();
+        }
+
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            LoadData();
+        }
+
+        async Task LoadData()
+        {
             myTasks = new List<TaskModel>(await taskService.GetMyTasksAsync());
         }
 
@@ -58,7 +72,8 @@ namespace PMVOnline.Tasks.ViewModels
             {
                 Task.Target = result.Parameters.GetValue<TargetModel>(NavigationKey.Target);
                 IsBusy = true;
-                var assignee = await taskService.GetAssigneeAsync(Task.Target.Target);
+                assignee = await taskService.GetAssigneeAsync(Task.Target.Target);
+                users = await taskService.GetAllUsersAsync(Task.Target.Target);
                 IsBusy = false;
                 if (assignee == null)
                 {
@@ -114,6 +129,8 @@ namespace PMVOnline.Tasks.ViewModels
                 IsBusy = true;
                 TaskCloned = param.Parameters.GetValue<TaskModel>(NavigationKey.CloneTask);
                 Task = await taskService.GetTaskAsync(TaskCloned.Id);
+                users = await taskService.GetAllUsersAsync(Task.Target.Target);
+                assignee = new UserModel { Id = Task.AssigneeId, FullName = Task.Assignee };
                 Files = new ObservableCollection<FileModel>(await taskService.GetTaskFilesAsync(TaskCloned.Id) ?? new FileModel[0]);
                 Task.ReferenceTasks = await taskService.GetReferenceTasksAsync(TaskCloned.Id) ?? new TaskModel[0];
                 IsBusy = false;
@@ -161,6 +178,26 @@ namespace PMVOnline.Tasks.ViewModels
             }
         }
 
+
+
+        ICommand _ChooseAssigneeCommand;
+        public ICommand ChooseAssigneeCommand => _ChooseAssigneeCommand = _ChooseAssigneeCommand ?? new AsyncCommand(ExecuteChooseAssigneeCommand);
+        async Task ExecuteChooseAssigneeCommand()
+        {
+            if (users == null || assignee == null)
+            {
+                return;
+            }
+
+            var selected = await dialogService.ShowDialogAsync(DialogRoutes.ChooseUsers, new DialogParameters { { NavigationKey.Count, 1 }, { NavigationKey.SelectedUsers, new List<UserModel> { assignee } }, { NavigationKey.Users, new List<UserModel>(users) } });
+            if (selected.Parameters.ContainsKey(NavigationKey.SelectedUsers))
+            {
+                assignee = selected.Parameters.GetValue<List<UserModel>>(NavigationKey.SelectedUsers).FirstOrDefault();
+                Task.AssigneeId = assignee?.Id ?? Guid.Empty;
+                Task.Assignee = assignee?.FullName;
+            }
+        }
+
         async Task UploadFiles()
         {
             List<Task<FileModel>> files = new List<Task<FileModel>>();
@@ -173,7 +210,7 @@ namespace PMVOnline.Tasks.ViewModels
                 files.Add(fileService.UploadAsync(stream, file.FileName));
             }
 
-            var result = await System.Threading.Tasks.Task.WhenAll(files); 
+            var result = await System.Threading.Tasks.Task.WhenAll(files);
             Task.Files = result?.Select(d => d.Id)?.Concat(uploaded.Select(d => d.Id))?.ToArray() ?? new Guid[0];
         }
     }

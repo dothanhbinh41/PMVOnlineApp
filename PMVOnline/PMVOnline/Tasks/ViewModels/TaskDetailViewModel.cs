@@ -34,7 +34,9 @@ namespace PMVOnline.Tasks.ViewModels
         public List<CommentModel> Comments { get; set; }
         long taskId;
         string note;
-        UserModel user;
+        UserModel user; 
+        UserModel[] users;
+        UserModel assignee;
 
         readonly INavigationService navigationService;
         readonly ITaskService taskService;
@@ -118,6 +120,9 @@ namespace PMVOnline.Tasks.ViewModels
             {
                 return;
             }
+
+            users = await taskService.GetAllUsersAsync(Task.Target.Target);
+            assignee = new UserModel { Id = Task.AssigneeId, FullName = Task.Assignee };
             Editable = (user.Id == Task.AssigneeId && Task.Status == Models.TaskStatus.Approved) || (user.Id == Task.CreatorId && Task.Status == Models.TaskStatus.Pending);
             if (Task.Status == Models.TaskStatus.Rejected || Task.Status == Models.TaskStatus.Completed || Task.Status == Models.TaskStatus.Incompleted)
             {
@@ -234,7 +239,8 @@ namespace PMVOnline.Tasks.ViewModels
             {
                 Task.Target = result.Parameters.GetValue<TargetModel>(NavigationKey.Target);
                 IsBusy = true;
-                var assignee = await taskService.GetAssigneeAsync(Task.Target.Target);
+                assignee = await taskService.GetAssigneeAsync(Task.Target.Target); 
+                users = await taskService.GetAllUsersAsync(Task.Target.Target);
                 IsBusy = false;
                 if (assignee == null)
                 {
@@ -342,6 +348,24 @@ namespace PMVOnline.Tasks.ViewModels
                 {
                     Toast("Cập nhật thất bại");
                 }
+            }
+        }
+
+        ICommand _ChooseAssigneeCommand;
+        public ICommand ChooseAssigneeCommand => _ChooseAssigneeCommand = _ChooseAssigneeCommand ?? new AsyncCommand(ExecuteChooseAssigneeCommand);
+        async Task ExecuteChooseAssigneeCommand()
+        {
+            if (users == null || assignee == null)
+            {
+                return;
+            }
+
+            var selected = await dialogService.ShowDialogAsync(DialogRoutes.ChooseUsers, new DialogParameters { { NavigationKey.Count, 1 }, { NavigationKey.SelectedUsers, new List<UserModel> { assignee } }, { NavigationKey.Users, new List<UserModel>(users) } });
+            if (selected.Parameters.ContainsKey(NavigationKey.SelectedUsers))
+            {
+                assignee = selected.Parameters.GetValue<List<UserModel>>(NavigationKey.SelectedUsers).FirstOrDefault();
+                Task.AssigneeId = assignee?.Id ?? Guid.Empty;
+                Task.Assignee = assignee?.FullName;
             }
         }
 

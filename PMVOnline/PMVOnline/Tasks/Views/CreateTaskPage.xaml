@@ -38,9 +38,9 @@
                             Text="{Binding Task.Target.Text}"
                             Command="{Binding ChooseTargetCommand}" />
 
-                        <Entry
+                        <control:EntryAction
                             Grid.Column="1"
-                            IsEnabled="False"
+                            Command="{Binding ChooseAssigneeCommand}"
                             Text="{Binding Task.Assignee}"
                             Placeholder="Đối tượng" />
                     </Grid>

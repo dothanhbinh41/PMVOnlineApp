@@ -16,6 +16,7 @@ namespace PMVOnline.Tasks.Services
     public interface ITaskService
     {
         Task<UserModel> GetAssigneeAsync(TaskTarget target);
+        Task<UserModel[]> GetAllUsersAsync(TaskTarget target);
         Task<bool> CreateTaskAsync(TaskModel task);
         Task<bool> UpdateTaskAsync(TaskModel task);
         Task<TaskModel[]> GetMyLastTasksAsync();
@@ -243,6 +244,14 @@ namespace PMVOnline.Tasks.Services
                 Title = task.Title
             });
             return result.Content != null;
+        }
+
+        public async Task<UserModel[]> GetAllUsersAsync(TaskTarget target)
+        {
+            var result = await Api.GetMembers((int)target);
+            if (result?.Content?.Length > 0)
+                return result.Content.Select(d => d.ToModel()).ToArray();
+            return new UserModel[0];
         }
     }
 }

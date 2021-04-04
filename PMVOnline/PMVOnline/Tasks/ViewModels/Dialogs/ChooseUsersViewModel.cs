@@ -24,6 +24,9 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
         public DateTime? EndDate { get; set; }
         public List<UserWrapper> Users { get; set; }
         public List<UserModel> SelectedUsers { get; set; }
+
+
+        int count = int.MaxValue;
         public ChooseUsersViewModel()
         {
         }
@@ -31,7 +34,11 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
         public override void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);
-            SelectedUsers = parameters.GetValue<List<UserModel>>(NavigationKey.SelectedUsers)??new List<UserModel>();
+            SelectedUsers = parameters.GetValue<List<UserModel>>(NavigationKey.SelectedUsers) ?? new List<UserModel>();
+            if (parameters.ContainsKey(NavigationKey.Count))
+            {
+                count = parameters.GetValue<int>(NavigationKey.Count);
+            }
             Users = parameters.GetValue<List<UserModel>>(NavigationKey.Users).Select(d => new UserWrapper { User = d, IsSelected = SelectedUsers.Any(c => c.Id == d.Id) }).ToList();
         }
 
@@ -48,16 +55,19 @@ namespace PMVOnline.Tasks.ViewModels.Dialogs
         {
             RequestClose?.Invoke(new DialogParameters());
         }
-         
+
         ICommand _SelectCommand;
         public ICommand SelectCommand => _SelectCommand = _SelectCommand ?? new Command<UserWrapper>(ExecuteSelectCommand);
         void ExecuteSelectCommand(UserWrapper user)
         {
             if (user != null)
             {
+                if (Users.Count(d => d.IsSelected) >= count)
+                {
+                    Users.FirstOrDefault(d => d.IsSelected).IsSelected = false;
+                }
                 user.IsSelected = !user.IsSelected;
             }
         }
-
     }
 }

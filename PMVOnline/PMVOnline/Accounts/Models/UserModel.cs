@@ -9,7 +9,14 @@ namespace PMVOnline.Accounts.Models
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public string FullName => $"{Surname} {Name}";
+
+        string fullname;
+        public string FullName
+        {
+            set => fullname = value;
+            get => string.IsNullOrEmpty(fullname) ? $"{Surname} {Name}" : fullname; 
+        }
+
         public string UserName { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
