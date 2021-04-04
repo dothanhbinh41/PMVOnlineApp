@@ -331,6 +331,7 @@ namespace PMVOnline.Tasks.ViewModels
             if (!Edited)
             {
                 IsBusy = true;
+                await UploadFiles();
                 var result = await taskService.UpdateTaskAsync(Task);
                 IsBusy = false;
                 if (result)
@@ -361,6 +362,22 @@ namespace PMVOnline.Tasks.ViewModels
                 return;
             }
             Task.Files = Files?.Select(d => d.Id)?.ToArray() ?? new Guid[0];
+        }
+
+        async Task UploadFiles()
+        {
+            List<Task<FileModel>> files = new List<Task<FileModel>>();
+            var notUpload = Files?.Where(d => d.Id == Guid.Empty)?.ToList() ?? new List<FileModel>();
+            var uploaded = Files?.Where(d => d.Id != Guid.Empty)?.ToArray() ?? new FileModel[0];
+            for (int i = 0; i < notUpload.Count; i++)
+            {
+                var file = notUpload[i];
+                var stream = await (new FileResult(file.FullPath)).OpenReadAsync();
+                files.Add(fileService.UploadAsync(stream, file.FileName));
+            }
+
+            var result = await System.Threading.Tasks.Task.WhenAll(files);
+            Task.Files = result?.Select(d => d.Id)?.Concat(uploaded.Select(d => d.Id))?.ToArray() ?? new Guid[0];
         }
     }
 }
