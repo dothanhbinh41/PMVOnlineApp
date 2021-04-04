@@ -16,6 +16,7 @@ using Plugin.FirebasePushNotification;
 using Firebase;
 using Android.Content;
 using Xamarin.Essentials;
+using FFImageLoading.Forms.Platform;
 
 namespace PMVOnline.Droid
 {
@@ -52,7 +53,7 @@ namespace PMVOnline.Droid
                 .SetStorageBucket("pmvonline-336b2.appspot.com")
                 .SetProjectId("pmvonline-336b2")
                 .Build());
-
+            CachedImageRenderer.Init(true);
             if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
             {
                 //Change for your default notification channel id here

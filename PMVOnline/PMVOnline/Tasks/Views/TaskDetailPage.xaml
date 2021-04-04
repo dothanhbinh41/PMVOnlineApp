@@ -8,6 +8,7 @@
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     x:Name="root"
     Title="{Binding Task.Title}">
     <ContentPage.ToolbarItems>
@@ -210,13 +211,14 @@
                                             <Image
                                                 Margin="4"
                                                 HeightRequest="40"
-                                                WidthRequest="40"
-                                                Source="ic_cloud.png" />
-                                            <Image
+                                                Source="ic_cloud.png"
+                                                WidthRequest="40" />
+                                            <ffimage:CachedImage
                                                 Margin="4"
                                                 IsVisible="{Binding Edited}"
                                                 HeightRequest="40"
                                                 WidthRequest="40"
+                                                ErrorPlaceholder="ic_cloud.png"
                                                 Source="{Binding FullPath}" />
                                             <Label
                                                 Margin="4,0"

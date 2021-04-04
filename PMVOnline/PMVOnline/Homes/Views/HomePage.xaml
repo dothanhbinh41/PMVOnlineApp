@@ -84,7 +84,7 @@
                     <DataTemplate>
                         <Grid
                             RowSpacing="0"
-                            RowDefinitions="12,18,72">
+                            RowDefinitions="12,18,96">
                             <Frame
                                 Margin="12,6"
                                 Grid.Row="1"
@@ -145,15 +145,35 @@
                                             Style="{DynamicResource LabelNormal}"
                                             LineBreakMode="MiddleTruncation">
                                             <Label.FormattedText>
-                                                <FormattedString>
+                                                <FormattedString> 
                                                     <Span
                                                         TextColor="{StaticResource Text}"
-                                                        Text="{Binding Creator}" />
+                                                        Text="{Binding Actor}" />
                                                     <Span
                                                         Text=" " />
                                                     <Span
                                                         TextColor="{StaticResource Primary}"
                                                         Text="{Binding Action}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label
+                                            Style="{DynamicResource LabelNormal}"
+                                            LineBreakMode="MiddleTruncation">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span
+                                                        TextColor="{StaticResource Primary}"
+                                                        Text=" Người tạo : " />
+                                                    <Span
+                                                        TextColor="{StaticResource Text}"
+                                                        Text="{Binding Creator}" />
+                                                    <Span
+                                                        TextColor="{StaticResource Primary}"
+                                                        Text=" - Đối tượng : " />
+                                                    <Span
+                                                        TextColor="{StaticResource Text}"
+                                                        Text="{Binding Assignee}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

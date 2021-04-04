@@ -42,7 +42,7 @@ namespace PMVOnline.Tasks.ViewModels
         readonly IFileService fileService;
         readonly IPageDialogService pageDialogService;
         readonly IDialogService dialogService;
-        private readonly IDateTimeService dateTimeService;
+        readonly IDateTimeService dateTimeService;
 
         public TaskDetailViewModel(
             INavigationService navigationService,

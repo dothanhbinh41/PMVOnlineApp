@@ -26,10 +26,11 @@ namespace PMVOnline.Tasks.Extenstions
                 Priority = (TaskPriority)obj.Priority,
                 Status = (TaskStatus)obj.Status,
                 Title = obj.Title,
-                Creator = $"{obj.Creator?.Surname} {obj.Creator?.Name}",
-                Actor = $"{obj.LastModifier?.Surname} {obj.LastModifier?.Name}",
+                Creator = obj.Creator == null ? "" : $"{obj.Creator.Surname} {obj.Creator.Name}",
+                Actor = obj.LastModifier == null ? "" : $"{obj.LastModifier.Surname} {obj.LastModifier.Name}",
                 Action = obj.LastAction.ToAction(),
                 Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target },
+                Assignee = obj.Assignee == null ? "" : $"{obj.Assignee.Surname} {obj.Assignee.Name}",
             };
         }
 
@@ -57,6 +58,8 @@ namespace PMVOnline.Tasks.Extenstions
                     return "mở lại sự vụ";
                 case ActionType.Unfollow:
                     return "bỏ theo dõi sự vụ";
+                case ActionType.RequestTask:
+                    return "yêu cầu duyệt sự vụ";
                 default:
                     return string.Empty;
             }

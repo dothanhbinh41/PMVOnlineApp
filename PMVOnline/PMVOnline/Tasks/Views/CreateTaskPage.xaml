@@ -7,6 +7,7 @@
     xmlns:control="clr-namespace:PMVOnline.Common.Controls"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows" 
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     x:Name="root"
     Title="Tạo Sự Vụ">  
     <ScrollView>
@@ -116,10 +117,11 @@
                                     <Grid
                                         ColumnSpacing="0"
                                         ColumnDefinitions="40,120">
-                                        <Image
+                                        <ffimage:CachedImage
                                             Margin="4"
                                             HeightRequest="40"
                                             WidthRequest="40"
+                                            ErrorPlaceholder="ic_cloud.png"
                                             Source="{Binding FullPath}" />
                                         <Label
                                             Margin="4,0"

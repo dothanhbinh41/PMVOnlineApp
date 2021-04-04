@@ -97,7 +97,7 @@ namespace PMVOnline.Tasks.ViewModels
         async Task ExecuteReferenceTasksCommand()
         {
             var myRef = Task.ReferenceTasks;
-            var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, new List<TaskModel>(myRef??new TaskModel[0]) }, { NavigationKey.MyTasks, myTasks }, { NavigationKey.Editable, true } });
+            var param = await dialogService.ShowDialogAsync(DialogRoutes.MultiSelectTask, new DialogParameters { { NavigationKey.ReferenceTasks, new List<TaskModel>(myRef ?? new TaskModel[0]) }, { NavigationKey.MyTasks, myTasks }, { NavigationKey.Editable, true } });
             if (param?.Parameters?.ContainsKey(NavigationKey.ReferenceTasks) == true)
             {
                 Task.ReferenceTasks = param.Parameters.GetValue<List<TaskModel>>(NavigationKey.ReferenceTasks).ToArray();
@@ -111,8 +111,12 @@ namespace PMVOnline.Tasks.ViewModels
             var param = await dialogService.ShowDialogAsync(DialogRoutes.SelectTask, new DialogParameters { { NavigationKey.CloneTask, TaskCloned }, { NavigationKey.MyTasks, myTasks } });
             if (param?.Parameters?.ContainsKey(NavigationKey.CloneTask) == true)
             {
+                IsBusy = true;
                 TaskCloned = param.Parameters.GetValue<TaskModel>(NavigationKey.CloneTask);
                 Task = await taskService.GetTaskAsync(TaskCloned.Id);
+                Files = new ObservableCollection<FileModel>(await taskService.GetTaskFilesAsync(TaskCloned.Id) ?? new FileModel[0]);
+                Task.ReferenceTasks = await taskService.GetReferenceTasksAsync(TaskCloned.Id) ?? new TaskModel[0];
+                IsBusy = false;
             }
         }
 
@@ -133,7 +137,7 @@ namespace PMVOnline.Tasks.ViewModels
         ICommand _RemoveFileCommand;
         public ICommand RemoveFileCommand => _RemoveFileCommand = _RemoveFileCommand ?? new Command<FileModel>(ExecuteRemoveFileCommand);
         void ExecuteRemoveFileCommand(FileModel file)
-        {  
+        {
             Files?.Remove(file);
         }
 
@@ -160,14 +164,17 @@ namespace PMVOnline.Tasks.ViewModels
         async Task UploadFiles()
         {
             List<Task<FileModel>> files = new List<Task<FileModel>>();
-            for (int i = 0; i < Files.Count; i++)
+            var notUpload = Files?.Where(d => d.Id == Guid.Empty)?.ToList() ?? new List<FileModel>();
+            var uploaded = Files?.Where(d => d.Id != Guid.Empty)?.ToArray() ?? new FileModel[0];
+            for (int i = 0; i < notUpload.Count; i++)
             {
-                var file = Files[i];
+                var file = notUpload[i];
                 var stream = await (new FileResult(file.FullPath)).OpenReadAsync();
                 files.Add(fileService.UploadAsync(stream, file.FileName));
             }
 
-            await System.Threading.Tasks.Task.WhenAll(files).ContinueWith(t => Task.Files = t.Result?.Select(c => c.Id)?.ToArray());
+            var result = await System.Threading.Tasks.Task.WhenAll(files); 
+            Task.Files = result?.Select(d => d.Id)?.Concat(uploaded.Select(d => d.Id))?.ToArray() ?? new Guid[0];
         }
     }
 }
