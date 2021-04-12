@@ -19,26 +19,6 @@ namespace PMVOnline.Common.Extensions
                 default:
                     return "Bình Thường";
             }
-        }
-
-        public static string TargetToString(this TaskTarget target)
-        {
-            switch (target)
-            { 
-                case TaskTarget.BuyCommodity:
-                    return "Mua hàng"; 
-                case TaskTarget.Payment:
-                    return "Thanh toán"; 
-                case TaskTarget.Storage:
-                    return "Kiểm tra tồn kho"; 
-                case TaskTarget.Make:
-                    return "Sản xuất"; 
-                case TaskTarget.BuyOther:
-                    return "Mua sắm"; 
-                case TaskTarget.Other:
-                default:
-                    return "Khác"; 
-            }
-        }
+        } 
     }
 }

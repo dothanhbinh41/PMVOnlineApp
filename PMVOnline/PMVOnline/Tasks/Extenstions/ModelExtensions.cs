@@ -2,6 +2,7 @@
 using PMVOnline.Api.Dtos.Tasks;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Models;
+using PMVOnline.Tasks.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +30,21 @@ namespace PMVOnline.Tasks.Extenstions
                 Creator = obj.Creator == null ? "" : $"{obj.Creator.Surname} {obj.Creator.Name}",
                 Actor = obj.LastModifier == null ? "" : $"{obj.LastModifier.Surname} {obj.LastModifier.Name}",
                 Action = obj.LastAction.ToAction(),
-                Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target },
+                Target = obj.Target.ToModel(),
                 Assignee = obj.Assignee == null ? "" : $"{obj.Assignee.Surname} {obj.Assignee.Name}",
+            };
+        }
+
+        public static TargetModel ToModel(this TargetDto dto)
+        {
+            if (dto == null)
+            {
+                return null;
+            }
+            return new TargetModel
+            {
+                Id = dto.Id,
+                Name = dto.Name
             };
         }
 
@@ -142,7 +156,7 @@ namespace PMVOnline.Tasks.Extenstions
                 Title = obj.Title,
                 DueDate = obj.DueDate.ToLocalTime(),
                 Status = (TaskStatus)obj.Status,
-                Target = new ViewModels.TargetModel { Target = (TaskTarget)obj.Target },
+                Target = obj.Target.ToModel(),
                 Priority = (TaskPriority)obj.Priority,
                 AssigneeId = obj.AssigneeId,
                 CreatorId = obj.CreatorId,

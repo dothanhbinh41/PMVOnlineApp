@@ -121,7 +121,7 @@ namespace PMVOnline.Tasks.ViewModels
                 return;
             }
 
-            users = await taskService.GetAllUsersAsync(Task.Target.Target);
+            users = await taskService.GetAllUsersAsync(Task.Target.Id);
             assignee = new UserModel { Id = Task.AssigneeId, FullName = Task.Assignee };
             Editable = (user.Id == Task.AssigneeId && Task.Status == Models.TaskStatus.Approved) || (user.Id == Task.CreatorId && Task.Status == Models.TaskStatus.Pending);
             if (Task.Status == Models.TaskStatus.Rejected || Task.Status == Models.TaskStatus.Completed || Task.Status == Models.TaskStatus.Incompleted)
@@ -239,8 +239,8 @@ namespace PMVOnline.Tasks.ViewModels
             {
                 Task.Target = result.Parameters.GetValue<TargetModel>(NavigationKey.Target);
                 IsBusy = true;
-                assignee = await taskService.GetAssigneeAsync(Task.Target.Target); 
-                users = await taskService.GetAllUsersAsync(Task.Target.Target);
+                assignee = await taskService.GetAssigneeAsync(Task.Target.Id); 
+                users = await taskService.GetAllUsersAsync(Task.Target.Id);
                 IsBusy = false;
                 if (assignee == null)
                 {

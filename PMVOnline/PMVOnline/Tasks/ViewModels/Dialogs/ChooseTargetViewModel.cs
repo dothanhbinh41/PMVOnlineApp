@@ -1,6 +1,7 @@
 ﻿using PMVOnline.Common.Bases;
 using PMVOnline.Common.Extensions;
 using PMVOnline.Tasks.Models;
+using PMVOnline.Tasks.Services;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -15,57 +16,28 @@ namespace PMVOnline.Tasks.ViewModels
 {
     public class TargetModel : ModelBase
     {
-        public string Text => Target.TargetToString();
-        public TaskTarget Target { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; } 
         public bool IsSelected { get; set; }
     }
 
     public class ChooseTargetViewModel : DialogViewModelBase
-    {
+    { 
         public override event Action<IDialogParameters> RequestClose;
         public List<TargetModel> Targets { get; set; }
 
-        TargetModel currentTarget;
-        public ChooseTargetViewModel()
-        {
-            Targets = new List<TargetModel>
-            {
-                new TargetModel
-                { 
-                    Target = TaskTarget.BuyCommodity
-                },
-                new TargetModel
-                { 
-                    Target = TaskTarget.Payment
-                },
-                new TargetModel
-                { 
-                    Target = TaskTarget.Storage
-                },
-                new TargetModel
-                { 
-                    Target = TaskTarget.Make
-                },
-                new TargetModel
-                { 
-                    Target = TaskTarget.BuyOther
-                },
-                new TargetModel
-                { 
-                    Target = TaskTarget.Other
-                }
-            };
-        }
+        TargetModel currentTarget; 
 
-        public override void OnDialogOpened(IDialogParameters parameters)
+        public override async void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);
             if (parameters.ContainsKey(NavigationKey.Target))
             {
+                Targets = parameters.GetValue<List<TargetModel>>(NavigationKey.AllTargets); 
                 currentTarget = parameters.GetValue<TargetModel>(NavigationKey.Target);
                 if (currentTarget!=null)
                 {
-                    Targets.FirstOrDefault(d => d.Target == currentTarget.Target).IsSelected = true;
+                    Targets.FirstOrDefault(d => d.Id == currentTarget.Id).IsSelected = true;
                 }
             }
         }
@@ -74,7 +46,7 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand SelectCommand => _SelectCommand = _SelectCommand ?? new Command<TargetModel>(ExecuteSelectCommand);
         void ExecuteSelectCommand(TargetModel obj)
         {
-            if (currentTarget?.Target == obj.Target)
+            if (currentTarget?.Id == obj.Id)
             {
                 RequestClose?.Invoke(new DialogParameters { { NavigationKey.Target, currentTarget } });
             }
@@ -86,6 +58,8 @@ namespace PMVOnline.Tasks.ViewModels
 
         ICommand _CloseCommand;
         public ICommand CloseCommand => _CloseCommand = _CloseCommand ?? new Command(ExecuteCloseCommand);
+
+
         void ExecuteCloseCommand()
         {
             RequestClose?.Invoke(new DialogParameters { { NavigationKey.Target, currentTarget } });

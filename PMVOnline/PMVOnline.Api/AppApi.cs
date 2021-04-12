@@ -90,5 +90,8 @@ namespace PMVOnline.Api
 
         [Get("/api/app/task/users-in-my-tasks")]
         Task<ApiResponse<SimpleUserDto[]>> GetUsersInMyTasks();
+
+        [Get("/api/app/target/targets")]
+        Task<ApiResponse<TargetDto[]>> GetAllTargets();
     }
 }

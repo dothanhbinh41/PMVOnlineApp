@@ -123,7 +123,7 @@
                             <control:EntryAction
                                 IsEnabled="{Binding Edited}"
                                 Placeholder="Yêu Cầu"
-                                Text="{Binding Task.Target.Text}"
+                                Text="{Binding Task.Target.Name}"
                                 Command="{Binding ChooseTargetCommand}" /> 
 
                             <control:EntryAction

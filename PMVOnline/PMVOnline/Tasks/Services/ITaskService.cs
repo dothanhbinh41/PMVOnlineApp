@@ -5,6 +5,7 @@ using PMVOnline.Common.Services;
 using PMVOnline.Homes.Models;
 using PMVOnline.Tasks.Extenstions;
 using PMVOnline.Tasks.Models;
+using PMVOnline.Tasks.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace PMVOnline.Tasks.Services
 {
     public interface ITaskService
     {
-        Task<UserModel> GetAssigneeAsync(TaskTarget target);
-        Task<UserModel[]> GetAllUsersAsync(TaskTarget target);
+        Task<UserModel> GetAssigneeAsync(int target);
+        Task<UserModel[]> GetAllUsersAsync(int target);
         Task<bool> CreateTaskAsync(TaskModel task);
         Task<bool> UpdateTaskAsync(TaskModel task);
         Task<TaskModel[]> GetMyLastTasksAsync();
@@ -35,6 +36,8 @@ namespace PMVOnline.Tasks.Services
         Task<bool> SendCommentAsync(long id, string comment, Guid[] files);
         Task<bool> RequestAsync(long id);
         Task<UserModel[]> GetUsersInMyTasksAsync();
+
+        Task<TargetModel[]> GetAllTargetsAsync();
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
@@ -79,7 +82,7 @@ namespace PMVOnline.Tasks.Services
                 Files = task.Files,
                 Priority = (Priority)task.Priority,
                 ReferenceTasks = task.ReferenceTasks?.Select(d => d.Id)?.ToArray() ?? new long[0],
-                Target = ((Target?)task.Target?.Target) ?? Target.Other,
+                TargetId = task.Target.Id,
                 Title = task.Title
             });
             return result.Content != null;
@@ -95,9 +98,9 @@ namespace PMVOnline.Tasks.Services
             return result.Content;
         }
 
-        public async Task<UserModel> GetAssigneeAsync(TaskTarget target)
+        public async Task<UserModel> GetAssigneeAsync(int target)
         {
-            var result = await Api.GetAssignee((int)target);
+            var result = await Api.GetAssignee(target);
             return result.Content.ToModel();
         }
 
@@ -240,18 +243,26 @@ namespace PMVOnline.Tasks.Services
                 Files = task.Files,
                 Priority = (Priority)task.Priority,
                 ReferenceTasks = task.ReferenceTasks?.Select(d => d.Id)?.ToArray() ?? new long[0],
-                Target = ((Target?)task.Target?.Target) ?? Target.Other,
+                TargetId = task.Target.Id,
                 Title = task.Title
             });
             return result.Content != null;
         }
 
-        public async Task<UserModel[]> GetAllUsersAsync(TaskTarget target)
+        public async Task<UserModel[]> GetAllUsersAsync(int target)
         {
             var result = await Api.GetMembers((int)target);
             if (result?.Content?.Length > 0)
                 return result.Content.Select(d => d.ToModel()).ToArray();
             return new UserModel[0];
+        }
+
+        public async Task<TargetModel[]> GetAllTargetsAsync()
+        {
+            var result = await Api.GetAllTargets();
+            if (result?.Content?.Length > 0)
+                return result.Content.Select(d => d.ToModel()).ToArray();
+            return new TargetModel[0];
         }
     }
 }

@@ -250,5 +250,6 @@ namespace PMVOnline
         public const string Completed = "Completed";
         public const string Editable = "Editable";
         public const string Count = "Count";
+        public const string AllTargets = "AllTargets";
     }
 }
