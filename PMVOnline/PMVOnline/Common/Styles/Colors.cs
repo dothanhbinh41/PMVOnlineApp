@@ -12,8 +12,8 @@ namespace PMVOnline.Common.Styles
             Add("Text", Color.Black);
             Add("Description", Color.FromHex("#706F6F"));
             Add("Normal", Color.FromHex("#0e8a54"));
-            Add("High", Color.FromHex("#a69d28"));
-            Add("Highest", Color.FromHex("#a30707"));
+            Add("High", Color.FromHex("#FFBE15"));
+            Add("Highest", Color.FromHex("#FF6666"));
             Add("Foreground", Color.White);
         }
     } 

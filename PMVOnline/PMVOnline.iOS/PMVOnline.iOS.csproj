@@ -198,4 +198,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_cloud%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bg%402x.png" />
+  </ItemGroup>
 </Project>

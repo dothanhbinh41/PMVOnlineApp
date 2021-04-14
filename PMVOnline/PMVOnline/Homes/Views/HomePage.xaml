@@ -6,6 +6,8 @@
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     xmlns:converter="clr-namespace:PMVOnline.Common.Converters"
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    BackgroundImageSource="bg"
     x:Name="root">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -16,6 +18,10 @@
     <Grid
         RowSpacing="0"
         RowDefinitions="80,*">
+        <!--<ffimage:CachedImage
+            Grid.RowSpan="2"
+            Aspect="Fill"
+            Source="bg" />-->
         <Grid
             Margin="16,0"
             RowSpacing="0"
@@ -223,7 +229,7 @@
                                             CommandParameter="{Binding .}" />
                                     </StackLayout.GestureRecognizers>
                                 </StackLayout>
-                                <Frame.Triggers>
+                                <!--<Frame.Triggers>
                                     <DataTrigger
                                         TargetType="View"
                                         Binding="{Binding Priority}"
@@ -248,7 +254,7 @@
                                             Property="BackgroundColor"
                                             Value="#ECFCEE" />
                                     </DataTrigger>
-                                </Frame.Triggers>
+                                </Frame.Triggers>-->
                             </Frame>
                         </ContentView>
                     </DataTemplate>
