@@ -69,7 +69,7 @@ namespace PMVOnline.Tasks.ViewModels
         public ICommand ChooseTargetCommand => _ChooseTargetCommand = _ChooseTargetCommand ?? new AsyncCommand(ExecuteChooseTargetCommand);
         async Task ExecuteChooseTargetCommand()
         {
-            var result = await dialogService.ShowDialogAsync(DialogRoutes.ChooseTarget, Task.Target != null ? new DialogParameters { { NavigationKey.Target, Task.Target },{ NavigationKey.AllTargets, allTargets } } : new DialogParameters { });
+            var result = await dialogService.ShowDialogAsync(DialogRoutes.ChooseTarget, Task.Target != null ? new DialogParameters { { NavigationKey.Target, Task.Target },{ NavigationKey.AllTargets, allTargets } } : new DialogParameters { { NavigationKey.AllTargets, allTargets } });
             if (result?.Parameters?.ContainsKey(NavigationKey.Target) == true)
             {
                 Task.Target = result.Parameters.GetValue<TargetModel>(NavigationKey.Target);

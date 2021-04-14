@@ -49,7 +49,7 @@
                                 Style="{DynamicResource LabelNormal}"
                                 HorizontalTextAlignment="Center"
                                 VerticalOptions="Center" 
-                                Text="{Binding Text}" />
+                                Text="{Binding Name}" />
                             <BoxView 
                                 HeightRequest="0.5"
                                 VerticalOptions="End"

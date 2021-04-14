@@ -24,19 +24,23 @@ namespace PMVOnline.Tasks.ViewModels
     public class ChooseTargetViewModel : DialogViewModelBase
     { 
         public override event Action<IDialogParameters> RequestClose;
-        public List<TargetModel> Targets { get; set; }
+        public List<TargetModel> Targets { get; set; } = new List<TargetModel>();
 
         TargetModel currentTarget; 
 
         public override async void OnDialogOpened(IDialogParameters parameters)
         {
             base.OnDialogOpened(parameters);
-            if (parameters.ContainsKey(NavigationKey.Target))
+            if (parameters.ContainsKey(NavigationKey.AllTargets))
             {
-                Targets = parameters.GetValue<List<TargetModel>>(NavigationKey.AllTargets); 
+                Targets = parameters.GetValue<List<TargetModel>>(NavigationKey.AllTargets);  
+            }
+            if (parameters.ContainsKey(NavigationKey.Target))
+            { 
                 currentTarget = parameters.GetValue<TargetModel>(NavigationKey.Target);
-                if (currentTarget!=null)
+                if (currentTarget != null)
                 {
+                    
                     Targets.FirstOrDefault(d => d.Id == currentTarget.Id).IsSelected = true;
                 }
             }
@@ -62,7 +66,7 @@ namespace PMVOnline.Tasks.ViewModels
 
         void ExecuteCloseCommand()
         {
-            RequestClose?.Invoke(new DialogParameters { { NavigationKey.Target, currentTarget } });
+            RequestClose?.Invoke(new DialogParameters {  });
         }
     }
 }
