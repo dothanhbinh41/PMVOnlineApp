@@ -32,6 +32,7 @@ namespace PMVOnline.Tasks.Extenstions
                 Action = obj.LastAction.ToAction(),
                 Target = obj.Target.ToModel(),
                 Assignee = obj.Assignee == null ? "" : $"{obj.Assignee.Surname} {obj.Assignee.Name}",
+                CreationTime = obj.CreationTime.ToLocalTime()
             };
         }
 
@@ -160,7 +161,8 @@ namespace PMVOnline.Tasks.Extenstions
                 Priority = (TaskPriority)obj.Priority,
                 AssigneeId = obj.AssigneeId,
                 CreatorId = obj.CreatorId,
-                LastAction = obj.LastAction
+                LastAction = obj.LastAction,
+                CreationTime =  obj.CreationTime.ToLocalTime()
             };
         }
     }

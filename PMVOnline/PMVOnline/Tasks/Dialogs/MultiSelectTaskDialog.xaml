@@ -38,139 +38,130 @@
             Grid.Row="1"
             SelectionMode="None"
             ItemsSource="{Binding Tasks}"
-            ItemSizingStrategy="MeasureFirstItem">
+            ItemSizingStrategy="MeasureAllItems">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid
-                        RowSpacing="0"
-                        RowDefinitions="16,18,88">
+                    <ContentView>
                         <Frame
-                            Margin="12,6"
-                            Grid.Row="1"
-                            Grid.RowSpan="2">
-                            <Grid
-                                ColumnSpacing="6"
-                                RowSpacing="4"
-                                ColumnDefinitions="12,*">
-                                <BoxView
-                                    CornerRadius="6,0,6,0">
-                                    <BoxView.Triggers>
+                            Margin="12,6">
+                            <StackLayout
+                                Spacing="0">
+                                <Grid
+                                    HeightRequest="32">
+                                    <Label
+                                        Margin="12,0,0,0"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Start"
+                                        Style="{DynamicResource LabelSmall}"
+                                        TextColor="{StaticResource Foreground}"
+                                        Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
+                                    <Label
+                                        Margin="0,0,12,0"
+                                        HorizontalOptions="End"
+                                        Style="{DynamicResource LabelDescription}"
+                                        TextColor="{StaticResource Foreground}"
+                                        VerticalOptions="Center"
+                                        Text="{Binding Task.Status,Converter={StaticResource TaskStatusConverter}}" />
+
+                                    <Grid.Triggers>
                                         <DataTrigger
-                                            TargetType="BoxView"
+                                            TargetType="View"
                                             Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.High}">
                                             <Setter
-                                                Property="Color"
+                                                Property="BackgroundColor"
                                                 Value="{StaticResource High}" />
                                         </DataTrigger>
                                         <DataTrigger
-                                            TargetType="BoxView"
+                                            TargetType="View"
                                             Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.Highest}">
                                             <Setter
-                                                Property="Color"
+                                                Property="BackgroundColor"
                                                 Value="{StaticResource Highest}" />
                                         </DataTrigger>
                                         <DataTrigger
-                                            TargetType="BoxView"
+                                            TargetType="View"
                                             Binding="{Binding Task.Priority}"
                                             Value="{Static model:TaskPriority.Normal}">
                                             <Setter
-                                                Property="Color"
+                                                Property="BackgroundColor"
                                                 Value="{StaticResource Normal}" />
                                         </DataTrigger>
-                                    </BoxView.Triggers>
-                                </BoxView>
-                                <StackLayout
-                                    Spacing="4"
-                                    VerticalOptions="Center"
-                                    Grid.Column="1">
-                                    <Label
-                                        LineBreakMode="MiddleTruncation"
-                                        Style="{DynamicResource LabelNormal}"
-                                        TextColor="{StaticResource Text}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span
-                                                    Text="{Binding Task.Id,StringFormat='#{0}'}" />
-                                                <Span
-                                                    Text="   " />
-                                                <Span
-                                                    Text="{Binding Task.Title}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label
-                                        LineBreakMode="MiddleTruncation"
-                                        Style="{DynamicResource LabelDescription}"
-                                        TextColor="{StaticResource Text}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span
-                                                    Text="Người tạo : " />
-                                                <Span
-                                                    FontAttributes="Bold"
-                                                    Text="{Binding Task.Creator}" />
-                                                <Span
-                                                    Text="  Đối tượng : " />
-                                                <Span
-                                                    FontAttributes="Bold"
-                                                    Text="{Binding Task.Assignee}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                    </Grid.Triggers>
+                                </Grid>
+                                <Grid>
+                                    <StackLayout
+                                        Margin="12,8"
+                                        Spacing="4">
+                                        <Label
+                                            Style="{DynamicResource LabelNormal}"
+                                            TextColor="{StaticResource Text}">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span
+                                                        Text="{Binding Task.Id,StringFormat='#{0}'}" />
+                                                    <Span
+                                                        Text="   " />
+                                                    <Span
+                                                        Text="{Binding Task.Title}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
 
+                                        <Label
+                                            Style="{DynamicResource LabelNormal}"
+                                            LineBreakMode="MiddleTruncation">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span
+                                                        FontAttributes="Italic"
+                                                        TextColor="{StaticResource Primary}"
+                                                        Text="Người tạo : " />
+                                                    <Span
+                                                        TextColor="{StaticResource Text}"
+                                                        Text="{Binding Task.Creator}" />
+                                                    <Span
+                                                        FontAttributes="Italic"
+                                                        TextColor="{StaticResource Primary}"
+                                                        Text=" - Đối tượng : " />
+                                                    <Span
+                                                        TextColor="{StaticResource Text}"
+                                                        Text="{Binding Task.Assignee}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label
+                                            Style="{DynamicResource LabelSmall}"
+                                            Text="{Binding Task.CreationTime,StringFormat='Ngày tạo : {0:HH:mm dd/MM/yyyy}'}" />
+                                        <Button 
+                                            BackgroundColor="{StaticResource Primary}" 
+                                            HorizontalOptions="End" 
+                                            Text="Xem chi tiết"
+                                            TextColor="White"
+                                            Command="{Binding Source={Reference root},Path=BindingContext.OpenDetailCommand}"
+                                            CommandParameter="{Binding .}" />
+                                    </StackLayout>
                                     <Label
-                                        Style="{DynamicResource LabelDescription}"
-                                        Text="{Binding Task.DueDate,StringFormat='{0:HH:mm dd/MM/yyyy}'}" />
-                                </StackLayout>
-
-                                <Label
-                                    Grid.Column="1"
-                                    Margin="0,0,8,0"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="End"
-                                    FontSize="20"
-                                    TextColor="{StaticResource Primary}"
-                                    FontFamily="{StaticResource FontMaterialdesign}"
-                                    Text="{Static fontIcon:MaterialDesign.CheckCircle}"
-                                    IsVisible="{Binding IsSelected}" />
-                            </Grid>
+                                        Margin="0,0,8,0"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="End"
+                                        FontSize="20"
+                                        TextColor="{StaticResource Primary}"
+                                        FontFamily="{StaticResource FontMaterialdesign}"
+                                        Text="{Static fontIcon:MaterialDesign.CheckCircle}"
+                                        IsVisible="{Binding IsSelected}" />
+                                </Grid>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={Reference root},Path=BindingContext.SelectCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
 
                         </Frame>
-
-                        <Frame
-                            Margin="24,6,0,0"
-                            BackgroundColor="{StaticResource Primary}"
-                            HorizontalOptions="Start"
-                            Grid.RowSpan="2">
-                            <Label
-                                Margin="8,0"
-                                Style="{DynamicResource LabelDescription}"
-                                TextColor="{StaticResource Foreground}"
-                                VerticalOptions="Center"
-                                Text="{Binding Task.Status}" />
-                        </Frame>
-
-                        <Button
-                            Margin="0,0,24,0"
-                            Padding="12,4"
-                            HeightRequest="32"  
-                            BackgroundColor="{StaticResource Primary}"
-                            VerticalOptions="End"
-                            HorizontalOptions="End"
-                            Grid.RowSpan="3"
-                            Text="Xem chi tiết"
-                            TextColor="White"
-                            Command="{Binding Source={Reference root},Path=BindingContext.OpenDetailCommand}"
-                            CommandParameter="{Binding .}" />
-
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={Reference root},Path=BindingContext.SelectCommand}"
-                                CommandParameter="{Binding .}" />
-                        </Grid.GestureRecognizers>
-                    </Grid>
+                    </ContentView>
+                   
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -17,6 +17,7 @@ namespace PMVOnline.Tasks.Models
         public string Title { get; set; }
         public string Note { get; set; }
         public DateTime DueDate { get; set; }
+        public DateTime CreationTime { get; set; }
         public TaskPriority Priority { get; set; }
         public TaskStatus Status { get; set; }
         public ActionType LastAction { get; set; }

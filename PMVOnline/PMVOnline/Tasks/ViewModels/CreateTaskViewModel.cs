@@ -131,6 +131,7 @@ namespace PMVOnline.Tasks.ViewModels
                 IsBusy = true;
                 TaskCloned = param.Parameters.GetValue<TaskModel>(NavigationKey.CloneTask);
                 Task = await taskService.GetTaskAsync(TaskCloned.Id);
+                if (Task.Target!=null)
                 users = await taskService.GetAllUsersAsync(Task.Target.Id);
                 assignee = new UserModel { Id = Task.AssigneeId, FullName = Task.Assignee };
                 Files = new ObservableCollection<FileModel>(await taskService.GetTaskFilesAsync(TaskCloned.Id) ?? new FileModel[0]);

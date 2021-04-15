@@ -11,6 +11,7 @@ namespace PMVOnline.Api.Dtos.Tasks
         public string Content { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime? CompletedDate { get; set; }
+        public DateTime CreationTime { get; set; }
         public Priority Priority { get; set; }
         public TargetDto Target { get; set; }
         public Status Status { get; set; }
@@ -48,6 +49,7 @@ namespace PMVOnline.Api.Dtos.Tasks
         public string Title { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime? CompletedDate { get; set; }
+        public DateTime CreationTime { get; set; }
         public Priority Priority { get; set; }
         public TargetDto Target { get; set; }
         public Status Status { get; set; }
