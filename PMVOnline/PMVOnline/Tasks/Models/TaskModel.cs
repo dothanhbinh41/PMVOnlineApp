@@ -13,6 +13,7 @@ namespace PMVOnline.Tasks.Models
         public string Assignee { get; set; }
         public Guid AssigneeId { get; set; }
         public Guid CreatorId { get; set; }
+        public Guid LeaderId { get; set; }
         public string Creator { get; set; }
         public string Title { get; set; }
         public string Note { get; set; }

@@ -76,8 +76,8 @@ namespace PMVOnline.Homes.ViewModels
             {
                 var result = await navigationService.NavigateAsync(Routes.ModerateTask, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
                 return;
-            }
-            var xx = await navigationService.NavigateAsync(Routes.TaskDetail, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
+            } 
+            var xx = await navigationService.NavigateAsync(task.Status < Tasks.Models.TaskStatus.Rated ? Routes.TaskDetail : Routes.TaskRating, new NavigationParameters { { NavigationKey.TaskId, task.Id } });
         }
 
 

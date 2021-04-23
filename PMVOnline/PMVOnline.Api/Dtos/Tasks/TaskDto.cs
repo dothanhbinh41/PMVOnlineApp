@@ -17,6 +17,7 @@ namespace PMVOnline.Api.Dtos.Tasks
         public Status Status { get; set; }
         public ActionType LastAction { get; set; }
         public Guid AssigneeId { get; set; }
+        public Guid LeaderId { get; set; }
         public Guid CreatorId { get; set; }
         //public TaskFileDto[] TaskFiles { get; set; } 
         public virtual SimpleUserDto Assignee { get; set; }
@@ -195,5 +196,9 @@ namespace PMVOnline.Api.Dtos.Tasks
         public Guid[] Users { get; set; }
         public int SkipCount { get; set; } = 0;
         public int MaxResultCount { get; set; } = 100;
+    }
+    public class RatingRequestDto
+    {
+        public int Rating { get; set; }
     }
 }

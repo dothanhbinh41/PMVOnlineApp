@@ -93,5 +93,9 @@ namespace PMVOnline.Api
 
         [Get("/api/app/target/targets")]
         Task<ApiResponse<TargetDto[]>> GetAllTargets();
+
+        [Post("/api/app/task/rate-task/{taskId}")]
+        Task<ApiResponse<bool>> Rate(long taskId, [Body]RatingRequestDto rating);
+
     }
 }

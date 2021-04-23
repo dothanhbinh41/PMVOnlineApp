@@ -162,7 +162,8 @@ namespace PMVOnline.Tasks.Extenstions
                 AssigneeId = obj.AssigneeId,
                 CreatorId = obj.CreatorId,
                 LastAction = obj.LastAction,
-                CreationTime =  obj.CreationTime.ToLocalTime()
+                CreationTime =  obj.CreationTime.ToLocalTime(),
+                LeaderId = obj.LeaderId
             };
         }
     }

@@ -219,6 +219,7 @@ namespace PMVOnline
         public static readonly Uri TaskReference = new Uri($"{nameof(TaskReferencePage)}", UriKind.Relative);
         public static readonly Uri ModerateTask = new Uri($"{nameof(ModerateTaskPage)}", UriKind.Relative);
         public static readonly Uri TaskDetail = new Uri($"{nameof(TaskDetailPage)}", UriKind.Relative);
+        public static readonly Uri TaskRating = new Uri($"{nameof(TaskRatingPage)}", UriKind.Relative);
         public static readonly Uri Comment = new Uri($"{nameof(CommentPage)}", UriKind.Relative);
         public static readonly Uri History = new Uri($"{nameof(HistoryPage)}", UriKind.Relative);
         public static readonly Uri Welcome = new Uri($"{nameof(WelcomePage)}", UriKind.Relative);
@@ -233,6 +234,7 @@ namespace PMVOnline
         public static readonly string ChooseUsers = $"{nameof(ChooseUsersDialog)}";
         public static readonly string WriteNote = $"{nameof(WriteNoteDialog)}";
         public static readonly string TaskDetail = $"{nameof(TaskDetailDialog)}";
+        public static readonly string Rating = $"{nameof(RatingDialog)}";
     }
 
     public class NavigationKey
@@ -251,5 +253,6 @@ namespace PMVOnline
         public const string Editable = "Editable";
         public const string Count = "Count";
         public const string AllTargets = "AllTargets";
+        public const string Rating = "Rating";
     }
 }

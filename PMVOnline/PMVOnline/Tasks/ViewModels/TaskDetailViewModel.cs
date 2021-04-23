@@ -34,7 +34,7 @@ namespace PMVOnline.Tasks.ViewModels
         public List<CommentModel> Comments { get; set; }
         long taskId;
         string note;
-        UserModel user; 
+        UserModel user;
         UserModel[] users;
         UserModel assignee;
 
@@ -129,6 +129,10 @@ namespace PMVOnline.Tasks.ViewModels
                 note = (await taskService.GetNoteAsync(taskId));
             }
             IsBusy = false;
+            if (Task.Status < Models.TaskStatus.Rated && (Task.AssigneeId == user.Id || Task.LeaderId == user.Id))
+            {
+                dialogService.ShowDialogAsync(DialogRoutes.Rating, new DialogParameters { { NavigationKey.TaskId, taskId } });
+            }
         }
 
         ICommand _CommentCommand;
@@ -239,7 +243,7 @@ namespace PMVOnline.Tasks.ViewModels
             {
                 Task.Target = result.Parameters.GetValue<TargetModel>(NavigationKey.Target);
                 IsBusy = true;
-                assignee = await taskService.GetAssigneeAsync(Task.Target.Id); 
+                assignee = await taskService.GetAssigneeAsync(Task.Target.Id);
                 users = await taskService.GetAllUsersAsync(Task.Target.Id);
                 IsBusy = false;
                 if (assignee == null)

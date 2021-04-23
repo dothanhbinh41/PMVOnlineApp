@@ -38,6 +38,7 @@ namespace PMVOnline.Tasks.Services
         Task<UserModel[]> GetUsersInMyTasksAsync();
 
         Task<TargetModel[]> GetAllTargetsAsync();
+        Task<bool> RateAsync(long taskId, int rating);
     }
 
     public class TaskService : AuthApiProvider<AppApi>, ITaskService
@@ -263,6 +264,12 @@ namespace PMVOnline.Tasks.Services
             if (result?.Content?.Length > 0)
                 return result.Content.Select(d => d.ToModel()).ToArray();
             return new TargetModel[0];
+        }
+
+        public async Task<bool> RateAsync(long taskId, int rating)
+        {
+            var result = await Api.Rate(taskId, new RatingRequestDto { Rating = rating });
+            return result?.Content == true;
         }
     }
 }
