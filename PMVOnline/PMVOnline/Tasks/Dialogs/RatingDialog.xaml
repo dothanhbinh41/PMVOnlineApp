@@ -2,11 +2,33 @@
 <ContentView
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="PMVOnline.Tasks.Dialogs.RatingDialog">
-    <ContentView.Content>
-        <StackLayout>
-            <Label
-                Text="Hello Xamarin.Forms!" />
-        </StackLayout>
-    </ContentView.Content>
+    x:Class="PMVOnline.Tasks.Dialogs.RatingDialog"
+    xmlns:control="clr-namespace:PMVOnline.Common.Controls">
+    <Grid
+        RowSpacing="16"
+        RowDefinitions="64,*">
+        <Grid
+            Margin="16,0"
+            RowDefinitions="*,80">
+            <Button
+                Margin="0,8"
+                Text="Hủy"
+                Style="{DynamicResource ButtonPrimary}"
+                BackgroundColor="{StaticResource Highest}"
+                Command="{Binding CloseCommand}" />
+            <Frame
+                Grid.Row="1">
+                <StackLayout>
+                    <control:RatingBar
+                        Rate="{Binding Rating}" />
+                    <Button
+                        Margin="0,8"
+                        Text="Đánh giá"
+                        Style="{DynamicResource ButtonPrimary}"
+                        BackgroundColor="{StaticResource Normal}"
+                        Command="{Binding RateCommand}" />
+                </StackLayout> 
+            </Frame>
+        </Grid>
+    </Grid>
 </ContentView>
