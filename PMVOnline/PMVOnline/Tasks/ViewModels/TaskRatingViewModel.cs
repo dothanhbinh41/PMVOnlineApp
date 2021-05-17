@@ -176,7 +176,7 @@ namespace PMVOnline.Tasks.ViewModels
             if (result)
             {
                 Toast("Thanh cong");
-                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true });
+                await navigationService.GoBackAsync(new NavigationParameters { { NavigationKey.Reload, true } });
             }
             else
             {
