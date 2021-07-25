@@ -47,11 +47,10 @@ namespace PMVOnline.Droid
             UserDialogs.Init(this);
             Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             FirebaseApp.InitializeApp(this, new FirebaseOptions.Builder()
-                .SetApiKey("AIzaSyDoe-IRtGWYZMHsYhhGLoU_jnP7oAQVrQU")
-                .SetApplicationId("info.binhdo.pmvonline")
-                .SetGcmSenderId("34482589605")
-                .SetStorageBucket("pmvonline-336b2.appspot.com")
-                .SetProjectId("pmvonline-336b2")
+                .SetApiKey("AIzaSyC4G-IC8c7BB6Ba-JOEZRiXJXiVtIQAAok")
+                .SetApplicationId("com.pmvina.task")
+                .SetGcmSenderId("557284700442") 
+                .SetProjectId("pmvina-470a2")
                 .Build());
             CachedImageRenderer.Init(true);
             if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)

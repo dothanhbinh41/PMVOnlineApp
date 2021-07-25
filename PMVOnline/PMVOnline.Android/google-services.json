@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "34482589605",
-    "project_id": "pmvonline-336b2",
-    "storage_bucket": "pmvonline-336b2.appspot.com"
+    "project_number": "557284700442",
+    "project_id": "pmvina-470a2",
+    "storage_bucket": "pmvina-470a2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:34482589605:android:e0f44a6852d4cb0259224c",
+        "mobilesdk_app_id": "1:557284700442:android:a26529be8b4d8cdd70fca3",
         "android_client_info": {
-          "package_name": "info.binhdo.pmvonline"
+          "package_name": "com.pmvina.task"
         }
       },
       "oauth_client": [
         {
-          "client_id": "34482589605-rhhhi2a57tdrbp7vua5v4124j184osul.apps.googleusercontent.com",
+          "client_id": "557284700442-h9f70v9bh2qjr348m1mv59ha33iaqk7r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pmvina.task",
+            "certificate_hash": "28560abed8f25340e15b57eacf5520429de03f5d"
+          }
+        },
+        {
+          "client_id": "557284700442-p804gpek4h6s08aqv3po32k2tc8rcg6n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDoe-IRtGWYZMHsYhhGLoU_jnP7oAQVrQU"
+          "current_key": "AIzaSyC4G-IC8c7BB6Ba-JOEZRiXJXiVtIQAAok"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "34482589605-rhhhi2a57tdrbp7vua5v4124j184osul.apps.googleusercontent.com",
+              "client_id": "557284700442-p804gpek4h6s08aqv3po32k2tc8rcg6n.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
