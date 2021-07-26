@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Acr.UserDialogs;
+using FFImageLoading.Forms.Platform;
 using Foundation;
+using Plugin.FirebasePushNotification;
 using PMVOnline.Common.Services;
 using PMVOnline.iOS.Services;
 using Prism;
 using Prism.Ioc;
 using UIKit;
+using UserNotifications;
 
 namespace PMVOnline.iOS
 {
@@ -28,12 +31,21 @@ namespace PMVOnline.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(new IOSPlatform()));
-            Init(app);
+            Init(app, options);
             return base.FinishedLaunching(app, options);
         }
 
-        void Init(UIApplication app)
-        { 
+        void Init(UIApplication app, NSDictionary options)
+        {  
+            Xamarin.Forms.FormsMaterial.Init();
+
+            FirebasePushNotificationManager.Initialize(options, true);
+            FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert;
+            FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Badge;
+            CachedImageRenderer.Init(); 
+            Xamarin.Essentials.Platform.GetCurrentUIViewController(); 
+            Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();  
+            Firebase.Core.App.Configure();  
         }
 
         public class IOSPlatform : IPlatformInitializer
