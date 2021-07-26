@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Acr.UserDialogs;
 using FFImageLoading.Forms.Platform;
+using Firebase.CloudMessaging;
 using Foundation;
 using Plugin.FirebasePushNotification;
 using PMVOnline.Common.Services;
@@ -32,14 +33,14 @@ namespace PMVOnline.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(new IOSPlatform()));
             Init(app, options);
+            FirebasePushNotificationManager.Initialize(options, new CustomPushHandler());
             return base.FinishedLaunching(app, options);
         }
 
         void Init(UIApplication app, NSDictionary options)
         {  
             Xamarin.Forms.FormsMaterial.Init();
-            Firebase.Core.App.Configure();
-            FirebasePushNotificationManager.Initialize(options, true);
+            Firebase.Core.App.Configure(); 
             FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert;
             FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Badge;
             CachedImageRenderer.Init(); 
@@ -48,6 +49,48 @@ namespace PMVOnline.iOS
             
         }
 
+        public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        {
+            FirebasePushNotificationManager.DidRegisterRemoteNotifications(deviceToken);
+#if DEBUG
+            Firebase.CloudMessaging.Messaging.SharedInstance.SetApnsToken(deviceToken, Firebase.CloudMessaging.ApnsTokenType.Sandbox);  
+#else
+            Firebase.CloudMessaging.Messaging.SharedInstance.SetApnsToken(deviceToken, Firebase.CloudMessaging.ApnsTokenType.Production);
+#endif
+        }
+
+        [Export("messaging:didReceiveRegistrationToken:")]
+        public void DidReceiveRegistrationToken(Messaging messaging, string token)
+        {
+            messaging.ApnsToken = token;
+        }
+
+        public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
+        {
+            FirebasePushNotificationManager.RemoteNotificationRegistrationFailed(error);
+        }
+        // To receive notifications in foregroung on iOS 9 and below.
+        // To receive notifications in background in any iOS version
+        public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            FirebasePushNotificationManager.DidReceiveMessage(userInfo);
+            completionHandler(UIBackgroundFetchResult.NewData);
+        }
+
+        public class CustomPushHandler : IPushNotificationHandler
+        {
+            public void OnError(string error)
+            {
+            }
+
+            public void OnOpened(NotificationResponse response)
+            {
+            }
+
+            public void OnReceived(IDictionary<string, object> parameters)
+            {
+            }
+        }
         public class IOSPlatform : IPlatformInitializer
         {
             public void RegisterTypes(IContainerRegistry containerRegistry)
