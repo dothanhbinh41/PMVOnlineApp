@@ -38,14 +38,14 @@ namespace PMVOnline.iOS
         void Init(UIApplication app, NSDictionary options)
         {  
             Xamarin.Forms.FormsMaterial.Init();
-
+            Firebase.Core.App.Configure();
             FirebasePushNotificationManager.Initialize(options, true);
             FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert;
             FirebasePushNotificationManager.CurrentNotificationPresentationOption = UNNotificationPresentationOptions.Alert | UNNotificationPresentationOptions.Badge;
             CachedImageRenderer.Init(); 
             Xamarin.Essentials.Platform.GetCurrentUIViewController(); 
             Sharpnado.Shades.iOS.iOSShadowsRenderer.Initialize();  
-            Firebase.Core.App.Configure();  
+            
         }
 
         public class IOSPlatform : IPlatformInitializer
