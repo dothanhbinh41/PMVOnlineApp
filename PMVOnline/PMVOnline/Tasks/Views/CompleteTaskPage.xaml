@@ -6,7 +6,8 @@
     BackgroundColor="{StaticResource Background}"
     xmlns:control="clr-namespace:PMVOnline.Common.Controls"
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
-    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     x:Name="root"
     Title="Kết thúc sự vụ">
     <ContentPage.Resources>

@@ -70,6 +70,7 @@
     <BundleResource Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <BundleResource Include="Resources\Icon180.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -158,7 +159,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\PMVOnline\PMVOnline.csproj">
-      <Project>{1BE8B578-4F0D-498D-A695-FFE38125A916}</Project>
+      <Project>{ECE71BB0-3EC9-4F70-B1A6-1E4032249A23}</Project>
       <Name>PMVOnline</Name>
     </ProjectReference>
   </ItemGroup>

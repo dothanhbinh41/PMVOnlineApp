@@ -7,6 +7,8 @@
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     xmlns:converter="clr-namespace:PMVOnline.Common.Converters"
     xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     BackgroundImageSource="bg"
     x:Name="root">
     <ContentPage.Resources>

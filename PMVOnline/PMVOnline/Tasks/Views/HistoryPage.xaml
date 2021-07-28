@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PMVOnline.Tasks.Views.HistoryPage"
     BackgroundColor="{StaticResource Background}"
+        xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     Title="Lich Su">
     <ListView
         ItemsSource="{Binding Histories}"

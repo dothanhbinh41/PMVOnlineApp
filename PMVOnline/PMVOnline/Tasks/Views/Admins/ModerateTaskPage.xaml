@@ -8,6 +8,8 @@
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
+        xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     x:Name="root">
 
     <ContentPage.Resources>
