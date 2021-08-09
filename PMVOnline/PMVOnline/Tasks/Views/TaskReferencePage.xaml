@@ -6,6 +6,8 @@
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     BackgroundColor="{StaticResource Background}"
+        xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     x:Name="root"
     >
     <Grid

@@ -4,7 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PMVOnline.Accounts.Views.AccountPage"
     xmlns:control="clr-namespace:PMVOnline.Common.Controls"
-    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons">
+    xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
+        xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True">
 
     <ScrollView
         Padding="0,0,0,16">

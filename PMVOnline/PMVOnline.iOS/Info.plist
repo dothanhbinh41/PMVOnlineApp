@@ -26,13 +26,66 @@
 	<string>PMVOnline</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.pmvina.task</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>PMVOnline</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array> 
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Accessing your location to help us find nearest hospital for you</string>
+	<key>NSCameraUsageDescription</key>
+	<string>PMVOnline app needs access to the camera to take photos to change profile image.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>PMVOnline app needs access to photos to change profile image.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>PMVOnline app needs access to photos to change profile image.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>CFBundleURLTypes</key>
+	<array> 
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Firebase SMS</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.557284700442-qbhmvvl713rvefk1btiqb6pppc7iderh</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.google.fcm</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.557284700442-qbhmvvl713rvefk1btiqb6pppc7iderh</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array> 
 </dict>
 </plist>
+
+  

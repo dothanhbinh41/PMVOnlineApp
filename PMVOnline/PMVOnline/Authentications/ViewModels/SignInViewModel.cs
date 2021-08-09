@@ -70,8 +70,15 @@ namespace PMVOnline.Authentications.ViewModels
 
         async Task SendToken()
         {
-            var token = await CrossFirebasePushNotification.Current.GetTokenAsync();
-            await accountService.SaveDeviceTokenAsync(token);
+            try
+            {
+                var token = await CrossFirebasePushNotification.Current.GetTokenAsync();
+                await accountService.SaveDeviceTokenAsync(token);
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }

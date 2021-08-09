@@ -6,6 +6,8 @@
     xmlns:fontIcon="clr-namespace:PMVOnline.Common.FontIcons"
     xmlns:model="clr-namespace:PMVOnline.Tasks.Models"
     xmlns:control="clr-namespace:PMVOnline.Common.Controls"
+        xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="True"
     x:Name="root">
     <Grid
         RowSpacing="0"
