@@ -12,7 +12,7 @@ namespace PMVOnline.Apis.Dtos
 
     public class ResultListDto<T>
     {
-        public int Count { get; set; }
+       // public int Count { get; set; }
         public T[] Items { get; set; }
     }
 }

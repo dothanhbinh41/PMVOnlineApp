@@ -47,17 +47,19 @@ namespace PMVOnline.Tasks.ViewModels
             this.taskService = taskService;
             this.fileService = fileService;
         }
-
-        public override async Task InitializeAsync(INavigationParameters parameters)
+         
+        public override void Initialize(INavigationParameters parameters)
         {
+            base.Initialize(parameters);
             Files = new ObservableCollection<FileModel>();
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            LoadData();
+            await LoadData();
         }
+         
 
         async Task LoadData()
         {

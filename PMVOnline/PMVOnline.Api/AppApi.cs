@@ -3,6 +3,7 @@
 using PMVOnline.Api.Dtos.Accounts;
 using PMVOnline.Api.Dtos.Authorizations;
 using PMVOnline.Api.Dtos.Tasks;
+using PMVOnline.Apis.Dtos;
 using Refit;
 using System;
 using System.Threading.Tasks;
@@ -92,7 +93,7 @@ namespace PMVOnline.Api
         Task<ApiResponse<SimpleUserDto[]>> GetUsersInMyTasks();
 
         [Get("/api/app/target/targets")]
-        Task<ApiResponse<TargetDto[]>> GetAllTargets();
+        Task<ApiResponse<ResultListDto<TargetDto>>> GetAllTargets();
 
         [Post("/api/app/task/rate-task/{taskId}")]
         Task<ApiResponse<bool>> Rate(long taskId, [Body]RatingRequestDto rating);

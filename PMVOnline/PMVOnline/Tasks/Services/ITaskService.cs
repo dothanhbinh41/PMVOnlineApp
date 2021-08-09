@@ -261,8 +261,8 @@ namespace PMVOnline.Tasks.Services
         public async Task<TargetModel[]> GetAllTargetsAsync()
         {
             var result = await Api.GetAllTargets();
-            if (result?.Content?.Length > 0)
-                return result.Content.Select(d => d.ToModel()).ToArray();
+            if (result?.Content?.Items.Length > 0)
+                return result.Content.Items.Select(d => d.ToModel()).ToArray();
             return new TargetModel[0];
         }
 
